@@ -47,8 +47,8 @@ class Location(TimeStampedModel):
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=80)
     type = models.CharField(choices=TYPES, default=TYPES.intersection, max_length=20)
-    longitude = models.CharField(max_length=12, null=True, blank=True)
-    latitude = models.CharField(max_length=12, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     has_east = models.BooleanField(default=True)
     has_north = models.BooleanField(default=True)
     has_south = models.BooleanField(default=True)
@@ -125,8 +125,8 @@ class Appointment(TimeStampedModel):
 class Survey(TimeStampedModel):
     appointment = models.ForeignKey(Appointment)
     is_bicycle = models.BooleanField(default=True)
-    longitude = models.CharField(max_length=12, null=True, blank=True)
-    latitude = models.CharField(max_length=12, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     class Meta:
         db_table = 'survey'
