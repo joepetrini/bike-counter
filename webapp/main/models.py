@@ -22,6 +22,9 @@ class Organization(TimeStampedModel):
     class Meta:
         db_table = 'organization'
 
+    def __unicode__(self):
+        return "%s - %s, %s" % (self.name, self.city, self.state)
+
 
 class Membership(TimeStampedModel):
     user = models.ForeignKey(User)
@@ -30,6 +33,10 @@ class Membership(TimeStampedModel):
     class Meta:
         db_table = 'membership'
         unique_together = ('user', 'organization')
+
+    def __unicode__(self):
+        return "%s - %s" % (self.user, self.organization.name)
+
 
 class Location(TimeStampedModel):
     TYPES = Choices(
@@ -50,6 +57,8 @@ class Location(TimeStampedModel):
     class Meta:
         db_table = 'location'
 
+    def __unicode__(self):
+        return "%s - %s" % (self.organization.name, self.name)
 
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
@@ -57,6 +66,9 @@ class ValueSet(TimeStampedModel):
 
     class Meta:
         db_table = 'valueset'
+
+    def __unicode__(self):  
+        return self.name
 
 
 class Value(TimeStampedModel):
@@ -66,6 +78,9 @@ class Value(TimeStampedModel):
 
     class Meta:
         db_table = 'value'
+    
+    def __unicode__(self):
+        return "%s - %s" % (self.valueset, self.display_value)
 
 
 class Metric(TimeStampedModel):
@@ -76,6 +91,9 @@ class Metric(TimeStampedModel):
     class Meta:
         db_table = 'metric'
 
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.valueset, self.name, self.desc)
+
 
 class OrganizationMetrics(TimeStampedModel):
     organization = models.ForeignKey(Organization)
@@ -84,6 +102,9 @@ class OrganizationMetrics(TimeStampedModel):
     class Meta:
         db_table = 'org_metrics'
         unique_together = ('organization', 'metric')
+
+    def __unicode__(self):
+        return "%s - %s" % (self.organization, self.metric)
 
 
 class Appointment(TimeStampedModel):
@@ -97,6 +118,9 @@ class Appointment(TimeStampedModel):
     class Meta:
         db_table = 'appointment'
 
+    def __unicode__(self):
+        return "%s - %s - %s - %s" % (self.organization.name, self.location, self.user, self.scheduled_start)
+
 
 class Survey(TimeStampedModel):
     appointment = models.ForeignKey(Appointment)
@@ -107,6 +131,9 @@ class Survey(TimeStampedModel):
     class Meta:
         db_table = 'survey'
 
+    def __unicode__(self):
+        return "%s" % (self.appointment)
+
 
 class SurveyValue(TimeStampedModel):
     survey = models.ForeignKey(Survey)
@@ -116,3 +143,6 @@ class SurveyValue(TimeStampedModel):
     class Meta:
         db_table = 'surveyvalue'
         unique_together = ('survey', 'metric')
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.survey, self.metric, self.value)
