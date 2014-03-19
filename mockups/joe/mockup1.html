@@ -2,7 +2,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+<script src="nodelay.js"></script>
 <!--
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -83,6 +83,8 @@ $(document).ready(function () {
         // Check if done
         tryComplete();
     });
+    // 300ms delay fix for touch devices
+    $('.box').noClickDelay();
 });
 </script>
 <style>
@@ -146,7 +148,8 @@ div.metric {border-bottom: 1px solid #ddd;}
     Mobile HTML5 webpage, this could be loaded on a smartphones browser<br>
     <ul><li>html5</li><li>jquery</li></ol>
     <h4>Results<h4>
-    Avg: 5s per survey.  Noticable lag when making selections.  
+    Original Avg: 5s per survey.  Noticable lag when making selections.  
+    New Avg: 2s per survey.  Eliminated the 300ms lag for touch devices 
 </div>
 </body>
 </html>
