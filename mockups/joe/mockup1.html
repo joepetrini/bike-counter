@@ -14,12 +14,29 @@
 
 <script type="text/javascript">
 var survey = [];
+var start = new Date().getTime();
+
 // These would be data driven
 survey['gender'] = null;
 survey['safety'] = null;
 survey['direction'] = null;
 survey['sidewalk'] = null;
 survey['wrong_way'] = null;
+
+function restart(){
+    // Reset survey data
+    for (i=0; i < Object.keys(survey).length; i++){
+        survey[Object.keys(survey)[i]] = null;
+    }
+    // Reset selections
+    $('.box').css('background-color', '#fff');
+
+    // Hide overlay
+    $('#overlay').hide();
+    
+    // Restart counter
+    start = new Date().getTime();
+}
 
 function tryComplete(){
     var complete = true;
@@ -32,17 +49,21 @@ function tryComplete(){
     }
 
     if (complete == true){
+        // Stop the timer
+        var time_taken = new Date().getTime() - start;
+
         window.scrollTo(0, 0);
 
-        // Reset survey data
+        // Set the data entered
+        var msg = '';
         for (i=0; i < Object.keys(survey).length; i++){
-            survey[Object.keys(survey)[i]] = null;
+            msg = msg + Object.keys(survey)[i] + '=' + survey[Object.keys(survey)[i]] + '<br>';
         }
-        // Reset selections
-        $('.box').css('background-color', '#fff');
+        $('#data').html(msg);
 
         // Show success message
-        $('#overlay').fadeIn(200).delay(200).fadeOut(200);
+        $('#time').html(time_taken);
+        $('#overlay').fadeIn(200);
     }
 }
 
@@ -78,7 +99,11 @@ div.metric {border-bottom: 1px solid #ddd;}
 </style>
 </head>
 <body>
-<div id="overlay">Survey Entered!</div>
+<div id="overlay">
+    Survey Entered in <span id="time"></span>ms!
+    <div id="data"></div>
+    <input type="button" onclick="restart()" value="Restart"/>
+</div>
 
 <div class="heading">Gender</div>
 <div class="metric">
@@ -115,5 +140,13 @@ div.metric {border-bottom: 1px solid #ddd;}
     <div id="wrong_way_f" data-type="wrong_way" class="box wrong_way">No</div>
 </div>
 
+<br><br><br>
+<div style="padding:10px">
+    <h4>Mockup Summary</h4>
+    Mobile HTML5 webpage, this could be loaded on a smartphones browser<br>
+    <ul><li>html5</li><li>jquery</li></ol>
+    <h4>Results<h4>
+    Avg: 5s per survey.  Noticable lag when making selections.  
+</div>
 </body>
 </html>

@@ -53,6 +53,7 @@ class Location(TimeStampedModel):
 
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
+    system_name = models.SlugField(max_length=25, unique=True)
 
     class Meta:
         db_table = 'valueset'
