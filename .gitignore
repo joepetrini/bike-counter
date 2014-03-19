@@ -36,3 +36,4 @@ nosetests.xml
 .project
 .pydevproject
 local.py
+db.sqlite3

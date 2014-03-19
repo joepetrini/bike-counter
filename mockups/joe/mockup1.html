@@ -1,40 +1,117 @@
 <html>
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<!--
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+-->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
+var survey = [];
+// These would be data driven
+survey['gender'] = null;
+survey['safety'] = null;
+survey['direction'] = null;
+survey['sidewalk'] = null;
+survey['wrong_way'] = null;
+
+function tryComplete(){
+    var complete = true;
+    // If any metric is not filled out break
+    for (i=0; i < Object.keys(survey).length; i++){
+        if (survey[Object.keys(survey)[i]] == null){
+            complete = false;
+            break;
+        }
+    }
+
+    if (complete == true){
+        window.scrollTo(0, 0);
+
+        // Reset survey data
+        for (i=0; i < Object.keys(survey).length; i++){
+            survey[Object.keys(survey)[i]] = null;
+        }
+        // Reset selections
+        $('.box').css('background-color', '#fff');
+
+        // Show success message
+        $('#overlay').fadeIn(200).delay(200).fadeOut(200);
+    }
+}
+
 $(document).ready(function () {
 
+    $('.box').click(function() {
+        // Clear any selected value
+        var metric = $(this).data('type');
+        $('.'+metric).css('background-color','#FFF');
+
+        // Select this one
+        $(this).css('background-color','#ddf');
+
+        // Update survey value
+        survey[metric] = String(this.id).replace(metric+'_','');
+
+        // Check if done
+        tryComplete();
+    });
 });
 </script>
 <style>
-div.box {width:50%;float:left; padding:15px 0 15px 0; text-align:center; font-size:30px;}j
+body {padding:0px; margin:0px;}
+div.box {width:50%;float:left; padding:15px 0 15px 0; text-align:center; font-size:30px;
+            border:1px solid #ddd; background-color: #fff;}
+
 div.box4 {width:25%;}
-.even {background-color:#ddd}
-.odd {background-color:#efefef}
-.even2 {background-color:#dfefef}
-.odd2 {background-color:#fff}
+
+div.heading {text-align:center; background-color: #efefef;}
+div.metric {border-bottom: 1px solid #ddd;}
+#overlay {height:100%;width:100%;background-color:#efefff;display:none;
+                margin-top:30px;font-size:40px;text-align: center;}
 </style>
 </head>
 <body>
-<div>
-<div class="box even">M</div>
-<div class="box odd">F</div>
+<div id="overlay">Survey Entered!</div>
+
+<div class="heading">Gender</div>
+<div class="metric">
+        <div id="gender_m" data-type="gender" class="box gender">M</div>
+        <div id="gender_f" data-type="gender" class="box gender">F</div>
+    </div>
 </div>
-<hr>
-<div>
-<div class="box even">Helmet</div>
-<div class="box odd">No Helmet</div>
+
+
+<div class="heading">Safety</div>
+<div class="metric">
+    <div id="safety_helmet" data-type="safety" class="box safety">Helmet</div>
+    <div id="safety_no_helmet" data-type="safety" class="box safety">No Helmet</div>
 </div>
-<hr>
-<div>
-<div class="box box4 even">N</div>
-<div class="box box4 odd">S</div>
-<div class="box box4 even2">E</div>
-<div class="box box4 odd2">W</div>
+
+
+<div class="heading">Direction</div>
+<div class="metric">
+    <div id="direction_north" data-type="direction" class="box direction">N</div>
+    <div id="direction_south" data-type="direction" class="box direction">S</div>
+    <div id="direction_south" data-type="direction" class="box direction">E</div>
+    <div id="direction_south" data-type="direction" class="box direction">W</div>
 </div>
-<hr>
+
+<div class="heading">Sidewalk</div>
+<div class="metric">
+    <div id="sidewalk_y" data-type="sidewalk" class="box sidewalk">Yes</div>
+    <div id="sidewalk_n" data-type="sidewalk" class="box sidewalk">No</div>
+</div>
+
+<div class="heading">Wrong Way</div>
+<div class="metric">
+    <div id="wrong_way_m" data-type="wrong_way" class="box wrong_way">Yes</div>
+    <div id="wrong_way_f" data-type="wrong_way" class="box wrong_way">No</div>
+</div>
 
 </body>
 </html>
