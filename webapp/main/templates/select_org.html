@@ -1,0 +1,7 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% for org in object_list %}
+  <a href="{% url 'org_home' org.slug %}">{{ org }}</a><br>
+{% endfor %}
+{% endblock %}
