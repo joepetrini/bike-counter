@@ -38,3 +38,4 @@ nosetests.xml
 .pydevproject
 local.py
 db.sqlite3
+.idea
