@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.models import User, Group
 from django.views.generic import TemplateView
 from rest_framework import viewsets, routers
+from main.views import *
 
 from django.contrib import admin
 admin.autodiscover()
@@ -22,6 +23,7 @@ router.register(r'groups', GroupViewSet)
 urlpatterns = patterns('',
     # Examples:
     url(r'^/?$', TemplateView.as_view(template_name='index.html'), name="index"),
+    url(r'^login/?$', LoginView.as_view(), name="login" ),
     # url(r'^$', 'bikecounter.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^api/', include(router.urls)),

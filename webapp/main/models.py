@@ -17,6 +17,7 @@ class Organization(TimeStampedModel):
     name = models.CharField(max_length=80)
     city = models.CharField(max_length=25, null=True, blank=True)
     state = models.CharField(max_length=25, null=True, blank=True)
+    slug = models.SlugField(max_length=15, unique=True)
     members = models.IntegerField(null=True, blank=True)
 
     class Meta:
@@ -75,10 +76,16 @@ class Value(TimeStampedModel):
     valueset = models.ForeignKey(ValueSet)
     stored_value = models.CharField(max_length=25)
     display_value = models.CharField(max_length=25)
+    is_default = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'value'
-    
+
+    def save(self, *args, **kwargs):
+        if self.is_default:
+            pass
+        return super(Value, self).save(*args, **kwargs)    
+
     def __unicode__(self):
         return "%s - %s" % (self.valueset, self.display_value)
 

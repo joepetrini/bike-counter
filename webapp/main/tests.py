@@ -1,3 +1,11 @@
 from django.test import TestCase
+from .models import Value, ValueSet
 
-# Create your tests here.
+
+class ValidateSingleDefaultValue(TestCase):
+    def setUp(self):
+        
+        pass
+
+    def test_single_default(self):
+        pass

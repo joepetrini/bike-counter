@@ -1,0 +1,10 @@
+body {
+    background-color: #efefef;
+    margin-top: 60px;
+}
+
+.reg-form {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #eee;
+}
