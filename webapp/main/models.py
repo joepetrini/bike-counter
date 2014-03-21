@@ -1,24 +1,16 @@
-from django.utils.translation import ugettext as _
+#from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.models import User
 from model_utils.models import TimeStampedModel
 from model_utils import Choices
 
 
-class Profile(TimeStampedModel):
-    user = models.OneToOneField(User)
-    twitter = models.CharField(max_length=15, null=True, blank=True)
-
-    class Meta:
-        db_table = 'profile'
-
-
 class Organization(TimeStampedModel):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=50, unique=True)
     city = models.CharField(max_length=25, null=True, blank=True)
     state = models.CharField(max_length=25, null=True, blank=True)
     slug = models.SlugField(max_length=15, unique=True)
-    members = models.IntegerField(null=True, blank=True)
+    member_count = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'organization'
@@ -41,9 +33,9 @@ class Membership(TimeStampedModel):
 
 class Location(TimeStampedModel):
     TYPES = Choices(
-        ('intersection', _('Intersection')),
-        ('trail', _('Trail')),
-        ('bridge', _('Bridge')),
+        ('intersection', 'Intersection'),
+        ('trail', 'Trail'),
+        ('bridge', 'Bridge'),
     )
     organization = models.ForeignKey(Organization)
     name = models.CharField(max_length=80)
@@ -61,19 +53,20 @@ class Location(TimeStampedModel):
     def __unicode__(self):
         return "%s - %s" % (self.organization.name, self.name)
 
+
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
     system_name = models.SlugField(max_length=25, unique=True)
 
     class Meta:
-        db_table = 'valueset'
+        db_table = 'value_set'
 
-    def __unicode__(self):  
+    def __unicode__(self):
         return self.name
 
 
 class Value(TimeStampedModel):
-    valueset = models.ForeignKey(ValueSet)
+    value_set = models.ForeignKey(ValueSet)
     stored_value = models.CharField(max_length=25)
     display_value = models.CharField(max_length=25)
     is_default = models.BooleanField(default=False)
@@ -84,7 +77,7 @@ class Value(TimeStampedModel):
     def save(self, *args, **kwargs):
         if self.is_default:
             pass
-        return super(Value, self).save(*args, **kwargs)    
+        return super(Value, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return "%s - %s" % (self.valueset, self.display_value)
@@ -93,7 +86,7 @@ class Value(TimeStampedModel):
 class Metric(TimeStampedModel):
     name = models.CharField(max_length=25)
     desc = models.CharField(max_length=250, null=True, blank=True)
-    valueset = models.ForeignKey(ValueSet)
+    value_set = models.ForeignKey(ValueSet)
 
     class Meta:
         db_table = 'metric'
@@ -148,7 +141,7 @@ class SurveyValue(TimeStampedModel):
     value = models.ForeignKey(Value)
 
     class Meta:
-        db_table = 'surveyvalue'
+        db_table = 'survey_value'
         unique_together = ('survey', 'metric')
 
     def __unicode__(self):

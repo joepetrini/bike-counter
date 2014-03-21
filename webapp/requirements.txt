@@ -1,6 +1,6 @@
-Django==1.6.2
-Markdown==2.4
-South==0.8.4
+git+git://github.com/django/django.git@dda6224459ed843dfd63e85729613fcc60ce925f
+django-bootstrap3==3.3.0
+django-debug-toolbar==1.0.1
 django-filter==0.7
 django-model-utils==2.0.2
 djangorestframework==2.3.13

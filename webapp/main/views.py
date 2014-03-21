@@ -1,24 +1,21 @@
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
-from django.contrib.auth.forms import AuthenticationForm
-from .models import Organization, Appointment
-
-class LoginView(FormView):
-    form_class = AuthenticationForm
-    template_name = 'login.html'
-    success_url = settings.LOGIN_REDIRECT_URL
-
-    def form_valid(self, form):
-        return super(LoginView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        return super(LoginView, self).form_invalid(form)
+from .models import Organization, Appointment, Membership
 
 
 class OrgListView(ListView):
     model = Organization
     template_name = 'select_org.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        # If there's only 1 org in the system, auto assign and move on
+        if Organization.objects.all().count() == 1:
+            org = Organization.objects.all()[0]
+            mem = Membership.objects.get_or_create(user=self.request.user, organization=org)
+            return HttpResponseRedirect(reverse('org_home', args=[org.slug]))
 
     #def get_queryset(self):
     #    pass
