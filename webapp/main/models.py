@@ -20,15 +20,21 @@ class Organization(TimeStampedModel):
 
 
 class Membership(TimeStampedModel):
+    ROLES = Choices(
+        ('member', 'member'),
+        ('staff', 'staff'),
+        ('admin', 'admin'),
+    )
     user = models.ForeignKey(User)
     organization = models.ForeignKey(Organization)
+    role = models.CharField(choices=ROLES, default=ROLES.member, max_length=15)
 
     class Meta:
         db_table = 'membership'
         unique_together = ('user', 'organization')
 
     def __unicode__(self):
-        return "%s - %s" % (self.user, self.organization.name)
+        return "%s - %s - %s" % (self.user, self.organization.name, self.role)
 
 
 class Location(TimeStampedModel):
