@@ -1,14 +1,14 @@
 <div class="bs-component">
   <div class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand">Counter</a>
+      <a class="navbar-brand">BikeCounter</a>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'org_home' member.organization.slug %}">home</a></li>
         <li><a href="">activity</a></li>
         {% if user.is_superuser or member.role == 'admin' %}
-        <li><a href="">schedule</a></li>
+        <li><a href="{% url 'org_schedule' member.organization.slug %}">schedule</a></li>
         <li><a href="">reports</a></li>
         {% endif %}
       </ul>

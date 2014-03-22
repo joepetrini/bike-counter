@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% block title %}Manage Schedule{% endblock %}
+{% block content %}
+
+<h3>Manage Schedule</h3>
+<table class="table table-striped">
+  <tr><td>Location</td><td>Time</td><td>Assigned To</td></tr>
+{% for loc in object_list %}
+  <tr><td>{{loc}}</td><td></td><td></td></tr>
+  {% for app in loc.appointment_set.all %}
+    <tr>
+      <td></td>
+      <td>{{app.scheduled_start}}</td>
+      <td>
+        {% if app.user %}
+          {{ app.user.first_name }} {{ app.user.last_name }}
+        {% else %}
+          <span class="label label-warning">Unassigned</span>
+        {% endif %}
+        {% empty %}
+          Nothing scheduled
+      </td>
+    </tr>
+  {% endfor %}
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
+
+
+

@@ -55,6 +55,7 @@ class Location(TimeStampedModel):
 
     class Meta:
         db_table = 'location'
+        ordering = ['name']
 
     def __unicode__(self):
         return "%s - %s" % (self.organization.name, self.name)

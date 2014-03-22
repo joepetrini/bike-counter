@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
-from .models import Organization, Appointment, Membership
+from .models import Organization, Appointment, Membership, Location
 
 
 class OrgListView(ListView):
@@ -30,3 +30,14 @@ class OrgHomeView(DetailView):
         sessions = Appointment.objects.filter(user=self.request.user, organization=self.object)
         context['sessions'] = sessions
         return context
+
+
+class OrgScheduleView(ListView):
+    model = Location
+    template_name = 'org_schedule.html'
+
+    #def render_to_response(self, context, **response_kwargs):
+    #    pass
+
+    #def get_queryset(self):
+    #    pass

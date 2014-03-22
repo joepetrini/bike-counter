@@ -1,5 +1,7 @@
 import os
-from .base import BASE_DIR
+from .base import BASE_DIR, INSTALLED_APPS
+
+INSTALLED_APPS += ('django_extensions',)
 
 DATABASES = {
     'default': {
