@@ -1,28 +1,18 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import UserSerializer, LocationSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from main.models import Organization, Location
 
 
-
-
-class UserViewSet(viewsets.ModelViewSet):
+class LocationViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Get all locations for an org
     """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
 class MeDetail(APIView):
     """
@@ -38,3 +28,12 @@ class MeDetail(APIView):
             return Response(serializer.data)
         else:
             return Response(None, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+

@@ -35,11 +35,15 @@
 
 </head>
 <body>
-{% if user.is_authenticated %}
-  {% include '_menu.html' %}
+{% if request.path == '/' %}
+{% else %}
+  {% if user.is_authenticated %}
+    {% include '_menu.html' %}
+  {% endif %}
 {% endif %}
 <div class="container">
 {% block content %}{% endblock %}
 </div>
+
 </body>
 </html>

@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.XsSharing',
     'main.middleware.RequireMembershipMiddleware',
 )
 
@@ -65,6 +66,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
     "main.middleware.membership_context_processor",
+    'django.core.context_processors.request',
 )
 
 ROOT_URLCONF = 'bikecounter.urls'
