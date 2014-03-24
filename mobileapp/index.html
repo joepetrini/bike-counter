@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">    
+    <!--<link href="css/ratchet.css" rel="stylesheet">
+    <link href="css/pageslider.css" rel="stylesheet">-->
+    <!--<link href="css/leaflet.css" rel="stylesheet">-->
+    <link href="css/jquery-mobile.css" rel="stylesheet">
+    <!--<link href="css/index.css" rel="stylesheet">-->
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery-mobile.js"></script>
+    <script src="js/bar.js"></script>
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
+    <script src="lib/jquery-storage.js"></script>
+    <script src="js/app.js"></script>
+    <link href="css/bar.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript">
+
+    $(document).on( "pageinit", '#page-login', function( event ) {
+        $('#btn_login').click(function() {
+            login();
+        });
+    });
+
+    $(document).on( "pageinit", '#page-lists', function( event ) {
+        cb = (function(data) {
+            lt = $('#tpl-list').html();
+            $.each(data, function(){
+                _s('list_'+this.ListID, this);
+                $('#ul-lists').append(lt.format(this.ListID, this.ListName));
+            })
+            $('#ul-lists').listview('refresh');
+            $('.list_link').click(function() {
+                alert(this);
+            });            
+        });
+        _api('lists', cb);  
+    });    
+
+    // ############### MESSAGES ##############
+    $(document).on( "pageinit", '#page-messages', function( event ) {
+        cb = (function(data) {
+            lt = $('#tpl-message').html();
+            _s('messages', data);
+            $.each(data, function(){
+                total = _g('list_'+this.ListID).ListSize;
+                $('#ul-messages').append(lt.format(
+                                                this.MsgID, 
+                                                this.Subject, 
+                                                Number(this.DeliverCount).toLocaleString(),
+                                                (this.DeliverCount / total * 100).toFixed(2),
+                                                Number(total).toLocaleString(),
+                                                this.SendDate, 
+                                                Number(this.OpenPercent).toFixed(0), 
+                                                Number(this.ClickerPercent).toFixed(0)
+                                                ));
+            })
+            $('#ul-messages').listview('refresh');
+        });
+        _api('messages/'+_g('list_id'), cb);       
+    });
+
+</script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c">
+
+
+<!--############### LOGIN **************-->
+<div id="page-login" data-role="page">
+    <div data-theme="b" data-role="header">
+        <h1>Login</h1>
+    </div>
+    <div data-role="content">    
+            <label for="textinput-s">Username:</label>
+            <input type="text" name="username" id="username" placeholder="username" value="">
+            <label for="textinput-s">Password:</label>
+            <input type="password" name="password" id="password" placeholder="password" value="">
+            <button id="btn_login" data-role="button">Login</button>
+            <div id="login_error" class="error"></div>
+    </div>
+</div>
+
+<!--############### LISTS ##############-->
+<div id="page-lists" data-role="page">
+    <div data-theme="b" data-role="header">
+        <h1>Select List</h1>
+    </div>
+    <div data-role="content">
+        <ul id="ul-lists" data-role="listview" data-inset="true">
+
+        </ul>
+    </div>
+</div>
+
+<script type="text/template" id="tpl-list" >
+<li data-icon="arrow-r"><a href="javascript:select_list({0})">{1}</a></li>
+</script>
+
+
+<!--############### MESSAGES ##############-->
+<div id="page-messages" data-role="page">
+    <div data-theme="b" data-role="header">
+        <a href="#" data-rel="back">back</a><h1>Recent Messages</h1>
+    </div>
+    <div data-role="content">
+        <ul id="ul-messages" data-role="listview" data-inset="true" class="ui-listview">
+
+        </ul>
+    </div>
+</div>
+
+<script type="text/template" id="tpl-message2" >
+<li data-icon="arrow-r">
+    <a href="javascript:select_message({0});">{1}</a>
+</li>
+</script>
+
+<script type="text/template" id="tpl-message" >
+<li onclick="select_message({0});">
+    <table style="width:100%">
+        <tr>
+        <td style="width:100%">
+            {1}<br>
+            <span style="font-weight:normal;font-size:11px;color:#333">
+            Sent to {2} ({3}%) of your list of {4}
+            </span>
+        </td>
+        <td>
+            <table>
+                <tr><td colspan="2" style="white-space:nowrap">{5}</td></tr>
+                <tr><td>{6}%</td><td>Open</td></tr>
+                <tr><td>{7}%</td><td>Click</td></tr>
+            </table>
+        </td>
+        </tr>
+    </table>
+</li>
+</script>
+
+<!--############### MSG DETAIL ##############-->
+
+<div id="page-message" data-role="page">
+    <div data-theme="b" data-role="header">
+        <a href="#" data-rel="back">back</a><h1>Message Detail</h1>
+    </div>
+    <div data-role="content">
+        <h3><span id="m_Subject"></span></h3>   
+        graph
+        <br>
+        <figure>
+        <embed src="http://localhost:5000/chart/10171753?api_key=b17eac12-273e-49c4-b88b-8b905033b07f" 
+        type="image/svg+xml" width="100%" height="400" />
+        </figure>
+        <br>     
+        <table style="width:100%">
+            <tr>
+                <td>Opened</td>
+                <td style="width:100%"><div class="progress-wrapper"><div id="Open-bar" class="progress-bar"></div></div></td>
+            </tr>
+            <tr>
+                <td>Read</td><td><div class="progress-wrapper"><div id="Read-bar" class="progress-bar"></div></div></td>
+            </tr>
+            <tr>
+                <td>Clicked</td><td><div class="progress-wrapper"><div id="Clicker-bar" class="progress-bar"></div></div></td>
+            </tr>                        
+            <tr>
+                <td>Unsubs</td><td><div class="progress-wrapper"><div id="Remove-bar" class="progress-bar"></div></div></td>
+            </tr>        
+        </table>
+
+        <table data-role="table" data-mode="reflow" class="ui-responsive table-stroke">
+            <thead>
+                
+                <tr>
+                    
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr><td>Sent</td><td><span id="m_DeliverCount"></span></td><td></td></tr>
+                <tr><td>Open</td><td><span id="m_OpenCount"></span></td><td><span id="m_OpenPercent"></span>%</td></tr>
+                <tr><td>Read</td><td><span id="m_ReadCount"></span></td><td><span id="m_ReadPercent"></span>%</td></tr>
+                <tr><td>Click</td><td><span id="m_ClickerCount"></span></td><td><span id="m_ClickerPercent"></span>%</td></tr>
+                <tr><td>Unsub</td><td><span id="m_RemoveCount"></span></td><td><span id="m_RemovePercent"></span>%</td></tr>
+            </tbody>
+        </table> 
+        <script type="text/javascript">
+         // ############### MESSAGE DETAIL ##############
+            $(document).on( "pageshow", '#page-message', function( event ) {
+                msgs = _g('messages');
+                $.each(msgs, function() {
+                    if (this.MsgID == _g('msg_id')){
+                        for (var key in this){
+                            $('#m_'+key).html(this[key]);
+                        }
+                        bars = ['Open','Read','Clicker','Remove'];
+                        for (var b in bars){
+                            //if (b == 1) {alert('b');}
+                            // Load the progress bars
+                            $('#'+bars[b]+'-bar').animate(
+                                {width:this[bars[b]+'Percent']+'%'}, 
+                                {
+                                    duration:800,
+                                    step: function(now, fx) {
+                                        var data= Number(now).toFixed(2);//Math.round(now);
+                                        if (data > 0){
+                                            $(this).html(data + '%');
+                                        }
+                                        
+                                    }
+                                }        
+                            );                
+                        }
+                        
+                    }
+                    //$('#page-message').trigger('pagecreate');
+                    //$('#ul-messages').listview('refresh');
+                    //$.mobile.activePage.trigger("refresh");
+                });
+            });    
+            </script>        
+    </div>
+</div>
+
+
+
+<!--############### INFO ##############-->
+<div id="page-info" data-role="page">
+    <div data-theme="b" data-role="header">
+        <a href="#" data-rel="back">back</a><h1>FAQ</h1>
+    </div>
+    <div data-role="content">
+        <ul id="ul-messages" data-role="listview" data-inset="true">
+
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>
