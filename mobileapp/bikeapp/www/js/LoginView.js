@@ -14,6 +14,7 @@ var LoginView = function (adapter, template) {
 
     this.Login = function() {
         $('#err-login').hide();
+
         // Validate
         var username = $('#username').val();
         var password = $('#password').val();
@@ -29,7 +30,8 @@ var LoginView = function (adapter, template) {
             data: {username:username, password:password},
             success: function (data){
                 if (data.token){
-
+                    adapter.setToken(data.token);
+                    document.location = '/#home';
                 }
                 else {
                     $('#err-login').html(data.message).show();
@@ -40,11 +42,6 @@ var LoginView = function (adapter, template) {
                 $('#login_error').html('Invalid login').show();
             }
         });
-    /*
-    adapter.findByName($('.search-key').val()).done(function(employees) {
-        $('.employee-list').html(listItemTemplate(employees));
-    });
-    */
     };
 
     this.initialize();

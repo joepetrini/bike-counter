@@ -1,9 +1,24 @@
 var LocalStorageAdapter = function () {
-
     this.initialize = function(config) {
         var deferred = $.Deferred();
+        var myData;
         window.localStorage.setItem("config", JSON.stringify(config));
-
+        if (this.getToken()){
+            $.ajax
+            ({
+                type: "GET",
+                url: this.getConfig('apiUrl') + 'me',
+                dataType: 'json',
+                async: false,
+                crossDomain: true,
+                headers: {"Authorization": 'Token ' + this.getToken()},
+                success: function (data){
+                    //this.myData = data;
+                    console.log('data: ' + data);
+                    this.myData = data;
+                }
+            });
+        }
         /*
         // Store sample data in Local Storage
         window.localStorage.setItem("employees", JSON.stringify(
@@ -23,13 +38,29 @@ var LocalStorageAdapter = function () {
             ]
         ));
         */
-        deferred.resolve();
+        deferred.resolve(myData);
         return deferred.promise();
     }
 
     this.getConfig = function(key) {
         config = JSON.parse(window.localStorage.getItem('config'));
         return config[key];
+    }
+
+    this.setValue = function (key, v){
+        window.localStorage.setItem(key, v);
+    }
+
+    this.getValue = function(key) {
+        return window.localStorage.getItem(key);
+    }
+
+    this.setData = function (key, v){
+        window.localStorage.setItem(key, JSON.stringify(v));
+    }
+
+    this.getData = function (key) {
+        return JSON.parse(window.localStorage.getItem(key));
     }
 
     this.setToken = function(token) {
@@ -39,7 +70,12 @@ var LocalStorageAdapter = function () {
         return window.localStorage.getItem('token');
     }
 
-    
+    this.refreshData = function() {
+        var deferred = $.Deferred(),
+            myData = this.myData;
+        deferred.resolve(myData);
+        return deferred.promise();
+    }
     this.findById = function (id) {
 
         var deferred = $.Deferred(),

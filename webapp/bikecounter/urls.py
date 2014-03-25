@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/?', 'rest_framework.authtoken.views.obtain_auth_token'),
     url(r'^api/me/?', views.MeDetail.as_view(), name='api-me'),
+    url(r'^api/org/(?P<pk>\d+)/?', views.LocationViewSet.as_view(), name='api-locations'),
     url(r'^api/locations/(?P<pk>\d+)?', views.MeDetail.as_view(), name='api-me'),
     url(r'^admin/', include(admin.site.urls)),
 )
