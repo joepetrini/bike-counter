@@ -8,54 +8,68 @@
     <link href="assets/css/pageslider.css" rel="stylesheet">
 </head>
 <body>
+<div id="container">
 
+</div>
 
-<script id="tpl-login" type="text/x-handlebars-template">
-    <input id="username" type="text" class="topcoat-text-input--large" value="" placeholder="username">
+<script id="tpl-login" type="text/template">
+    <div>
+    <input id="username" type="text" class="topcoat-text-input--large" value="" placeholder="username" autocapitalize="off">
     <br>
     <input id="password" type="password" class="topcoat-text-input--large" value="" placeholder="password">
     <br>
-    <button id="btn-login" class="topcoat-button--large" >Login</button>
+    <button id="btn-login" class="topcoat-button--large" onclick="login()">Login</button>
     <br>
     <span id="err-login" class="error" style="display:none"></span>
+    <a id="a_home" style="display:none" href="#home">home</a>
+    </div>
 </script>
 
-<script id="tpl-home" type="text/x-handlebars-template">
-    home
-    <br>
-    {{#names}}
-        {{name}}<br>
-    {{/names}}
-</script>
+<script id="tpl-home" type="text/template">
+    <div>
 
-
-<script id="home-tpl" type="text/x-handlebars-template">
-    <div class="topcoat-navigation-bar">
-        <div class="topcoat-navigation-bar__item center full">
-            <h1 class="topcoat-navigation-bar__title">Employee Directory</h1>
+        <div class="topcoat-list">
+        {{#appointment_set.length}}
+            <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
+        {{/appointment_set.length}}
+        <ul class="topcoat-list__container">
+        {{#appointment_set}}
+            <li class="topcoat-list__item clickable">
+                <a href="#appt/{{id}}">{{location.name}}</a>
+            </li>
+        {{/appointment_set}}
+        {{^appointment_set}}
+            No scheduled sessions
+        {{/appointment_set}}
+        </ul>
         </div>
     </div>
-    <div class="search-bar">
-        <input type="search" placeholder="search" class="topcoat-search-input search-key">
-    </div>
-    <div class="topcoat-list__container scroller">
-        <ul class="topcoat-list list employee-list"></ul>
-    </div>
 </script>
 
-
+<script id="tpl-appt" type="text/template">
+    <div>
+        <div class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item center full">
+                <h1 class="topcoat-navigation-bar__title">{{location.name}}</h1>
+            </div>
+        </div>
+        <div style="margin:10px auto;text-align:center">
+            Start time: {{scheduled_start}}<br>
+            Location type: {{type}}<br>
+            Longitude: {{longitude}}<br>
+            Latitude: {{latitude}}<br>
+        </div>
+    </div>
+</script>
 
 <script src="cordova.js"></script>
 <script src="lib/jquery.js"></script>
 <script src="lib/jquery.storage.js"></script>
 <script src="lib/fastclick.js"></script>
-<script src="lib/handlebars.js"></script>
 <script src="lib/pageslider.js"></script>
-<script src="js/adapters/localstorage-adapter.js"></script>
-<script src="js/LoginView.js"></script>
-<script src="js/HomeView.js"></script>
-<script src="js/EmployeeView.js"></script>
-<script src="js/app.js"></script>
+<script src="lib/mustache.js"></script>
+<script src="js/lib.js"></script>
+<script src="js/bike.js"></script>
 
 </body>
 </html>

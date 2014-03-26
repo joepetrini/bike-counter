@@ -15,10 +15,13 @@ var LocalStorageAdapter = function () {
                 success: function (data){
                     //this.myData = data;
                     console.log('data: ' + data);
-                    this.myData = data;
+                    myData = data;
                 }
             });
         }
+        $(document).ajaxStop(function () {
+            return myData;
+        });
         /*
         // Store sample data in Local Storage
         window.localStorage.setItem("employees", JSON.stringify(
@@ -78,10 +81,7 @@ var LocalStorageAdapter = function () {
     }
     this.findById = function (id) {
 
-        var deferred = $.Deferred(),
-            employees = JSON.parse(window.localStorage.getItem("employees")),
-            employee = null,
-            l = employees.length;
+        var deferred = $.Deferred(), employees = JSON.parse(window.localStorage.getItem("employees")), employee = null, l = employees.length;
 
         for (var i = 0; i < l; i++) {
             if (employees[i].id === id) {

@@ -15,7 +15,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ('location', 'scheduled_start')
+        fields = ('id', 'location', 'scheduled_start')
 
 
 class OrganizationSerializer(serializers.ModelSerializer):

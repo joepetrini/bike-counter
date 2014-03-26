@@ -1,7 +1,28 @@
 var LocalStorageAdapter = function () {
-
-    this.initialize = function() {
+    this.initialize = function(config) {
         var deferred = $.Deferred();
+        var myData;
+        window.localStorage.setItem("config", JSON.stringify(config));
+        if (this.getToken()){
+            $.ajax
+            ({
+                type: "GET",
+                url: this.getConfig('apiUrl') + 'me',
+                dataType: 'json',
+                async: false,
+                crossDomain: true,
+                headers: {"Authorization": 'Token ' + this.getToken()},
+                success: function (data){
+                    //this.myData = data;
+                    console.log('data: ' + data);
+                    myData = data;
+                }
+            });
+        }
+        $(document).ajaxStop(function () {
+            return myData;
+        });
+        /*
         // Store sample data in Local Storage
         window.localStorage.setItem("employees", JSON.stringify(
             [
@@ -19,16 +40,48 @@ var LocalStorageAdapter = function () {
                 {"id": 12, "firstName": "Steven", "lastName": "Wells", "managerId": 4, "managerName": "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0012", "officePhone": "781-000-0012", "email": "swells@fakemail.com", "city": "Boston, MA", "pic": "Steven_Wells.jpg", "twitterId": "@fakeswells", "blog": "http://coenraets.org"}
             ]
         ));
-        deferred.resolve();
+        */
+        deferred.resolve(myData);
         return deferred.promise();
     }
 
+    this.getConfig = function(key) {
+        config = JSON.parse(window.localStorage.getItem('config'));
+        return config[key];
+    }
+
+    this.setValue = function (key, v){
+        window.localStorage.setItem(key, v);
+    }
+
+    this.getValue = function(key) {
+        return window.localStorage.getItem(key);
+    }
+
+    this.setData = function (key, v){
+        window.localStorage.setItem(key, JSON.stringify(v));
+    }
+
+    this.getData = function (key) {
+        return JSON.parse(window.localStorage.getItem(key));
+    }
+
+    this.setToken = function(token) {
+        window.localStorage.setItem('token', token);
+    }
+    this.getToken = function() {
+        return window.localStorage.getItem('token');
+    }
+
+    this.refreshData = function() {
+        var deferred = $.Deferred(),
+            myData = this.myData;
+        deferred.resolve(myData);
+        return deferred.promise();
+    }
     this.findById = function (id) {
 
-        var deferred = $.Deferred(),
-            employees = JSON.parse(window.localStorage.getItem("employees")),
-            employee = null,
-            l = employees.length;
+        var deferred = $.Deferred(), employees = JSON.parse(window.localStorage.getItem("employees")), employee = null, l = employees.length;
 
         for (var i = 0; i < l; i++) {
             if (employees[i].id === id) {
