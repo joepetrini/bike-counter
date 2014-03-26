@@ -37,9 +37,7 @@ function login() {
         success: function (data){
             if (data.token){
                 _s('token', data.token);
-                //$("<a />").attr("href", '/#home').click();
-                window.location.replace('/#home');
-                //$('#a_home').click();
+                window.location.replace('#home');
             }
             else {
                 $('#err-login').html(data.message).show();
@@ -78,4 +76,15 @@ function getAppointments() {
         });
     }
     return d;
+}
+
+
+function initializeMap(lat, long) {
+    var mapOptions = {
+        'center': new google.maps.LatLng(lat, long),
+        'zoom': 15,
+        'mapTypeId': google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    return map;
 }

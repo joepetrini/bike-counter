@@ -6,6 +6,8 @@
     <link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
     <link href="assets/css/styles.css" rel="stylesheet">
     <link href="assets/css/pageslider.css" rel="stylesheet">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-10uEGmMwRYjD5URGMl1VDsQlaSWP3k4
+&sensor=true"></script>
 </head>
 <body>
 <div id="container">
@@ -21,7 +23,6 @@
     <button id="btn-login" class="topcoat-button--large" onclick="login()">Login</button>
     <br>
     <span id="err-login" class="error" style="display:none"></span>
-    <a id="a_home" style="display:none" href="#home">home</a>
     </div>
 </script>
 
@@ -47,7 +48,7 @@
 </script>
 
 <script id="tpl-appt" type="text/template">
-    <div>
+<div>
         <div class="topcoat-navigation-bar">
             <div class="topcoat-navigation-bar__item center full">
                 <h1 class="topcoat-navigation-bar__title">{{location.name}}</h1>
@@ -56,8 +57,9 @@
         <div style="margin:10px auto;text-align:center">
             Start time: {{scheduled_start}}<br>
             Location type: {{type}}<br>
-            Longitude: {{longitude}}<br>
-            Latitude: {{latitude}}<br>
+            <button class="topcoat-button">Start Recording</button>
+
+            <div style="width:100%;height:300px;" id="map"></div>
         </div>
     </div>
 </script>
