@@ -1,4 +1,5 @@
 #from django.utils.translation import ugettext as _
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from model_utils.models import TimeStampedModel
@@ -105,6 +106,7 @@ class Metric(TimeStampedModel):
 class OrganizationMetrics(TimeStampedModel):
     organization = models.ForeignKey(Organization)
     metric = models.ForeignKey(Metric)
+    order = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'org_metrics'
@@ -128,6 +130,13 @@ class Appointment(TimeStampedModel):
     def __unicode__(self):
         return "%s - %s - %s - %s" % (self.organization.name, self.location, self.user, self.scheduled_start)
 
+    def start(self):
+        self.actual_start = datetime.datetime.now()
+        self.save()
+
+    def end(self):
+        self.actual_end = datetime.datetime.now()
+        self.save()
 
 class Survey(TimeStampedModel):
     appointment = models.ForeignKey(Appointment)

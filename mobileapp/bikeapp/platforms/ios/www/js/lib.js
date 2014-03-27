@@ -78,6 +78,10 @@ function getAppointments() {
     return d;
 }
 
+function startSession(id){
+    alert(id);
+}
+
 
 function initializeMap(lat, long) {
     var mapOptions = {

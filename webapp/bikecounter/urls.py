@@ -24,5 +24,7 @@ urlpatterns = patterns('',
     url(r'^api/me/?', views.MeDetail.as_view(), name='api-me'),
     url(r'^api/org/(?P<pk>\d+)/?', views.LocationViewSet.as_view(), name='api-locations'),
     url(r'^api/locations/(?P<pk>\d+)?', views.MeDetail.as_view(), name='api-me'),
+    url(r'^api/session/(?P<pk>\d+)/start/?', views.ApptViewSet.as_view({'post': 'start'}), name='api-appt-start'),
+    url(r'^api/session/(?P<pk>\d+)/end/?', views.ApptViewSet.as_view({'post': 'end'}), name='api-appt-end'),
     url(r'^admin/', include(admin.site.urls)),
 )

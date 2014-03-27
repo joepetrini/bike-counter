@@ -78,6 +78,24 @@ function getAppointments() {
     return d;
 }
 
+function startSession(id){
+    // API call to start
+    if (_g('token')){
+        $.ajax
+        ({
+            type: "POST",
+            url: config['apiUrl'] + 'session/'+id+'/start',
+            async: false,
+            crossDomain: true,
+            headers: {"Authorization": 'Token ' + _g('token')},
+            success: function (data){
+                // Load the recording page
+                window.location.replace('#record/'+id);
+            }
+        });
+    }
+
+}
 
 function initializeMap(lat, long) {
     var mapOptions = {
