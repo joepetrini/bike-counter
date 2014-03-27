@@ -18,6 +18,20 @@ function _gd(key) {
     return JSON.parse(window.localStorage.getItem(key));
 }
 
+// API request
+function _req(params){
+    var headers = {};
+    if (params['url'] != 'auth'){
+        headers = {"Authorization": 'Token ' + _g('token')}
+    }
+    params['headers'] = headers;
+    params['crossDomain'] = true;
+    params['url'] = config['apiUrl'] + params['url'];
+    params['dataType'] = 'json';
+    params['async'] = false;
+    $.ajax(params);
+}
+
 function login() {
     $('#err-login').hide();
 
@@ -49,6 +63,16 @@ function login() {
     });
 }
 
+
+function getOrg(id){
+    var d = _gd('data');
+    for (i=0; i<d['membership_set'].length; i++){
+        if (d['membership_set'][i].organization.id == id){
+            return d['membership_set'][i].organization;
+        }
+    }
+}
+
 function getAppointment(id) {
     var d = _gd('data');
     for (i=0; i<d['appointment_set'].length; i++){
@@ -60,21 +84,12 @@ function getAppointment(id) {
 
 function getAppointments() {
     var d;
-    if (_g('token')){
-        $.ajax
-        ({
-            type: "GET",
-            url: config['apiUrl'] + 'me',
-            dataType: 'json',
-            async: false,
-            crossDomain: true,
-            headers: {"Authorization": 'Token ' + _g('token')},
-            success: function (data){
-                _sd('data',data);
-                d = data;
-            }
-        });
-    }
+    _req({type: "GET", url: 'me',
+        success: function (data){
+            _sd('data',data);
+            d = data;
+        }
+    });
     return d;
 }
 
@@ -91,10 +106,12 @@ function startSession(id){
             success: function (data){
                 // Load the recording page
                 window.location.replace('#record/'+id);
+            },
+            error: function(data){
+                return;
             }
         });
     }
-
 }
 
 function initializeMap(lat, long) {

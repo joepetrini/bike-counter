@@ -2,7 +2,8 @@ var map;
 var config = {
     //apiUrl:'http://bikecounter.traklis.com/api/',
     apiUrl:'http://localhost:8001/api/',
-    surveyType:'default' // For configurable survey interfaces
+    surveyType:'default', // For configurable survey interfaces
+    version: '0.1.0' // This should match the webapp version
 }
 
 var slider = new PageSlider($("#container"));
@@ -40,17 +41,37 @@ function route(event) {
     // Appointment view
     var match = hash.match(/^#appt\/(\d{1,})/);
     if (match) {
-
+        // Get the appointment data
         var appt_id = Number(match[1]);
         appt = getAppointment(appt_id);
-        //map.setCenter(appt.location.latitude, appt.location.longitude);
+
+        // Build the template
         var template = $('#tpl-appt').html();
         page = Mustache.to_html(template, appt);
-        console.log('in appt view!');
-        var _this = this;
+
+        // Render the map
         setTimeout(function() {
+            var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
             console.log('lat:' + appt.location.latitude);
             map = initializeMap(appt.location.latitude, appt.location.longitude);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: appt.location.name
+            });
+
+            // Set map center to user's current location
+            /*
+            if(navigator.geolocation) {
+                browserSupportFlag = true;
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                    map.setCenter(initialLocation);
+                }, function() {
+                    handleNoGeolocation(browserSupportFlag);
+                });
+            }
+            */
         }, 0);
         /*
         window.addEventListener('load', function () {
@@ -58,6 +79,16 @@ function route(event) {
             map = initializeMap(appt.location.latitude, appt.location.longitude);
         });
         */
+    }
+    // Record survey view
+    var match = hash.match(/^#record\/(\d{1,})/);
+    if (match) {
+        // TODO: Get all org metric data to build the survey page
+        var appt_id = Number(match[1]);
+        var org = getOrg(getAppointment(appt_id).organization);
+        console.log('org: ' + org.organizationmetrics_set.length);
+        var template = $('#tpl-record').html();
+        page = Mustache.to_html(template, {'org': org});
     }
     // Login
     if (hash == '') {

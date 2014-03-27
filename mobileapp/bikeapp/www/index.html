@@ -79,7 +79,14 @@
             RECORDING
         </div>
     </div>
-    ALL THE SURVEY METRIC QUESTIONS HERE!
+    ALL THE SURVEY METRIC QUESTIONS HERE!<br>
+    {{#org.organizationmetrics_set}}
+        {{metric.name}}<br>
+        {{#metric.value_set}}
+            - {{metric.value_set.display_value}}<br>
+        {{/metric.value_set}}
+    {{/org.organizationmetrics_set}}
+
 </script>
 
 <script src="cordova.js"></script>

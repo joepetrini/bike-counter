@@ -128,3 +128,25 @@ Terminating in response to SpringBoard's termination.
 2014-03-27 12:19:30.810 Bikecount[61440:70b] in appt view!
 2014-03-27 12:19:30.836 Bikecount[61440:70b] lat:39.937
 2014-03-27 12:19:37.744 Bikecount[61440:70b] appts: [object Object]
+2014-03-27 17:12:15.656 Bikecount[62965:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 17:12:15.734 Bikecount[62965:70b] Unlimited access to network resources
+2014-03-27 17:12:16.574 Bikecount[62965:70b] Resetting plugins due to page load.
+2014-03-27 17:12:17.264 Bikecount[62965:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 17:12:21.193 Bikecount[62965:70b] appts: [object Object]
+2014-03-27 17:12:22.152 Bikecount[62965:70b] in appt view!
+2014-03-27 17:12:22.165 Bikecount[62965:70b] lat:39.937
+2014-03-27 18:23:16.205 Bikecount[64466:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 18:23:16.270 Bikecount[64466:70b] Unlimited access to network resources
+2014-03-27 18:23:17.008 Bikecount[64466:70b] Resetting plugins due to page load.
+2014-03-27 18:23:17.996 Bikecount[64466:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 18:23:22.739 Bikecount[64466:70b] appts: [object Object]
+2014-03-27 18:23:23.620 Bikecount[64466:70b] lat:39.937
+2014-03-27 18:23:38.233 Bikecount[64466:70b] appts: [object Object]
+2014-03-27 18:23:39.913 Bikecount[64466:70b] lat:39.937
+2014-03-27 19:23:43.761 Bikecount[64863:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 19:23:43.810 Bikecount[64863:70b] Unlimited access to network resources
+2014-03-27 19:23:44.274 Bikecount[64863:70b] Resetting plugins due to page load.
+2014-03-27 19:23:44.801 Bikecount[64863:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 19:23:54.084 Bikecount[64863:70b] appts: [object Object]
+2014-03-27 19:23:55.006 Bikecount[64863:70b] lat:39.937
+Terminating in response to SpringBoard's termination.

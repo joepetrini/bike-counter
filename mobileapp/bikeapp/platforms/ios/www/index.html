@@ -64,13 +64,29 @@
         <div style="margin:10px auto;text-align:center">
             Start time: {{scheduled_start}}<br>
             Location type: {{type}}<br>
-            <button class="topcoat-button">Start Recording</button>
+            <button onclick="startSession({{id}})" class="topcoat-button">Start Recording</button>
 
             <div style="width:100%;height:300px">
                 <div style="width:100%;height:100%;" id="map"></div>
             </div>
         </div>
     </div>
+</script>
+
+<script id="tpl-record" type="text/template">
+    <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar center">
+            RECORDING
+        </div>
+    </div>
+    ALL THE SURVEY METRIC QUESTIONS HERE!<br>
+    {{#org.organizationmetrics_set}}
+        {{metric.name}}<br>
+        {{#metric.value_set}}
+            - {{metric.value_set.display_value}}<br>
+        {{/metric.value_set}}
+    {{/org.organizationmetrics_set}}
+
 </script>
 
 <script src="cordova.js"></script>

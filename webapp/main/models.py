@@ -88,11 +88,12 @@ class Value(TimeStampedModel):
         return super(Value, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return "%s - %s" % (self.valueset, self.display_value)
+        return "%s - %s" % (self.value_set, self.display_value)
 
 
 class Metric(TimeStampedModel):
     name = models.CharField(max_length=25)
+    system_name = models.SlugField(max_length=25, unique=True)
     desc = models.CharField(max_length=250, null=True, blank=True)
     value_set = models.ForeignKey(ValueSet)
 
@@ -100,7 +101,7 @@ class Metric(TimeStampedModel):
         db_table = 'metric'
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.valueset, self.name, self.desc)
+        return "%s - %s - %s" % (self.value_set, self.name, self.desc)
 
 
 class OrganizationMetrics(TimeStampedModel):

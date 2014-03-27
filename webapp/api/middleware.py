@@ -1,5 +1,5 @@
 import re
-
+from django.conf import settings
 from django.utils.text import compress_string
 from django.utils.cache import patch_vary_headers
 
@@ -29,6 +29,8 @@ class XsSharing(object):
             response['Access-Control-Allow-Origin']  = XS_SHARING_ALLOWED_ORIGINS
             response['Access-Control-Allow-Methods'] = ",".join( XS_SHARING_ALLOWED_METHODS )
             response['Access-Control-Allow-Headers'] = 'Authorization'
+            response['Access-Control-Expose-Headers'] = 'app_version'
+            response['app_version'] = settings.VERSION
 
             return response
 
@@ -39,8 +41,11 @@ class XsSharing(object):
         if response.has_header('Access-Control-Allow-Origin'):
             return response
 
+
         response['Access-Control-Allow-Origin']  = XS_SHARING_ALLOWED_ORIGINS
         response['Access-Control-Allow-Methods'] = ",".join( XS_SHARING_ALLOWED_METHODS )
         response['Access-Control-Allow-Headers'] = 'Authorization'
+        response['Access-Control-Expose-Headers'] = 'app_version'
+        response['app_version'] = settings.VERSION
 
         return response

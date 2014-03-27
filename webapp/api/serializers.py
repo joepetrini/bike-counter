@@ -1,13 +1,13 @@
-from django.contrib.auth.models import User, Group
+#from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from main.models import Membership, Location, Appointment, Organization
+from main.models import *
 
 
 class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ('name', 'type', 'latitude', 'longitude')
+        fields = ('name', 'type', 'latitude', 'longitude', 'organization')
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
@@ -18,12 +18,43 @@ class AppointmentSerializer(serializers.ModelSerializer):
         fields = ('id', 'location', 'scheduled_start')
 
 
+class ValueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Value
+        fields = ('stored_value', 'display_value', 'is_default', )
+
+
+class ValueSetSerializer(serializers.ModelSerializer):
+    value_set = ValueSerializer()
+
+    class Meta:
+        model = ValueSet
+        fields = ('system_name', 'value_set')
+
+
+class MetricSerializer(serializers.ModelSerializer):
+    value_set = ValueSetSerializer()
+
+    class Meta:
+        model = Metric
+        fields = ('name', 'value_set')
+
+
+class OrganizationMetricSerializer(serializers.ModelSerializer):
+    metric = MetricSerializer()
+
+    class Meta:
+        model = OrganizationMetrics
+        fields = ('organization', 'metric')
+
+
 class OrganizationSerializer(serializers.ModelSerializer):
     location_set = LocationSerializer()
+    organizationmetrics_set = OrganizationMetricSerializer()
 
     class Meta:
         model = Organization
-        fields = ('name', 'city', 'state', 'location_set')
+        fields = ('id', 'name', 'city', 'state', 'location_set', 'organizationmetrics_set')
 
 
 class MembershipSerializer(serializers.ModelSerializer):
