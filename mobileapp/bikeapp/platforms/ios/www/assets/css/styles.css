@@ -1,5 +1,7 @@
 body {margin-top:20px;}
 
+.clickable {cursor:pointer; display:block}
+
 .scroller {
     overflow: auto;
     -webkit-overflow-scrolling: touch;

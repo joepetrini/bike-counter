@@ -40,15 +40,24 @@ function route(event) {
     // Appointment view
     var match = hash.match(/^#appt\/(\d{1,})/);
     if (match) {
+
         var appt_id = Number(match[1]);
         appt = getAppointment(appt_id);
         //map.setCenter(appt.location.latitude, appt.location.longitude);
         var template = $('#tpl-appt').html();
         page = Mustache.to_html(template, appt);
+        console.log('in appt view!');
+        var _this = this;
+        setTimeout(function() {
+            console.log('lat:' + appt.location.latitude);
+            map = initializeMap(appt.location.latitude, appt.location.longitude);
+        }, 0);
+        /*
         window.addEventListener('load', function () {
             console.log('lat:' + appt.location.latitude);
-            var map = initializeMap(appt.location.latitude, appt.location.longitude);
+            map = initializeMap(appt.location.latitude, appt.location.longitude);
         });
+        */
     }
     // Login
     if (hash == '') {

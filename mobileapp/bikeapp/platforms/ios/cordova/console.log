@@ -101,3 +101,30 @@ Terminating in response to SpringBoard's termination.
 2014-03-26 17:42:14.401 Bikecount[56907:70b] appts: [object Object]
 2014-03-26 17:42:28.154 Bikecount[56907:4003] void SendDelegateMessage(NSInvocation *): delegate (webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:) failed to return after waiting 10 seconds. main run loop mode: kCFRunLoopDefaultMode
 Terminating in response to SpringBoard's termination.
+2014-03-27 11:01:07.822 Bikecount[60636:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 11:01:07.876 Bikecount[60636:70b] Unlimited access to network resources
+2014-03-27 11:01:08.417 Bikecount[60636:70b] Resetting plugins due to page load.
+2014-03-27 11:01:09.065 Bikecount[60636:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 11:01:21.212 Bikecount[60636:70b] appts: [object Object]
+2014-03-27 11:01:26.824 Bikecount[60636:70b] appts: [object Object]
+Terminating in response to SpringBoard's termination.
+2014-03-27 11:04:02.387 Bikecount[60854:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 11:04:02.397 Bikecount[60854:70b] Unlimited access to network resources
+2014-03-27 11:04:02.758 Bikecount[60854:70b] Resetting plugins due to page load.
+2014-03-27 11:04:03.358 Bikecount[60854:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 11:06:51.482 Bikecount[61070:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 11:06:51.491 Bikecount[61070:70b] Unlimited access to network resources
+2014-03-27 11:06:51.687 Bikecount[61070:70b] Resetting plugins due to page load.
+2014-03-27 11:06:52.337 Bikecount[61070:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 11:06:59.388 Bikecount[61070:70b] appts: [object Object]
+2014-03-27 11:07:32.831 Bikecount[61070:70b] appts: [object Object]
+2014-03-27 11:07:35.291 Bikecount[61070:70b] appts: [object Object]
+2014-03-27 11:07:40.073 Bikecount[61070:70b] appts: [object Object]
+2014-03-27 12:19:02.308 Bikecount[61440:70b] Multi-tasking -> Device: YES, App: YES
+2014-03-27 12:19:02.353 Bikecount[61440:70b] Unlimited access to network resources
+2014-03-27 12:19:03.034 Bikecount[61440:70b] Resetting plugins due to page load.
+2014-03-27 12:19:04.107 Bikecount[61440:70b] Finished load of: file:///Users/joepetrini/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/39869017-6C4F-437F-A883-B39C19EA0DA0/Bikecount.app/www/index.html
+2014-03-27 12:19:29.535 Bikecount[61440:70b] appts: [object Object]
+2014-03-27 12:19:30.810 Bikecount[61440:70b] in appt view!
+2014-03-27 12:19:30.836 Bikecount[61440:70b] lat:39.937
+2014-03-27 12:19:37.744 Bikecount[61440:70b] appts: [object Object]

@@ -6,8 +6,7 @@
     <link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
     <link href="assets/css/styles.css" rel="stylesheet">
     <link href="assets/css/pageslider.css" rel="stylesheet">
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-10uEGmMwRYjD5URGMl1VDsQlaSWP3k4
-&sensor=true"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 </head>
 <body>
 <div id="container">
@@ -28,7 +27,11 @@
 
 <script id="tpl-home" type="text/template">
     <div>
-
+        <div class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item center full">
+                <h1 class="topcoat-navigation-bar__title">Home</h1>
+            </div>
+        </div>
         <div class="topcoat-list">
         {{#appointment_set.length}}
             <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
@@ -50,7 +53,11 @@
 <script id="tpl-appt" type="text/template">
 <div>
         <div class="topcoat-navigation-bar">
-            <div class="topcoat-navigation-bar__item center full">
+            <div class="topcoat-navigation-bar__item left quarter">
+                <button class="topcoat-button" onclick="window.location.replace('#home')">&laquo;Home</button>
+            </div>
+            <div class="topcoat-navigation-bar__item center half">
+
                 <h1 class="topcoat-navigation-bar__title">{{location.name}}</h1>
             </div>
         </div>
@@ -59,13 +66,15 @@
             Location type: {{type}}<br>
             <button class="topcoat-button">Start Recording</button>
 
-            <div style="width:100%;height:300px;" id="map"></div>
+            <div style="width:100%;height:300px">
+                <div style="width:100%;height:100%;" id="map"></div>
+            </div>
         </div>
     </div>
 </script>
 
 <script src="cordova.js"></script>
-<script src="jsliblib/jquery.js"></script>
+<script src="jslib/jquery.js"></script>
 <script src="jslib/jquery.storage.js"></script>
 <script src="jslib/fastclick.js"></script>
 <script src="jslib/pageslider.js"></script>
