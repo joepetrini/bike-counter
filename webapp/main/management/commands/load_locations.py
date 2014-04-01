@@ -17,7 +17,7 @@ class Command(BaseCommand):
         sht = gc.open_by_key(key).get_worksheet(0)
         values = sht.get_all_values()
         for v in values[1:]:
-            [name, type, lat, long] = v
+            [name, type, lat, long] = v[:4]
             loc, c = Location.objects.get_or_create(organization=org, name=name)
             loc.type = type
             loc.lat = lat
