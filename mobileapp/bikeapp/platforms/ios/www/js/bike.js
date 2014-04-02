@@ -83,10 +83,8 @@ function route(event) {
     // Record survey view
     var match = hash.match(/^#record\/(\d{1,})/);
     if (match) {
-        // TODO: Get all org metric data to build the survey page
         var appt_id = Number(match[1]);
-        var org = getOrg(getAppointment(appt_id).organization);
-        console.log('org: ' + org.organizationmetrics_set.length);
+        var org = getOrg(getAppointment(appt_id).location.organization);
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org});
     }

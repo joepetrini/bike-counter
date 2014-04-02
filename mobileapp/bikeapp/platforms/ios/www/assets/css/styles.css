@@ -2,6 +2,16 @@ body {margin-top:20px;}
 
 .clickable {cursor:pointer; display:block}
 
+
+/* Recording page styles */
+div.box {width:49%;float:left; padding:10px 0 10px 0; text-align:center; font-size:28px;
+    border:1px solid #ddd; background-color: #fff; margin:0px;}
+div.box4 {width:25%;}
+div.heading {text-align:center; background-color: #efefef;}
+div.metric {border-bottom: 1px solid #ddd;}
+/* End Recording styles */
+
+
 .scroller {
     overflow: auto;
     -webkit-overflow-scrolling: touch;

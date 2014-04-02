@@ -146,6 +146,8 @@ class Survey(TimeStampedModel):
     is_bicycle = models.BooleanField(default=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    time_to_take = models.IntegerField(blank=True, null=True)
+    guid = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         db_table = 'survey'

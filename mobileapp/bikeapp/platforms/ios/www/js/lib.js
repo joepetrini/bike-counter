@@ -63,6 +63,17 @@ function login() {
     });
 }
 
+function saveSurvey(){
+    // Generate unique id for survey
+
+    // Added it to the unposted array
+
+}
+
+function postSurveys(){
+
+}
+
 
 function getOrg(id){
     var d = _gd('data');

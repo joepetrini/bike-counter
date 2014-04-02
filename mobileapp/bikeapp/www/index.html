@@ -74,17 +74,18 @@
 </script>
 
 <script id="tpl-record" type="text/template">
-    <div class="topcoat-navigation-bar">
-        <div class="topcoat-navigation-bar center">
-            RECORDING
-        </div>
+    <div class="topcoat-navigation-bar center">
+        RECORDING
     </div>
-    ALL THE SURVEY METRIC QUESTIONS HERE!<br>
     {{#org.organizationmetrics_set}}
-        {{metric.name}}<br>
-        {{#metric.value_set}}
-            - {{metric.value_set.display_value}}<br>
-        {{/metric.value_set}}
+        <div class="heading">{{metric.name}}</div>
+        <div class="metric">
+        {{#metric.value_set.value_set}}
+            <div onclick="boxClick(this)" id="{{metric.system_name}}_{{stored_value}}" data-type="{{metric.system_name}}" class="box {{metric.system_name}}">
+                {{display_value}}
+            </div>
+        {{/metric.value_set.value_set}}
+        </div>
     {{/org.organizationmetrics_set}}
 
 </script>

@@ -37,7 +37,7 @@ class MetricSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Metric
-        fields = ('name', 'value_set')
+        fields = ('name', 'value_set', 'system_name')
 
 
 class OrganizationMetricSerializer(serializers.ModelSerializer):
