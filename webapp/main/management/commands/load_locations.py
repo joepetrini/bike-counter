@@ -3,6 +3,12 @@ import gspread
 from main.models import Location, Organization
 
 
+def to_bool(v):
+    if str(v).lower() == 'y':
+        return True
+    return False
+
+
 class Command(BaseCommand):
     args = 'Usage: load_locations <google_user> <google_pass>'
     help = 'Load locations from google spreadsheet'
@@ -17,9 +23,14 @@ class Command(BaseCommand):
         sht = gc.open_by_key(key).get_worksheet(0)
         values = sht.get_all_values()
         for v in values[1:]:
-            [name, type, lat, long] = v[:4]
+            [name, type, lat, long, ped, w, e, n, s] = v[:9]
+            print "%s %s %s %s" % (name, type, lat, long)
             loc, c = Location.objects.get_or_create(organization=org, name=name)
             loc.type = type
-            loc.lat = lat
-            loc.long = long
+            loc.latitude = lat
+            loc.longitude = long
+            loc.has_east = to_bool(e)
+            loc.has_west = to_bool(w)
+            loc.has_north = to_bool(n)
+            loc.has_south = to_bool(s)
             loc.save()

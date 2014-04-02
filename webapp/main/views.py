@@ -16,6 +16,8 @@ class OrgListView(ListView):
             org = Organization.objects.all()[0]
             mem = Membership.objects.get_or_create(user=self.request.user, organization=org)
             return HttpResponseRedirect(reverse('org_home', args=[org.slug]))
+        else:
+            pass
 
     #def get_queryset(self):
     #    pass
