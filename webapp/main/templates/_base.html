@@ -36,8 +36,9 @@
 </head>
 <body>
 {% if request.path == '/' %}
+
 {% else %}
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and request.path != '/login' %}
     {% include '_menu.html' %}
   {% endif %}
 {% endif %}

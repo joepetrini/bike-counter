@@ -81,7 +81,7 @@
         <div class="heading">{{metric.name}}</div>
         <div class="metric">
         {{#metric.value_set.value_set}}
-            <div id="{{metric.system_name}}_{{stored_value}}" data-type="{{metric.system_name}}" class="box {{metric.system_name}}">
+            <div onclick="boxClick(this)" id="{{metric.system_name}}_{{stored_value}}" data-type="{{metric.system_name}}" class="box {{metric.system_name}}">
                 {{display_value}}
             </div>
         {{/metric.value_set.value_set}}

@@ -3,6 +3,8 @@ body {
     margin-top: 60px;*/
 }
 
+span.label a {color:#fff; text-decoration: none;}
+
 .reg-form {
     background: #fff;
     padding: 30px;

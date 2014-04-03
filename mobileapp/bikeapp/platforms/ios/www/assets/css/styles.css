@@ -2,7 +2,6 @@ body {margin-top:20px;}
 
 .clickable {cursor:pointer; display:block}
 
-
 /* Recording page styles */
 div.box {width:49%;float:left; padding:10px 0 10px 0; text-align:center; font-size:28px;
     border:1px solid #ddd; background-color: #fff; margin:0px;}

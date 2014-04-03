@@ -1,8 +1,10 @@
 {% extends '_base.html' %}
+{% load admin_urls %}
 {% block title %}Manage Schedule{% endblock %}
 {% block content %}
 
 <h3>Manage Schedule</h3>
+
 <table class="table table-striped">
   <tr><td>Location</td><td>Time</td><td>Assigned To</td></tr>
 {% for loc in object_list %}
@@ -13,12 +15,10 @@
       <td>{{app.scheduled_start}}</td>
       <td>
         {% if app.user %}
-          {{ app.user.first_name }} {{ app.user.last_name }}
+          {{ app.user.email }}
         {% else %}
-          <span class="label label-warning">Unassigned</span>
+          <span class="label label-warning"><a target="new" href="{%url 'admin:main_appointment_change' app.pk %}">Unassigned</a></span>
         {% endif %}
-        {% empty %}
-          Nothing scheduled
       </td>
     </tr>
   {% endfor %}

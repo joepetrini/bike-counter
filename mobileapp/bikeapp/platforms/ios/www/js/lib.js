@@ -63,11 +63,72 @@ function login() {
     });
 }
 
+
+function guid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16)+"000000000").substr(2,8);
+        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : p ;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
+
+function boxClick(d){
+    // Clear any selected value
+    var metric = $(d).data('type');
+    $('.'+metric).css('background-color','#FFF');
+
+    // Select this one
+    $(d).css('background-color','#ddf');
+
+    // Update survey value
+    survey[metric] = String(d.id).replace(metric+'_','');
+
+    // Check if done
+    tryComplete();
+}
+
+function tryComplete(){
+    var complete = true;
+    // If any metric is not filled out break
+    for (i=0; i < Object.keys(survey).length; i++){
+        if (survey[Object.keys(survey)[i]] == null){
+            complete = false;
+            break;
+        }
+    }
+
+    if (complete == true){
+        saveSurvey();
+        window.scrollTo(0, 0);
+        // TODO: Reload survey
+
+    }
+}
+
+
 function saveSurvey(){
+    var data = [];
+
+    // Stop the timer
+    var time_taken = new Date().getTime() - start;
+
     // Generate unique id for survey
+    data['guid'] = guid();
+
+    // Build the data to save
+    var data = [];
+    for (i=0; i < Object.keys(survey).length; i++){
+        data[Object.keys(survey)[i]] = survey[Object.keys(survey)[i]];
+    }
+    data['time_taken'] = time_taken;
 
     // Added it to the unposted array
-
+    s = _gd('surveys_to_save');
+    if (s == null){
+        s = [];
+    }
+    s.push(data);
+    _sd('surveys_to_save', s);
 }
 
 function postSurveys(){

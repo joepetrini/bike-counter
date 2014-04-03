@@ -1,4 +1,8 @@
 var map;
+var survey = [];
+var start = new Date().getTime();
+
+
 var config = {
     //apiUrl:'http://bikecounter.traklis.com/api/',
     apiUrl:'http://localhost:8001/api/',
@@ -85,6 +89,13 @@ function route(event) {
     if (match) {
         var appt_id = Number(match[1]);
         var org = getOrg(getAppointment(appt_id).location.organization);
+        // Blank out survey vals
+        for (i=0; i<org.organizationmetrics_set.length; i++){
+            survey[org.organizationmetrics_set[i].metric.system_name] = null;
+        }
+        // Start timer
+        start = new Date().getTime();
+
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org});
     }
