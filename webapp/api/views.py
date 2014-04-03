@@ -49,6 +49,10 @@ class ApptViewSet(viewsets.ModelViewSet):
         appt.end()
         return Response(None, status=status.HTTP_200_OK)
 
+    @action(methods=['POST'])
+    def survey(self, request, pk=None):
+        return Response(None, status=status.HTTP_200_OK)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
