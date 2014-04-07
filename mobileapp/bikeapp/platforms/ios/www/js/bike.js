@@ -98,6 +98,9 @@ function route(event) {
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org});
+
+        // Run the post survey every 10 seconds
+        setInterval(postSurveys, 3000);
     }
     // Login
     if (hash == '') {

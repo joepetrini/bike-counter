@@ -122,7 +122,7 @@ class OrganizationMetrics(TimeStampedModel):
 class Appointment(TimeStampedModel):
     organization = models.ForeignKey(Organization)
     location = models.ForeignKey(Location)
-    user = models.ForeignKey(User, null=True, blank=True)
+    user = models.ForeignKey(User, null=True, blank=True, help_text='Leave blank for unassigned')
     scheduled_start = models.DateTimeField()
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)

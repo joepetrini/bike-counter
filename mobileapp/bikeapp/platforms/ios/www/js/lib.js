@@ -101,38 +101,73 @@ function tryComplete(){
         saveSurvey();
         window.scrollTo(0, 0);
         // TODO: Reload survey
-
+        for (i=0; i < Object.keys(survey).length; i++){
+            survey[Object.keys(survey)[i]] = null;
+        }
+        $('.box').css('background-color', '#FFF');
+        console.log('saved');
     }
 }
 
+function clearSurveys(){
+    _sd('surveys_to_save', null);
+}
 
 function saveSurvey(){
-    var data = [];
+    var d = {};
 
-    // Stop the timer
+    // Get the time taken
     var time_taken = new Date().getTime() - start;
 
     // Generate unique id for survey
-    data['guid'] = guid();
+    d['guid'] = guid();
 
     // Build the data to save
-    var data = [];
     for (i=0; i < Object.keys(survey).length; i++){
-        data[Object.keys(survey)[i]] = survey[Object.keys(survey)[i]];
+        d[Object.keys(survey)[i]] = survey[Object.keys(survey)[i]];
     }
-    data['time_taken'] = time_taken;
+    d['time_taken'] = time_taken;
+    d['timestamp'] = new Date().getTime();
 
     // Added it to the unposted array
     s = _gd('surveys_to_save');
     if (s == null){
         s = [];
     }
-    s.push(data);
+    s.push(d);
     _sd('surveys_to_save', s);
+
+    // Restart the timer
+    start = new Date().getTime();
 }
 
 function postSurveys(){
+    // Check for unposted surveys
+    surveys = _gd('surveys_to_save');
+    if (surveys == null) {return;}
 
+    // Grab a survey and post it
+    var s = surveys[0];
+    //console.log(s);
+
+    $.ajax({
+        type: "POST",
+        url: config['apiUrl'] + 'auth',
+        crossDomain: true,
+        data: {username:username, password:password},
+        success: function (data){
+            if (data.token){
+                _s('token', data.token);
+                window.location.replace('#home');
+            }
+            else {
+                $('#err-login').html(data.message).show();
+            }
+        },
+        error: function (data){
+            $('#login_error').html('Invalid login').show();
+        }
+    });
 }
 
 

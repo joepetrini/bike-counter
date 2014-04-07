@@ -12,7 +12,7 @@ class OrgListView(ListView):
 
     def render_to_response(self, context, **response_kwargs):
         # If there's only 1 org in the system, auto assign and move on
-        if Organization.objects.all().count() == 1:
+        if Organization.objects.all().count() > 0:  # == 1:
             org = Organization.objects.all()[0]
             mem = Membership.objects.get_or_create(user=self.request.user, organization=org)
             return HttpResponseRedirect(reverse('org_home', args=[org.slug]))
