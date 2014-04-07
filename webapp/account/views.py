@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
 #from django.core.urlresolvers import reverse
-from django.contrib.auth import login as auth_login, logout
+from django.contrib.auth import login as auth_login, logout, authenticate
 #from django.views.generic import ListView, DetailView
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic.edit import FormView, View, CreateView
@@ -24,8 +24,13 @@ class LoginView(FormView):
 class RegisterView(CreateView):
     form_class = UserForm
     template_name = 'register.html'
-    success_url = '/orgs'
+    success_url = settings.LOGIN_REDIRECT_URL  #'/orgs'
 
+    def form_valid(self, form):
+        resp = super(RegisterView, self).form_valid(form)
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+        auth_login(self.request, user)
+        return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
 
 class LogoutView(View):
     def get(self, request, *args, **kwargs):

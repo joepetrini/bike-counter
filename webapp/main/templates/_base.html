@@ -38,7 +38,7 @@
 {% if request.path == '/' %}
 
 {% else %}
-  {% if user.is_authenticated and request.path != '/login' %}
+  {% if user.is_authenticated and request.path != '/login' and request.path != '/register' %}
     {% include '_menu.html' %}
   {% endif %}
 {% endif %}

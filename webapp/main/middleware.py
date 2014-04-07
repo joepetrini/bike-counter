@@ -12,7 +12,7 @@ class RequireMembershipMiddleware(object):
         except KeyError:
             try:
                 m = Membership.objects.filter(user=request.user)[0]
-            except Membership.DoesNotExist:
+            except IndexError:
                 m = None
         request.member = m
 
