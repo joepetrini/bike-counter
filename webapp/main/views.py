@@ -43,3 +43,8 @@ class OrgScheduleView(ListView):
 
     #def get_queryset(self):
     #    pass
+
+
+class ReportHomeView(ListView):
+    model = Appointment
+    template_name = 'report_home.html'

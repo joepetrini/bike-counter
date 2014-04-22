@@ -158,9 +158,9 @@ function postSurveys(){
     if (surveys == null || surveys.length == 0) {return;}
 
     // Grab a survey and post it
-    var survey = surveys[0];
+    var survey = surveys.pop();
     _l(survey);
-    //_sd('surveys_to_save', surveys);
+    _sd('surveys_to_save', surveys);
 
     var params = {'type': 'POST'};
     params['url'] = 'session/' + _g('cur_appt') + '/survey/';

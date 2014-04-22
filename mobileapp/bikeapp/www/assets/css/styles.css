@@ -3,7 +3,7 @@ body {margin-top:20px;}
 .clickable {cursor:pointer; display:block}
 
 /* Recording page styles */
-div.box {width:49%;float:left; padding:10px 0 10px 0; text-align:center; font-size:28px;
+div.box {width:49%;float:left; padding:8px 0 8px 0; text-align:center; font-size:24px;
     border:1px solid #ddd; background-color: #fff; margin:0px;}
 div.box4 {width:25%;}
 div.heading {text-align:center; background-color: #efefef;}
