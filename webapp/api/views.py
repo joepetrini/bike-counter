@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework import authentication
-from main.models import Organization, Location, Appointment
+from main.models import Organization, Location, Appointment, Survey, SurveyValue, Metric, Value
 
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -51,6 +51,19 @@ class ApptViewSet(viewsets.ModelViewSet):
 
     @action(methods=['POST'])
     def survey(self, request, pk=None):
+        appt = self.get_object()
+        # Create a new survey
+        survey = Survey(appointment=appt)
+        print survey
+        survey.save()
+        for k, v in request.DATA.items():
+            try:
+                metric = Metric.objects.get(system_name=k)
+                value = Value.objects.get(value_set=metric.value_set, stored_value=v)
+                sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
+            except Metric.DoesNotExist:
+                continue
+            print "%s %s" % (k, v)
         return Response(None, status=status.HTTP_200_OK)
 
 

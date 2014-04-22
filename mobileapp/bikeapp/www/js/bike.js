@@ -88,6 +88,7 @@ function route(event) {
     var match = hash.match(/^#record\/(\d{1,})/);
     if (match) {
         var appt_id = Number(match[1]);
+        _s('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
         // Blank out survey vals
         for (i=0; i<org.organizationmetrics_set.length; i++){

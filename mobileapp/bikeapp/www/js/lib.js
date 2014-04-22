@@ -1,3 +1,10 @@
+// Console log helper
+function _l(msg){
+    if (typeof console == "object") {
+        console.log(msg);
+    }
+}
+
 // Set value helper
 function _s(key, v){
     window.localStorage.setItem(key, v);
@@ -90,12 +97,14 @@ function boxClick(d){
 function tryComplete(){
     var complete = true;
     // If any metric is not filled out break
+    _l(Object.keys(survey).length);
     for (i=0; i < Object.keys(survey).length; i++){
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
             break;
         }
     }
+    _l('tryComplete: ' + complete);
 
     if (complete == true){
         saveSurvey();
@@ -105,7 +114,7 @@ function tryComplete(){
             survey[Object.keys(survey)[i]] = null;
         }
         $('.box').css('background-color', '#FFF');
-        console.log('saved');
+        _l('saved');
     }
 }
 
@@ -114,27 +123,29 @@ function clearSurveys(){
 }
 
 function saveSurvey(){
-    var d = {};
+    var data = {};
 
     // Get the time taken
     var time_taken = new Date().getTime() - start;
 
     // Generate unique id for survey
-    d['guid'] = guid();
+    data['guid'] = guid();
 
     // Build the data to save
     for (i=0; i < Object.keys(survey).length; i++){
-        d[Object.keys(survey)[i]] = survey[Object.keys(survey)[i]];
+        data[Object.keys(survey)[i]] = survey[Object.keys(survey)[i]];
     }
-    d['time_taken'] = time_taken;
-    d['timestamp'] = new Date().getTime();
+
+    // Add time related info
+    data['time_taken'] = time_taken;
+    data['timestamp'] = new Date().getTime();
 
     // Added it to the unposted array
     s = _gd('surveys_to_save');
     if (s == null){
         s = [];
     }
-    s.push(d);
+    s.push(data);
     _sd('surveys_to_save', s);
 
     // Restart the timer
@@ -144,30 +155,20 @@ function saveSurvey(){
 function postSurveys(){
     // Check for unposted surveys
     surveys = _gd('surveys_to_save');
-    if (surveys == null) {return;}
+    if (surveys == null || surveys.length == 0) {return;}
 
     // Grab a survey and post it
-    var s = surveys[0];
-    //console.log(s);
+    var survey = surveys[0];
+    _l(survey);
+    //_sd('surveys_to_save', surveys);
 
-    $.ajax({
-        type: "POST",
-        url: config['apiUrl'] + 'auth',
-        crossDomain: true,
-        data: {username:username, password:password},
-        success: function (data){
-            if (data.token){
-                _s('token', data.token);
-                window.location.replace('#home');
-            }
-            else {
-                $('#err-login').html(data.message).show();
-            }
-        },
-        error: function (data){
-            $('#login_error').html('Invalid login').show();
-        }
-    });
+    var params = {'type': 'POST'};
+    params['url'] = 'session/' + _g('cur_appt') + '/survey/';
+    params['data'] = survey;
+    _req(params);
+
+    // Move to posted
+
 }
 
 
