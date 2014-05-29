@@ -56,15 +56,18 @@
             <div class="topcoat-navigation-bar__item left quarter">
                 <button class="topcoat-button" onclick="window.location.replace('#home')">&laquo;Home</button>
             </div>
-            <div class="topcoat-navigation-bar__item center half">
-
-                <h1 class="topcoat-navigation-bar__title">{{location.name}}</h1>
-            </div>
         </div>
         <div style="margin:10px auto;text-align:center">
-            Start time: {{scheduled_start}}<br>
-            Location type: {{type}}<br>
-            <button onclick="startSession({{id}})" class="topcoat-button">Start Recording</button>
+            <h3 class="topcoat-list__header">{{location.name}}</h3>
+            <table>
+                <tr>
+                    <td style="text-align:left">
+                        Start time: {{scheduled_start}}<br>
+                        Location type: {{location.type}}<br>
+                    </td>
+                    <td><button onclick="startSession({{id}})" class="topcoat-button">Start Recording</button></td>
+                </tr>
+            </table>
 
             <div style="width:100%;height:300px">
                 <div style="width:100%;height:100%;" id="map"></div>

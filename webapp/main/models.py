@@ -48,7 +48,8 @@ class Location(TimeStampedModel):
     name = models.CharField(max_length=80)
     description = models.CharField(max_length=250, null=True, blank=True)
     type = models.CharField(choices=TYPES, default=TYPES.intersection, max_length=20)
-
+    enabled = models.BooleanField(default=True)
+    
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     has_east = models.BooleanField(default=True)
