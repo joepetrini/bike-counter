@@ -90,18 +90,22 @@ function route(event) {
         var appt_id = Number(match[1]);
         _s('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
+
         // Blank out survey vals
         for (i=0; i<org.organizationmetrics_set.length; i++){
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+
         // Start timer
         start = new Date().getTime();
+        _s('start_time', start);
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org});
 
         // Run the post survey every 10 seconds
         setInterval(postSurveys, 3000);
+        setInterval(updateTime, 1000);
     }
     // Login
     if (hash == '') {

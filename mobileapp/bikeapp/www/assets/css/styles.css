@@ -1,4 +1,4 @@
-body {margin-top:20px;}
+body {margin-top:0px;}
 
 .clickable {cursor:pointer; display:block}
 
@@ -25,6 +25,8 @@ div.metric {border-bottom: 1px solid #ddd;}
     position: absolute;
     top: 10px;
 }
+
+.topcoat-navigation-bar__item {padding-top:10px;}
 
 .topcoat-icon--back {
     background: url("../topcoat/img/back_light.svg") no-repeat;

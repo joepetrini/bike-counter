@@ -40,6 +40,7 @@ class ApptViewSet(viewsets.ModelViewSet):
     @action(methods=['POST'])
     def start(self, request, pk=None):
         appt = self.get_object()
+        # TODO: check that appointment is not complete
         appt.start()
         return Response(None, status=status.HTTP_200_OK)
 
@@ -52,6 +53,7 @@ class ApptViewSet(viewsets.ModelViewSet):
     @action(methods=['POST'])
     def survey(self, request, pk=None):
         appt = self.get_object()
+        # TODO: check that appointment is not complete
         # Create a new survey
         survey = Survey(appointment=appt)
         print survey

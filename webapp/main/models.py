@@ -12,6 +12,7 @@ class Organization(TimeStampedModel):
     state = models.CharField(max_length=25, null=True, blank=True)
     slug = models.SlugField(max_length=15, unique=True)
     member_count = models.IntegerField(null=True, blank=True)
+    session_length = models.IntegerField(default=90)
 
     class Meta:
         db_table = 'organization'
@@ -49,7 +50,7 @@ class Location(TimeStampedModel):
     description = models.CharField(max_length=250, null=True, blank=True)
     type = models.CharField(choices=TYPES, default=TYPES.intersection, max_length=20)
     enabled = models.BooleanField(default=True)
-    
+
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     has_east = models.BooleanField(default=True)

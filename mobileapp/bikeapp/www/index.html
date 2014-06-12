@@ -59,6 +59,7 @@
         </div>
         <div style="margin:10px auto;text-align:center">
             <h3 class="topcoat-list__header">{{location.name}}</h3>
+            <!--
             <table>
                 <tr>
                     <td style="text-align:left">
@@ -68,7 +69,10 @@
                     <td><button onclick="startSession({{id}})" class="topcoat-button">Start Recording</button></td>
                 </tr>
             </table>
-
+            -->
+            <div style="margin:0 auto">
+                <button onclick="startSession({{id}})" class="topcoat-button">Start Recording</button>
+            </div>
             <div style="width:100%;height:300px">
                 <div style="width:100%;height:100%;" id="map"></div>
             </div>
@@ -78,7 +82,7 @@
 
 <script id="tpl-record" type="text/template">
     <div class="topcoat-navigation-bar center">
-        RECORDING
+        Now Recording: <div id="timer"></div>
     </div>
     {{#org.organizationmetrics_set}}
         <div class="heading">{{metric.name}}</div>
@@ -92,6 +96,22 @@
     {{/org.organizationmetrics_set}}
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </script>
+
+
+<script id="tpl-done" type="text/template">
+<div>
+    <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <button class="topcoat-button" onclick="window.location.replace('#home')">&laquo;Home</button>
+        </div>
+    </div>
+    <div style="margin:10px auto;text-align:center">
+        <h3 class="topcoat-list__header">Finished!  Thank You</h3>
+        Show some metrics!
+    </div>
+</div>
+</script>
+
 
 <script src="cordova.js"></script>
 <script src="jslib/jquery.js"></script>

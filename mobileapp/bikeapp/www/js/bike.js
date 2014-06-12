@@ -7,8 +7,11 @@ var config = {
     //apiUrl:'http://bikecounter.traklis.com/api/',
     apiUrl:'http://localhost:8001/api/',
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.0' // This should match the webapp version
+    version: '0.1.0', // This should match the webapp version
+    session_len: 1 // Number of minutes for a recording session
 }
+var timerInterval = null;
+var surveyInterval = null;
 
 var slider = new PageSlider($("#container"));
 $(window).on('hashchange', route);
@@ -41,6 +44,17 @@ function route(event) {
         console.log('appts: ' + appts);
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template, appts);
+    }
+    // Finished view
+    var match = hash.match(/^#done\/(\d{1,})/);
+    if (match) {
+        // Get the appointment data
+        var appt_id = Number(match[1]);
+        appt = getAppointment(appt_id);
+
+        // Build the template
+        var template = $('#tpl-done').html();
+        page = Mustache.to_html(template, appt);
     }
     // Appointment view
     var match = hash.match(/^#appt\/(\d{1,})/);
@@ -90,18 +104,22 @@ function route(event) {
         var appt_id = Number(match[1]);
         _s('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
+
         // Blank out survey vals
         for (i=0; i<org.organizationmetrics_set.length; i++){
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+
         // Start timer
         start = new Date().getTime();
+        _s('start_time', start);
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org});
 
         // Run the post survey every 10 seconds
-        setInterval(postSurveys, 3000);
+        surveyInterval = setInterval(postSurveys, 3000);
+        timerInterval = setInterval(updateTime, 1000);
     }
     // Login
     if (hash == '') {

@@ -122,6 +122,20 @@ function clearSurveys(){
     _sd('surveys_to_save', null);
 }
 
+function updateTime(){
+    start = _g('start_time');
+    var now = new Date().getTime();
+    var diff = 5399999 - (now - start);
+    var minutes = Math.floor(diff / 60000);
+    var seconds = String(Math.round(diff / 1000));
+
+    seconds = seconds % 60;
+
+
+    $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
+
+}
+
 function saveSurvey(){
     var data = {};
 

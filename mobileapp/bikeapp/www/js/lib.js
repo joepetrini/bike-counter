@@ -122,6 +122,28 @@ function clearSurveys(){
     _sd('surveys_to_save', null);
 }
 
+function updateTime(){
+    start = _g('start_time');
+    var now = new Date().getTime();
+    var diff = (config['session_len'] * 6000 - 1) - (now - start);
+    var minutes = Math.floor(diff / 60000);
+    var seconds = String(Math.round(diff / 1000));
+
+    seconds = seconds % 60;
+
+    // Check if the sesssion is done recording
+    if (diff < 0){
+        clearInterval(surveyInterval);
+        clearInterval(timerInterval);
+        var appt = _g('cur_appt');
+        endSession(appt);
+        //window.location.replace('#done/'+appt);
+    }
+    else {
+        $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
+    }
+}
+
 function saveSurvey(){
     var data = {};
 
@@ -214,6 +236,27 @@ function startSession(id){
             success: function (data){
                 // Load the recording page
                 window.location.replace('#record/'+id);
+            },
+            error: function(data){
+                return;
+            }
+        });
+    }
+}
+
+function endSession(id){
+    // API call to end session
+    if (_g('token')){
+        $.ajax
+        ({
+            type: "POST",
+            url: config['apiUrl'] + 'session/'+id+'/end',
+            async: false,
+            crossDomain: true,
+            headers: {"Authorization": 'Token ' + _g('token')},
+            success: function (data){
+                // Load the recording page
+                window.location.replace('#done/'+id);
             },
             error: function(data){
                 return;
