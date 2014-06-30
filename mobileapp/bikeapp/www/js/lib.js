@@ -118,6 +118,13 @@ function tryComplete(){
     }
 }
 
+function submitSurvey(){
+    // tryComplete first
+
+    // If ok, submit
+
+}
+
 function clearSurveys(){
     _sd('surveys_to_save', null);
 }
@@ -131,7 +138,7 @@ function updateTime(){
 
     seconds = seconds % 60;
 
-    // Check if the sesssion is done recording
+    // Check if the session is done recording
     if (diff < 0){
         clearInterval(surveyInterval);
         clearInterval(timerInterval);

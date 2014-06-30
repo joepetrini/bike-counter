@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
+    <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
     <link href="assets/css/styles.css" rel="stylesheet">
     <link href="assets/css/pageslider.css" rel="stylesheet">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
@@ -80,7 +82,85 @@
     </div>
 </script>
 
+
 <script id="tpl-record" type="text/template">
+  <div class="row">
+    <div class="col-xs-5">
+      <div class="heading">Helmet?</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          Yes
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          No
+        </div>
+      </div>
+
+      <div class="heading">Direction</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          North
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          West
+        </div>
+      </div>
+
+      <div class="heading">Sidewalk?</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          Yes
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          No
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-2">
+      Intersection of Cathy St and 13th St
+      <br>
+      Total Riders: <span id="total_riders"></span>
+      Time Remaining: <div id="timer"></div>
+      <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
+    </div>
+
+    <div class="col-xs-5">
+      <div class="heading">Gender?</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          Male
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          Female
+        </div>
+      </div>
+
+      <div class="heading">Direction</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          East
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          South
+        </div>
+      </div>
+
+      <div class="heading">Wrong Way?</div>
+      <div class="metric">
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          Yes
+        </div>
+        <div onclick="boxClick(this)" id="" data-type="" class="box ">
+          No
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<script id="tpl-record_dynamic" type="text/template">
     <div class="topcoat-navigation-bar center">
         Now Recording: <div id="timer"></div>
     </div>

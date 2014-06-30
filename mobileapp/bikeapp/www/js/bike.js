@@ -5,10 +5,10 @@ var start = new Date().getTime();
 
 var config = {
     //apiUrl:'http://bikecounter.traklis.com/api/',
-    apiUrl:'http://localhost:8001/api/',
+    apiUrl:'http://i5imac:8001/api/',
     surveyType:'default', // For configurable survey interfaces
     version: '0.1.0', // This should match the webapp version
-    session_len: 1 // Number of minutes for a recording session
+    session_len: 600 // Number of minutes for a recording session
 }
 var timerInterval = null;
 var surveyInterval = null;
