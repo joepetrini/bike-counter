@@ -8,6 +8,8 @@
     <string>${PRODUCT_NAME}</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
+    <key>CFBundleGetInfoString</key>
+    <string></string>
     <key>CFBundleIconFile</key>
     <string>icon.png</string>
     <key>CFBundleIcons</key>
@@ -56,10 +58,16 @@
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
+    <key>ExternalHosts</key>
+    <string>*</string>
+    <key>LSApplicationCategoryType</key>
+    <string></string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMainNibFile</key>
@@ -69,6 +77,8 @@
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
@@ -77,13 +87,5 @@
       <string>UIInterfaceOrientationPortraitUpsideDown</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
-    <key>LSApplicationCategoryType</key>
-    <string></string>
-    <key>CFBundleGetInfoString</key>
-    <string></string>
-    <key>CFBundleShortVersionString</key>
-    <string>0.0.1</string>
-    <key>ExternalHosts</key>
-    <string>*</string>
   </dict>
 </plist>
