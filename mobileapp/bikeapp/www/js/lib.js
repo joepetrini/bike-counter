@@ -49,7 +49,6 @@ function login() {
         $('#err-login').html('Invalid username or password').show();
         return;
     }
-
     $.ajax({
         type: "POST",
         url: config['apiUrl'] + 'auth',

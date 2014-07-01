@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>70F5317A-FE44-4A2F-AB9F-C6858B5AF2FD</string>
+	<string>70AB7FE7-F732-49A7-9A23-45DE499126DF</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Bikecount</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>AD9C255F-F66F-4901-811E-DDDAE4CF3EE4</key>
+		<key>F53832C7-606F-488C-AADE-1BA9E3EB005F</key>
 		<string>ssh://github.com/joepetrini/bike-counter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>mobileapp/bikeapp/platforms/ios/Bikecount.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AD9C255F-F66F-4901-811E-DDDAE4CF3EE4</key>
+		<key>F53832C7-606F-488C-AADE-1BA9E3EB005F</key>
 		<string>../../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>AD9C255F-F66F-4901-811E-DDDAE4CF3EE4</string>
+	<string>F53832C7-606F-488C-AADE-1BA9E3EB005F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>AD9C255F-F66F-4901-811E-DDDAE4CF3EE4</string>
+			<string>F53832C7-606F-488C-AADE-1BA9E3EB005F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>bikecounter</string>
 		</dict>

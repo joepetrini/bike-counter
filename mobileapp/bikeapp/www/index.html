@@ -3,27 +3,40 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">
+    <!--<link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">-->
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
-    <link href="assets/css/styles.css" rel="stylesheet">
-    <link href="assets/css/pageslider.css" rel="stylesheet">
+    <!--<link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $(":input:first").focus();
+        });
+    </script>
 </head>
 <body>
-<div id="container">
+<style>body {margin-top:20px;}</style>
+<div id="container" class="container">
 
 </div>
 
 <script id="tpl-login" type="text/template">
-    <div>
-    <input id="username" type="text" class="topcoat-text-input--large" value="" placeholder="username" autocapitalize="off">
-    <br>
-    <input id="password" type="password" class="topcoat-text-input--large" value="" placeholder="password">
-    <br>
-    <button id="btn-login" class="topcoat-button--large" onclick="login()">Login</button>
-    <br>
-    <span id="err-login" class="error" style="display:none"></span>
+    <div class="row">
+    <div class="col-xs-3 col-xs-offset-1">
+        <img src="assets/img/phlbikeco.png">
+    </div>
+    <div class="col-xs-8">
+        <input id="username" type="text" class="form-control" value="" placeholder="username" autocapitalize="off">
+        <br>
+        <input id="password" type="password" class="form-control" value="" placeholder="password">
+        <br>
+        <input type="button" id="btn-login" class="btn btn-default" onclick="login()" value="Submit">
+        <br><br>
+        <div id="err-login" class="alert alert-danger" style="display:none"></p>
+        </form>
+    </div>
     </div>
 </script>
 
