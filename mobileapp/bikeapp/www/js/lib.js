@@ -124,6 +124,11 @@ function submitSurvey(){
 
 }
 
+function showPage(p){
+    $('.page').hide();
+    $('#page'+p).show();
+}
+
 function clearSurveys(){
     _sd('surveys_to_save', null);
 }

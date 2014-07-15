@@ -32,7 +32,7 @@
         <br>
         <input id="password" type="password" class="form-control" value="" placeholder="password">
         <br>
-        <input type="button" id="btn-login" class="btn btn-default" onclick="login()" value="Submit">
+        <input type="button" id="btn-login" class="btn btn-default" onclick="login()" value="Log In">
         <br><br>
         <div id="err-login" class="alert alert-danger" style="display:none"></p>
         </form>
@@ -97,24 +97,27 @@
 
 
 <script id="tpl-record" type="text/template">
-  <div class="row">
+  <div class="row page" id="page1">
     <div class="col-xs-4 text-center">
         <div class="heading">Helmet</div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default">Yes</button>
-            <button type="button" class="btn btn-default">No</button>
+            <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input type="radio" name="helmet">Yes
+            </label>
+            <label class="btn btn-primary active">
+                <input type="radio" name="helmet">No
+            </label>
         </div>
-
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical">
+        <div class="btn-group-vertical" data-toggle="buttons">
             <button type="button" class="btn btn-default">North</button>
             <button type="button" class="btn btn-default">West</button>
         </div>
 
         <div class="heading">SideWalk</div>
-        <div class="btn-group">
+        <div class="btn-group" data-toggle="buttons">
             <button type="button" class="btn btn-default">Yes</button>
             <button type="button" class="btn btn-default">No</button>
         </div>
@@ -125,12 +128,18 @@
       <br>
       Total Riders: <span id="total_riders"></span>
       Time Remaining: <div id="timer"></div>
+
+      <br>
+      <input type="button" value="Page 2" onclick="showPage('2')">
+      <br>
+      <input type="button" value="Oh Shit" onclick="showPage('3')">
+      <br>
       <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
     </div>
 
     <div class="col-xs-4 text-center">
         <div class="heading">Gender</div>
-        <div class="btn-group">
+        <div class="btn-group" data-toggle="buttons">
             <button type="button" class="btn btn-default">Male</button>
             <button type="button" class="btn btn-default">Female</button>
         </div>
@@ -138,13 +147,13 @@
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical">
+        <div class="btn-group-vertical" data-toggle="buttons">
             <button type="button" class="btn btn-default">East</button>
             <button type="button" class="btn btn-default">South</button>
         </div>
 
         <div class="heading">Wrong Way</div>
-        <div class="btn-group">
+        <div class="btn-group" data-toggle="buttons">
             <button type="button" class="btn btn-default">Yes</button>
             <button type="button" class="btn btn-default">No</button>
         </div>
@@ -183,6 +192,23 @@
       </div>
       -->
     </div>
+  </div>
+  <div class="row page" id="page2">
+      <div class="col-md-10 col-md-offset-1">
+          page 2<br>
+          <input type="button" value="Page 1" onclick="showPage('1')">
+          <br>
+          <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      </div>
+  </div>
+  <div class="row page" id="page3">
+      <div class="col-md-10 col-md-offset-1">
+          Oh Shit!
+          <br>
+          <input type="button" value="Page 1" onclick="showPage('1')">
+          <br>
+          <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      </div>
   </div>
 </script>
 
