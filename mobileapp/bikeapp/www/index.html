@@ -97,65 +97,99 @@
 
 
 <script id="tpl-record" type="text/template">
+
+  <!-------------- LEFT ------------->
   <div class="row page" id="page1">
     <div class="col-xs-4 text-center">
         <div class="heading">Helmet</div>
             <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary active">
+            <label class="btn btn-primary">
                 <input type="radio" name="helmet">Yes
             </label>
-            <label class="btn btn-primary active">
+            <label class="btn btn-primary">
                 <input type="radio" name="helmet">No
             </label>
         </div>
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-default">North</button>
-            <button type="button" class="btn btn-default">West</button>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" name="direction">North
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="direction">West
+            </label>
         </div>
 
         <div class="heading">SideWalk</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Yes</button>
-            <button type="button" class="btn btn-default">No</button>
+            <label class="btn btn-primary">
+                <input type="radio" name="sidewalk">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="sidewalk">No
+            </label>
         </div>
     </div>
 
+
+    <!--------- CENTER -------->
     <div class="col-xs-4 text-center">
-      Intersection of Cathy St and 13th St
+      Cathy St and 13th St
       <br>
       Total Riders: <span id="total_riders"></span>
-      Time Remaining: <div id="timer"></div>
+      <br>
+      <div id="timer">&nbsp;</div>
 
       <br>
-      <input type="button" value="Page 2" onclick="showPage('2')">
+      <input type="button" class="btn btn-primary" value="Pause" onclick="showPage('2')">
       <br>
-      <input type="button" value="Oh Shit" onclick="showPage('3')">
+      <input style="margin-top:5px;" type="button" class="btn btn-primary" value="End Session" onclick="showPage('2')">
+
+      <!--
+      <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
       <br>
-      <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      <input type="button" class="btn btn-primary" value="Oh Shit" onclick="showPage('3')">
+      <br>
+      <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      -->
     </div>
 
+
+
+    <!----------- RIGHT ----------->
     <div class="col-xs-4 text-center">
         <div class="heading">Gender</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Male</button>
-            <button type="button" class="btn btn-default">Female</button>
+            <label class="btn btn-primary">
+                <input type="radio" name="gender">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="gender">No
+            </label>
         </div>
 
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-default">East</button>
-            <button type="button" class="btn btn-default">South</button>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" name="direction">South
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="direction">East
+            </label>
         </div>
 
         <div class="heading">Wrong Way</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Yes</button>
-            <button type="button" class="btn btn-default">No</button>
+            <label class="btn btn-primary">
+                <input type="radio" name="wrong_way">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="wrong_way">No
+            </label>
         </div>
 
         <!--
@@ -193,7 +227,7 @@
       -->
     </div>
   </div>
-  <div class="row page" id="page2">
+  <div class="row page hidden" id="page2">
       <div class="col-md-10 col-md-offset-1">
           page 2<br>
           <input type="button" value="Page 1" onclick="showPage('1')">
@@ -201,7 +235,7 @@
           <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
       </div>
   </div>
-  <div class="row page" id="page3">
+  <div class="row page hidden" id="page3">
       <div class="col-md-10 col-md-offset-1">
           Oh Shit!
           <br>
