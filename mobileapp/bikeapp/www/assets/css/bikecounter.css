@@ -1,0 +1,20 @@
+body {
+    background-color: #C9E6ED;
+}
+
+div.row {
+    background-color: #fff;
+}
+
+h1, h2, h3, h4 {
+    color: #e05a31;
+}
+
+a {
+    color: #4ea1b4;
+}
+
+.btn {
+    color: #fff;
+    background-color: #e05a31;
+}
