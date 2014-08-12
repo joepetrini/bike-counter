@@ -79,16 +79,19 @@ function guid() {
 }
 
 function boxClick(d){
+    //_l('a');
     // Clear any selected value
-    var metric = $(d).data('type');
-    $('.'+metric).css('background-color','#FFF');
+    var metric = $(d).attr('name');
+    var value = $(d).val();
+    _l('clicked value:' + metric);
+    //$('.'+metric).css('background-color','#FFF');
 
     // Select this one
-    $(d).css('background-color','#ddf');
+    //$(d).css('background-color','#ddf');
 
     // Update survey value
-    survey[metric] = String(d.id).replace(metric+'_','');
-
+    //survey[metric] = String(d.id).replace(metric+'_','');
+    survey[metric] = String(value);
     // Check if done
     tryComplete();
 }
@@ -105,6 +108,12 @@ function tryComplete(){
     }
     _l('tryComplete: ' + complete);
 
+    if (complete == true) {
+        $('#btn_save').prop('disabled', false);
+    } else {
+        $('#btn_save').prop('disabled', true);
+    }
+    /*
     if (complete == true){
         saveSurvey();
         window.scrollTo(0, 0);
@@ -115,6 +124,7 @@ function tryComplete(){
         $('.box').css('background-color', '#FFF');
         _l('saved');
     }
+    */
 }
 
 function submitSurvey(){

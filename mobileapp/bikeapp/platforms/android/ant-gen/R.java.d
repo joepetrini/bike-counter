@@ -1,4 +1,4 @@
-/Users/joepetrini/Projects/bikecounter/mobileapp/bikeapp/platforms/android/ant-gen/.com/phlbikecount/R.java \
+/Users/joepetrini/Projects/bikecounter/mobileapp/bikeapp/platforms/android/ant-gen/com/phlbikecount/R.java \
  : /Users/joepetrini/Projects/bikecounter/mobileapp/bikeapp/platforms/android/res/drawable/icon.png \
 /Users/joepetrini/Projects/bikecounter/mobileapp/bikeapp/platforms/android/res/drawable-hdpi/icon.png \
 /Users/joepetrini/Projects/bikecounter/mobileapp/bikeapp/platforms/android/res/drawable-ldpi/icon.png \

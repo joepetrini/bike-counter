@@ -17,7 +17,7 @@
        under the License.
  */
 
-package .com.phlbikecount;
+package com.phlbikecount;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

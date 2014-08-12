@@ -7,17 +7,33 @@
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
-    <!--<link href="assets/css/styles.css" rel="stylesheet">
-    <link href="assets/css/pageslider.css" rel="stylesheet">-->
+    <link href="assets/css/bikecounter.css" rel="stylesheet">
+    <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
-            $(":input:first").focus();
+            $(":input[type='text']:first").focus();
         });
     </script>
 </head>
 <body>
-<style>body {margin-top:20px;}</style>
+<style>
+    body {margin-top:20px;}
+    .rotate90 {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+    .rotate90r {
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+</style>
 <div id="container" class="container">
 
 </div>
@@ -97,67 +113,111 @@
 
 
 <script id="tpl-record" type="text/template">
+
+
   <div class="row page" id="page1">
+    <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center">
         <div class="heading">Helmet</div>
-            <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary active">
-                <input type="radio" name="helmet">Yes
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
             </label>
-            <label class="btn btn-primary active">
-                <input type="radio" name="helmet">No
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
             </label>
         </div>
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-default">North</button>
-            <button type="button" class="btn btn-default">West</button>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
+            </label>
         </div>
 
         <div class="heading">SideWalk</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Yes</button>
-            <button type="button" class="btn btn-default">No</button>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="no">No
+            </label>
+        </div>
+        <div><br>
+            <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')">
         </div>
     </div>
 
+
+    <!--------- CENTER -------->
     <div class="col-xs-4 text-center">
-      Intersection of Cathy St and 13th St
+      Cathy St and 13th St
       <br>
       Total Riders: <span id="total_riders"></span>
-      Time Remaining: <div id="timer"></div>
+      <br>
+      <div id="timer">&nbsp;</div>
 
       <br>
-      <input type="button" value="Page 2" onclick="showPage('2')">
+      <input type="button" class="btn btn-primary" value="Pause" onclick="showPage('2')">
       <br>
-      <input type="button" value="Oh Shit" onclick="showPage('3')">
+      <input style="margin-top:5px;" type="button" class="btn btn-primary" value="End Session" onclick="showPage('2')">
+
+      <!--
+      <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
       <br>
-      <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      <input type="button" class="btn btn-primary" value="Oh Shit" onclick="showPage('3')">
+      <br>
+      <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
+      -->
     </div>
 
+
+
+    <!----------- RIGHT ----------->
     <div class="col-xs-4 text-center">
         <div class="heading">Gender</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Male</button>
-            <button type="button" class="btn btn-default">Female</button>
+            <label class="btn btn-primary">
+                <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" value="m">M
+            </label>
+            <label class="btn btn-primary">
+                <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
+            </label>
         </div>
 
         <div class="clearfix"></div>
 
         <div class="heading">Direction</div>
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-default">East</button>
-            <button type="button" class="btn btn-default">South</button>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="south">South
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="east">East
+            </label>
         </div>
 
         <div class="heading">Wrong Way</div>
         <div class="btn-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default">Yes</button>
-            <button type="button" class="btn btn-default">No</button>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="no">No
+            </label>
         </div>
+        <div><br>
+            <input id="btn_save" type="button" class="btn btn-primary" value="Submit" disabled onclick="saveSurvey()">
+        </div>
+    </div>
 
+
+  </div>
         <!--
       <div class="heading">Gender?</div>
       <div class="metric">
@@ -191,9 +251,7 @@
         </div>
       </div>
       -->
-    </div>
-  </div>
-  <div class="row page" id="page2">
+  <div class="row page hidden" id="page2">
       <div class="col-md-10 col-md-offset-1">
           page 2<br>
           <input type="button" value="Page 1" onclick="showPage('1')">
@@ -201,7 +259,7 @@
           <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
       </div>
   </div>
-  <div class="row page" id="page3">
+  <div class="row page hidden" id="page3">
       <div class="col-md-10 col-md-offset-1">
           Oh Shit!
           <br>

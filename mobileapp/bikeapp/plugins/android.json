@@ -4,17 +4,38 @@
         "uninstalled": []
     },
     "config_munge": {
-        "res/xml/config.xml": {
-            "/*": {
-                "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>": 1,
-                "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>": 1,
-                "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.GeoBroker\" /></feature>": 1
-            }
-        },
-        "AndroidManifest.xml": {
-            "/*": {
-                "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />": 1,
-                "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />": 1
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.GeoBroker\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        }
+                    ]
+                }
             }
         }
     },

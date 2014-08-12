@@ -7,8 +7,8 @@
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
-    <!--<link href="assets/css/styles.css" rel="stylesheet">
-    <link href="assets/css/pageslider.css" rel="stylesheet">-->
+    <link href="assets/css/bikecounter.css" rel="stylesheet">
+    <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
@@ -118,47 +118,38 @@
   <div class="row page" id="page1">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center">
-        <div class="row">
-            <div class="col-xs-3">
-                <div class="rotate90">
-                    <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')"></button>
-                </div>
-                <div class="rotate90">
-                    <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')"></button>
-                </div>
-            </div>
-            <div class="col-xs-9">
-                <div class="heading">Helmet</div>
-                    <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        <input type="radio" name="helmet">Yes
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="helmet">No
-                    </label>
-                </div>
-                <div class="clearfix"></div>
+        <div class="heading">Helmet</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
+            </label>
+        </div>
+        <div class="clearfix"></div>
 
-                <div class="heading">Direction</div>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        <input type="radio" name="direction">North
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="direction">West
-                    </label>
-                </div>
+        <div class="heading">Direction</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
+            </label>
+        </div>
 
-                <div class="heading">SideWalk</div>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary">
-                        <input type="radio" name="sidewalk">Yes
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="sidewalk">No
-                    </label>
-                </div>
-            </div>
+        <div class="heading">SideWalk</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="no">No
+            </label>
+        </div>
+        <div><br>
+            <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')">
         </div>
     </div>
 
@@ -189,47 +180,44 @@
 
     <!----------- RIGHT ----------->
     <div class="col-xs-4 text-center">
-        <div class="col-xs-9">
-            <div class="heading">Gender</div>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary">
-                    <input type="radio" name="gender">Yes
-                </label>
-                <label class="btn btn-primary">
-                    <input type="radio" name="gender">No
-                </label>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="heading">Direction</div>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary">
-                    <input type="radio" name="direction">South
-                </label>
-                <label class="btn btn-primary">
-                    <input type="radio" name="direction">East
-                </label>
-            </div>
-
-            <div class="heading">Wrong Way</div>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary">
-                    <input type="radio" name="wrong_way">Yes
-                </label>
-                <label class="btn btn-primary">
-                    <input type="radio" name="wrong_way">No
-                </label>
-            </div>
-            </div>
-        <div class="col-xs-3">
-            <div class="rotate90r">
-                <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')"></button>
-            </div>
-            <div class="rotate90">
-                <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')"></button>
-            </div>
+        <div class="heading">Gender</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" value="m">M
+            </label>
+            <label class="btn btn-primary">
+                <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
+            </label>
         </div>
+
+        <div class="clearfix"></div>
+
+        <div class="heading">Direction</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="south">South
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="east">East
+            </label>
+        </div>
+
+        <div class="heading">Wrong Way</div>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="no">No
+            </label>
+        </div>
+        <div><br>
+            <input id="btn_save" type="button" class="btn btn-primary" value="Submit" disabled onclick="saveSurvey()">
+        </div>
+    </div>
+
+
+  </div>
         <!--
       <div class="heading">Gender?</div>
       <div class="metric">
@@ -263,8 +251,6 @@
         </div>
       </div>
       -->
-    </div>
-  </div>
   <div class="row page hidden" id="page2">
       <div class="col-md-10 col-md-offset-1">
           page 2<br>
