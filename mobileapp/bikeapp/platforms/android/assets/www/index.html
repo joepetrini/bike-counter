@@ -57,32 +57,36 @@
 </script>
 
 <script id="tpl-home" type="text/template">
-    <div>
-        <h4>Let's Get Started</h4>
-        <a href="#upcoming">Upcoming Appts</a>
-        <br>
-        <a href="#help">Help</a>
-        <br>
-        <a href="#logout">Logout</a>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h4>Let's Get Started</h4>
+            <a href="#upcoming">Upcoming Appts</a>
+            <br>
+            <a href="#help">Help</a>
+            <br>
+            <a href="#logout">Logout</a>
+        </div>
     </div>
 </script>
 
 
 <script id="tpl-upcoming" type="text/template">
-    <div class="topcoat-list">
-        {{#appointment_set.length}}
-        <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
-        {{/appointment_set.length}}
-        <ul class="topcoat-list__container">
-            {{#appointment_set}}
-            <li class="topcoat-list__item clickable">
-                <a href="#appt/{{id}}">{{location.name}}</a>
-            </li>
-            {{/appointment_set}}
-            {{^appointment_set}}
-            No scheduled sessions
-            {{/appointment_set}}
-        </ul>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            {{#appointment_set.length}}
+            <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
+            {{/appointment_set.length}}
+            <ul class="topcoat-list__container">
+                {{#appointment_set}}
+                <li class="topcoat-list__item clickable">
+                    <a href="#appt/{{id}}">{{location.name}}</a>
+                </li>
+                {{/appointment_set}}
+                {{^appointment_set}}
+                No scheduled sessions
+                {{/appointment_set}}
+            </ul>
+        </div>
     </div>
 </script>
 
@@ -149,7 +153,7 @@
             </label>
         </div>
         <div><br>
-            <input type="button" class="btn btn-primary" value="page2" onclick="showPage('2')">
+            <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
         </div>
     </div>
 
@@ -212,7 +216,7 @@
             </label>
         </div>
         <div><br>
-            <input id="btn_save" type="button" class="btn btn-primary" value="Submit" disabled onclick="saveSurvey()">
+            <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
         </div>
     </div>
 

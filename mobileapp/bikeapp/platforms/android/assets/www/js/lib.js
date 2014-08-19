@@ -127,13 +127,6 @@ function tryComplete(){
     */
 }
 
-function submitSurvey(){
-    // tryComplete first
-
-    // If ok, submit
-
-}
-
 function showPage(p){
     $('.page').hide();
     $('#page'+p).show();
@@ -166,6 +159,11 @@ function updateTime(){
 }
 
 function saveSurvey(){
+    // tryComplete first
+    if (tryComplete() == false){
+        return;
+    }
+
     var data = {};
 
     // Get the time taken

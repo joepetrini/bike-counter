@@ -1,0 +1,33 @@
+body {
+    background-color: #C9E6ED;
+}
+
+div.row {
+    background-color: #fff;
+}
+
+h1, h2, h3, h4 {
+    color: #e05a31;
+}
+
+a {
+    color: #4ea1b4;
+}
+
+.btn {
+    color: #fff;
+    background-color: #b28585;
+}
+
+input[type="button"]:disabled {
+    background-color: #a2621c;
+}
+
+.btn-primary {
+    border-color: #d0b0b5;
+}
+
+.btn-primary.active, .btn-primary:hover {
+    background-color: #e05a31;
+    border-color: #e05a31;
+}
