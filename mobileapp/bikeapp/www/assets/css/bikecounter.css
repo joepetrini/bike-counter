@@ -24,10 +24,12 @@ input[type="button"]:disabled {
 }
 
 .btn-primary {
+    background-color: #e05a31;
     border-color: #d0b0b5;
 }
 
-.btn-primary.active, .btn-primary:hover {
+.btn-val.active, .btn-val:hover {
+    color: #ffffff;
     background-color: #e05a31;
     border-color: #e05a31;
 }
