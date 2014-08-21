@@ -54,6 +54,11 @@ function route(event) {
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template);//, appts);
     }
+    // Help screen
+    if (hash === "#help") {
+        var template = $('#tpl-help').html();
+        page = Mustache.to_html(template);
+    }
     // Upcoming appts screen
     if (hash === "#upcoming") {
         appts = getAppointments();

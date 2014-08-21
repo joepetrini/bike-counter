@@ -1,4 +1,4 @@
-git+git://github.com/django/django.git@b4c80238a2b6c3f9fb7437d216082315c601055b
+git+git://github.com/django/django.git@ad96254af98f961d6691481c27127613afeee840
 django-bootstrap3==3.3.0
 django-debug-toolbar==1.0.1
 django-filter==0.7

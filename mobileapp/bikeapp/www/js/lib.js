@@ -99,7 +99,8 @@ function boxClick(d){
 function tryComplete(){
     var complete = true;
     // If any metric is not filled out break
-    _l(Object.keys(survey).length);
+    metric_len = Object.keys(survey).length + 1;
+    _l('Survey key len:' + metric_len);
     for (i=0; i < Object.keys(survey).length; i++){
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
@@ -181,13 +182,19 @@ function saveSurvey(){
     data['time_taken'] = time_taken;
     data['timestamp'] = new Date().getTime();
 
-    // Added it to the unposted array
+    // Get the unposted array
     s = _gd('surveys_to_save');
     if (s == null){
         s = [];
     }
+    // Add this survey to the array
     s.push(data);
+
+    // Push the array back to the queue
     _sd('surveys_to_save', s);
+
+    // Clear all the buttons and what not
+    $(':radio').prop('checked', false);
 
     // Restart the timer
     start = new Date().getTime();
@@ -263,8 +270,9 @@ function startSession(id){
     }
 }
 
-function endSession(id){
+function endSession(){
     // API call to end session
+    id = _g('cur_appt');
     if (_g('token')){
         $.ajax
         ({

@@ -88,13 +88,13 @@
 
 
 <script id="tpl-appt" type="text/template">
-<div class="row">
-    <div class="col-md-10 offset-md-1 text-center">
+<div class="row appcontainer">
+    <div class="col-xs-12 text-center">
         <div class="row">
-            <span class="col-md-4">
+            <span class="col-xs-4 text-left">
                 <input type="button" class="btn btn-primary" onclick="window.location.replace('#home')" value="&laquo;&nbsp;Home">
             </span>
-            <span class="col-md-8">
+            <span class="col-xs-8 text-left">
                 <h3>{{location.name}}</h3>
             </span>
         </div>
@@ -113,7 +113,6 @@
                 </tr>
             </table>
             -->
-
     </div>
 </div>
 </script>
@@ -172,7 +171,7 @@
       <br>
       <input type="button" class="btn btn-primary" value="Pause" onclick="showPage('2')">
       <br>
-      <input style="margin-top:5px;" type="button" class="btn btn-primary" value="End Session" onclick="showPage('2')">
+      <input style="margin-top:5px;" type="button" class="btn btn-primary" value="End Session" onclick="endSession()">
 
       <!--
       <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
@@ -298,16 +297,25 @@
 
 <script id="tpl-done" type="text/template">
 <div>
-    <div class="topcoat-navigation-bar">
-        <div class="topcoat-navigation-bar__item left quarter">
-            <button class="topcoat-button" onclick="window.location.replace('#home')">&laquo;Home</button>
+    <div class="row appcontainer">
+        <div class="col-xs-10 col-md-offset-1">
+            <button class="btn btn-primary" onclick="window.location.replace('#home')">&laquo;Home</button>
+            <h3>Finished!  Thank You</h3>
+            Show some metrics!
         </div>
     </div>
-    <div style="margin:10px auto;text-align:center">
-        <h3 class="topcoat-list__header">Finished!  Thank You</h3>
-        Show some metrics!
-    </div>
 </div>
+</script>
+
+<script id="tpl-help" type="text/template">
+    <div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <a href="#help">Help</a><br>
+                Help content
+            </div>
+        </div>
+    </div>
 </script>
 
 

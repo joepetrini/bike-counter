@@ -6,6 +6,10 @@ div.row {
     background-color: #fff;
 }
 
+div.appcontainer {
+    padding-top:5px;
+}
+
 h1, h2, h3, h4 {
     color: #e05a31;
 }
@@ -20,7 +24,7 @@ a {
 }
 
 input[type="button"]:disabled {
-    background-color: #a2621c;
+    background-color: #999999;
 }
 
 .btn-primary {
