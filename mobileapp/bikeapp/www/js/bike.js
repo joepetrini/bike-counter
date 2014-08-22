@@ -124,8 +124,9 @@ function route(event) {
     if (match) {
         var appt_id = Number(match[1]);
         _l('cur_app:' + appt_id);
-        _s('cur_appt', appt_id);
+        _set('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
+        var loc = getAppointment(appt_id).location;
 
         // Blank out survey vals
         _l('metric length:' + org.organizationmetrics_set.length);
@@ -136,10 +137,10 @@ function route(event) {
 
         // Start timer
         start = new Date().getTime();
-        _s('start_time', start);
+        _set('start_time', start);
 
         var template = $('#tpl-record').html();
-        page = Mustache.to_html(template, {'org': org});
+        page = Mustache.to_html(template, {'org': org, 'location': loc});
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);
