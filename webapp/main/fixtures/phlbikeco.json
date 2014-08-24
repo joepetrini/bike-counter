@@ -1,0 +1,163 @@
+[{
+    "fields": {
+        "city": null,
+        "name": "Philly Bike Coalition",
+        "member_count": null,
+        "created": "2014-03-21T13:28:34Z",
+        "modified": "2014-03-21T13:28:34Z",
+        "state": null,
+        "slug": "phl-bike"
+    },
+    "model": "main.organization",
+    "pk": 1
+},
+{
+    "fields": {
+        "organization": 1,
+        "user": 1,
+        "role": "member",
+        "modified": "2014-03-21T16:19:29Z",
+        "created": "2014-03-21T16:19:29Z"
+    },
+    "model": "main.membership",
+    "pk": 1
+},
+{
+    "fields": {
+        "system_name": "yes_no",
+        "modified": "2014-03-27T22:27:43Z",
+        "name": "Yes/No",
+        "created": "2014-03-27T22:27:43Z"
+    },
+    "model": "main.valueset",
+    "pk": 1
+},
+{
+    "fields": {
+        "system_name": "direction",
+        "modified": "2014-03-27T22:43:45Z",
+        "name": "Direction",
+        "created": "2014-03-27T22:43:45Z"
+    },
+    "model": "main.valueset",
+    "pk": 2
+},
+{
+    "fields": {
+        "stored_value": "yes",
+        "value_set": 1,
+        "modified": "2014-03-27T22:30:10Z",
+        "created": "2014-03-27T22:30:02Z",
+        "is_default": false,
+        "display_value": "Yes"
+    },
+    "model": "main.value",
+    "pk": 1
+},
+{
+    "fields": {
+        "stored_value": "no",
+        "value_set": 1,
+        "modified": "2014-03-27T22:30:16Z",
+        "created": "2014-03-27T22:30:16Z",
+        "is_default": false,
+        "display_value": "No"
+    },
+    "model": "main.value",
+    "pk": 2
+},
+{
+    "fields": {
+        "stored_value": "north",
+        "value_set": 2,
+        "modified": "2014-03-27T22:44:29Z",
+        "created": "2014-03-27T22:44:03Z",
+        "is_default": false,
+        "display_value": "North"
+    },
+    "model": "main.value",
+    "pk": 3
+},
+{
+    "fields": {
+        "stored_value": "south",
+        "value_set": 2,
+        "modified": "2014-03-27T22:44:35Z",
+        "created": "2014-03-27T22:44:10Z",
+        "is_default": false,
+        "display_value": "South"
+    },
+    "model": "main.value",
+    "pk": 4
+},
+{
+    "fields": {
+        "stored_value": "east",
+        "value_set": 2,
+        "modified": "2014-03-27T22:44:17Z",
+        "created": "2014-03-27T22:44:17Z",
+        "is_default": false,
+        "display_value": "East"
+    },
+    "model": "main.value",
+    "pk": 5
+},
+{
+    "fields": {
+        "stored_value": "west",
+        "value_set": 2,
+        "modified": "2014-03-27T22:44:24Z",
+        "created": "2014-03-27T22:44:24Z",
+        "is_default": false,
+        "display_value": "West"
+    },
+    "model": "main.value",
+    "pk": 6
+},
+{
+    "fields": {
+        "system_name": "helmet",
+        "name": "Helmet",
+        "value_set": 1,
+        "created": "2014-03-27T22:31:10Z",
+        "modified": "2014-03-27T22:31:10Z",
+        "desc": "Wearing a helmet?"
+    },
+    "model": "main.metric",
+    "pk": 1
+},
+{
+    "fields": {
+        "system_name": "direction",
+        "name": "Direction",
+        "value_set": 2,
+        "created": "2014-03-27T22:45:06Z",
+        "modified": "2014-03-27T22:45:06Z",
+        "desc": "Which direction?"
+    },
+    "model": "main.metric",
+    "pk": 2
+},
+{
+    "fields": {
+        "organization": 1,
+        "metric": 1,
+        "order": 0,
+        "modified": "2014-03-27T22:31:36Z",
+        "created": "2014-03-27T22:31:36Z"
+    },
+    "model": "main.organizationmetrics",
+    "pk": 1
+},
+{
+    "fields": {
+        "organization": 1,
+        "metric": 2,
+        "order": 0,
+        "modified": "2014-03-27T22:45:08Z",
+        "created": "2014-03-27T22:45:08Z"
+    },
+    "model": "main.organizationmetrics",
+    "pk": 2
+}
+]

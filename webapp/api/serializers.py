@@ -7,7 +7,8 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ('name', 'type', 'latitude', 'longitude', 'organization')
+        fields = ('name', 'type', 'latitude', 'longitude', 'organization',
+                  'has_north', 'has_south', 'has_east', 'has_west')
 
 
 class AppointmentSerializer(serializers.ModelSerializer):

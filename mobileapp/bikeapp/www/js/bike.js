@@ -1,5 +1,7 @@
 var map;
 var survey = [];
+var rider_count = 0;
+var tmp = null;
 var start = new Date().getTime();
 
 
@@ -134,13 +136,22 @@ function route(event) {
         for (i=0; i<org.organizationmetrics_set.length; i++){
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+        rider_count = 0;
 
         // Start timer
         start = new Date().getTime();
         _set('start_time', start);
 
+        // Build dynamic list of direction options
+        var dirs = Array();
+        if (loc.has_north) {dirs.push('north');}
+        if (loc.has_south) {dirs.push('south');}
+        if (loc.has_east) {dirs.push('east');}
+        if (loc.has_west) {dirs.push('west');}
+
         var template = $('#tpl-record').html();
-        page = Mustache.to_html(template, {'org': org, 'location': loc});
+        tmp = dirs;
+        page = Mustache.to_html(template, {'org': org, 'location': loc, 'dirs': dirs});
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);

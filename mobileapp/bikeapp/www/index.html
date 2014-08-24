@@ -18,7 +18,7 @@
 </head>
 <body>
 <style>
-    body {margin-top:20px;}
+    body {margin-top:10px;}
     .rotate90 {
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
@@ -119,13 +119,11 @@
 
 
 <script id="tpl-record" type="text/template">
-
-
-  <div class="row page" id="page1">
+  <div class="row page appcontainer" id="page1">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center">
         <div class="heading">Helmet</div>
-        <div class="btn-group" data-toggle="buttons">
+        <div id="btn-test" class="btn-group" data-toggle="buttons">
             <label class="btn btn-val">
                 <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
             </label>
@@ -137,12 +135,19 @@
 
         <div class="heading">Direction</div>
         <div class="btn-group" data-toggle="buttons">
+          {{#dirs}}
+          <label class="btn btn-val">
+            <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
+          </label>
+          {{/dirs}}
+          <!--
             <label class="btn btn-val">
                 <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
             </label>
             <label class="btn btn-val">
                 <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
             </label>
+          -->
         </div>
 
         <div class="heading">SideWalk</div>
@@ -151,12 +156,14 @@
                 <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
             </label>
             <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="no">No
+                <input type="radio" onchange="boxClick(this)" name="sidewalk" data-default="true" value="no">No
             </label>
         </div>
+        <!--
         <div><br>
             <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
         </div>
+        -->
     </div>
 
 
@@ -164,7 +171,7 @@
     <div class="col-xs-4 text-center">
       <span>{{location.name}}</span>
       <br>
-      Counted Riders: <span id="total_riders">72</span>
+      Counted Riders: <span id="total_riders">0</span>
       <br>
       <div id="timer">&nbsp;</div>
 
@@ -198,23 +205,13 @@
 
         <div class="clearfix"></div>
 
-        <div class="heading">Direction</div>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="direction" value="south">South
-            </label>
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="direction" value="east">East
-            </label>
-        </div>
-
         <div class="heading">Wrong Way</div>
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-val">
                 <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
             </label>
             <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="no">No
+                <input type="radio" onchange="boxClick(this)" name="wrong_way" data-default="true" value="no">No
             </label>
         </div>
         <div><br>

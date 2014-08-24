@@ -65,6 +65,8 @@ class ApptViewSet(viewsets.ModelViewSet):
                 sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
             except Metric.DoesNotExist:
                 continue
+            except Value.DoesNotExist:
+                print "Value does not exist %s in %s" % (k, v)
             print "%s %s" % (k, v)
         return Response(None, status=status.HTTP_200_OK)
 
