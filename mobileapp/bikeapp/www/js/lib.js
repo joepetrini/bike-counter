@@ -206,6 +206,7 @@ function saveSurvey(){
     // Increase count
     rider_count = rider_count + 1;
     $('#total_riders').html(rider_count);
+    $('#riders_outer').fadeOut(500).fadeIn(500);
 
     // Restart the timer
     start = new Date().getTime();
