@@ -15,9 +15,9 @@
 </div>
 
 <table class="table table-striped">
-  <tr><td>Location</td><td>Time</td><td>Assigned To</td></tr>
+  <tr><td>Location</td><td>Suggested Time</td><td>Assigned To</td></tr>
 {% for loc in object_list %}
-  <tr><td>{{loc}}</td><td></td><td></td></tr>
+  <tr><td>{{loc.name}}</td><td></td><td></td></tr>
   {% for app in loc.appointment_set.all %}
     <tr>
       <td></td>

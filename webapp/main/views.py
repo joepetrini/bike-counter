@@ -1,8 +1,8 @@
-from django.conf import settings
+#from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic import ListView, DetailView, UpdateView
+#from django.views.generic.edit import FormView
 from .models import Organization, Appointment, Membership, Location
 
 
@@ -30,9 +30,20 @@ class OrgHomeView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrgHomeView, self).get_context_data(**kwargs)
         sessions = Appointment.objects.filter(user=self.request.user, organization=self.object)
+        unassigned = Appointment.objects.filter(user=None, organization=self.object)
         context['sessions'] = sessions
+        context['unassigned'] = unassigned
         return context
 
+
+class ApptSignupView(DetailView):
+    model = Appointment
+
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        obj.user = request.user
+        obj.save()
+        return HttpResponseRedirect(reverse('org_home', args=[obj.organization.slug]))
 
 class OrgScheduleView(ListView):
     model = Location

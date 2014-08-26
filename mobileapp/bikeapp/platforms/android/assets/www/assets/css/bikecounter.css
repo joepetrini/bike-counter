@@ -1,9 +1,15 @@
 body {
     background-color: #C9E6ED;
+    margin-top:0px;
 }
 
 div.row {
     background-color: #fff;
+}
+
+div.appcontainer {
+    padding-top:5px;
+    padding-bottom: 5px;
 }
 
 h1, h2, h3, h4 {
@@ -20,14 +26,16 @@ a {
 }
 
 input[type="button"]:disabled {
-    background-color: #a2621c;
+    background-color: #999999;
 }
 
 .btn-primary {
+    background-color: #e05a31;
     border-color: #d0b0b5;
 }
 
-.btn-primary.active, .btn-primary:hover {
+.btn-val.active, .btn-val:hover {
+    color: #ffffff;
     background-color: #e05a31;
     border-color: #e05a31;
 }

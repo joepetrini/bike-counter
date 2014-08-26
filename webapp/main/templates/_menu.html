@@ -6,10 +6,10 @@
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav">
         <li><a href="{% url 'org_home' member.organization.slug %}">home</a></li>
-        <li><a href="">activity</a></li>
-        {% if user.is_superuser or member.role == 'admin' %}
-        <li><a href="{% url 'org_schedule' member.organization.slug %}">schedule</a></li>
-        <li><a href="{% url 'report_home' member.organization.slug %}">reports</a></li>
+<!--        <li><a href="">activity</a></li>-->
+        {% if suser.is_superuser or member.role == 'admin' %}
+          <li><a href="{% url 'org_schedule' member.organization.slug %}">schedule</a></li>
+          <li><a href="{% url 'report_home' member.organization.slug %}">reports</a></li>
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">

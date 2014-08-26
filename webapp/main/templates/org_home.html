@@ -6,9 +6,48 @@
 
 {% if sessions %}
 <h4>My Upcoming Sessions</h4>
+  <table class="table table-striped">
+  {% if sessions.count != 0 %}
+    <tr>
+      <th>Location</th>
+      <th>Suggested Date</th>
+    </tr>
+  {% endif %}
+  {% for s in sessions %}
+    <tr>
+      <td>{{ s.location }}</td>
+      <td>{{ s.scheduled_start }}</td>
+    </tr>
+  {% endfor %}
+  </table>
 {% endif %}
 
 <h4>Sign Up for a Session</h4>
+  {% if sessions.count >= 2 %}
+    <div class="alert alert-success" role="alert">You are signed up for 2 sessions.  Thanks!</div>
+  {% endif %}
+  <table class="table table-striped">
+  {% if unassigned.length != 0 %}
+    <tr>
+      <th>Location</th>
+      <th>Suggested Date</th>
+      <th></th>
+    </tr>
+  {% endif %}
+  {% for s in unassigned %}
+    <tr>
+      <td>{{ s.location }}</td>
+      <td>{{ s.scheduled_start }}</td>
+      <td>
+        {% if sessions.count < 2 %}
+          <input type="button" class="btn btn-primary" value="Signup" onclick="document.location='{% url 'appt_signup' s.organization.slug s.pk %}'">
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+
+
 
 {% endblock %}
 

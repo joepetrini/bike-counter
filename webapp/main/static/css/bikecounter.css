@@ -3,6 +3,10 @@ body {
     margin-top: 60px;*/
 }
 
+.navbar-collapse {
+    background-color: #4ea1b4;
+}
+
 span.label a {color:#fff; text-decoration: none;}
 
 .reg-form {
@@ -13,3 +17,12 @@ span.label a {color:#fff; text-decoration: none;}
 }
 
 span.label {letter-spacing:1px;font-size:11px}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active {
+    background-color: #e05a31;
+    border-color: #d0b0b5;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #e05a31;
+}

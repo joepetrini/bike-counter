@@ -6,22 +6,22 @@ function _l(msg){
 }
 
 // Set value helper
-function _s(key, v){
+function _set(key, v){
     window.localStorage.setItem(key, v);
 }
 
 // Get value helper
-function _g(key) {
+function _get(key) {
     return window.localStorage.getItem(key);
 }
 
 // Set data helper
-function _sd(key, v){
+function _setdict(key, v){
     window.localStorage.setItem(key, JSON.stringify(v));
 }
 
 // Get data helper
-function _gd(key) {
+function _getdict(key) {
     return JSON.parse(window.localStorage.getItem(key));
 }
 
@@ -29,7 +29,7 @@ function _gd(key) {
 function _req(params){
     var headers = {};
     if (params['url'] != 'auth'){
-        headers = {"Authorization": 'Token ' + _g('token')}
+        headers = {"Authorization": 'Token ' + _get('token')}
     }
     params['headers'] = headers;
     params['crossDomain'] = true;
@@ -56,7 +56,7 @@ function login() {
         data: {username:username, password:password},
         success: function (data){
             if (data.token){
-                _s('token', data.token);
+                _set('token', data.token);
                 window.location.replace('#home');
             }
             else {
@@ -99,7 +99,8 @@ function boxClick(d){
 function tryComplete(){
     var complete = true;
     // If any metric is not filled out break
-    _l(Object.keys(survey).length);
+    metric_len = Object.keys(survey).length;
+    _l('Survey key len:' + metric_len);
     for (i=0; i < Object.keys(survey).length; i++){
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
@@ -133,11 +134,11 @@ function showPage(p){
 }
 
 function clearSurveys(){
-    _sd('surveys_to_save', null);
+    _setdict('surveys_to_save', null);
 }
 
 function updateTime(){
-    start = _g('start_time');
+    start = _get('start_time');
     var now = new Date().getTime();
     var diff = (config['session_len'] * 6000 - 1) - (now - start);
     var minutes = Math.floor(diff / 60000);
@@ -149,7 +150,7 @@ function updateTime(){
     if (diff < 0){
         clearInterval(surveyInterval);
         clearInterval(timerInterval);
-        var appt = _g('cur_appt');
+        var appt = _get('cur_appt');
         endSession(appt);
         //window.location.replace('#done/'+appt);
     }
@@ -181,13 +182,30 @@ function saveSurvey(){
     data['time_taken'] = time_taken;
     data['timestamp'] = new Date().getTime();
 
-    // Added it to the unposted array
-    s = _gd('surveys_to_save');
+    // Get the unposted array
+    s = _getdict('surveys_to_save');
     if (s == null){
         s = [];
     }
+    // Add this survey to the array
     s.push(data);
-    _sd('surveys_to_save', s);
+
+    // Push the array back to the queue
+    _l('Adding survey to queue, total len=' + s.length);
+    _setdict('surveys_to_save', s);
+
+    // Clear all the buttons and what not
+    $(':radio').prop('checked', false);
+    $('.btn-group label').removeClass('active');
+
+    // Set all defaults back
+    $('input[data-default]').prop('checked', true);
+    $('input[data-default]').parent().addClass('active');
+    $('#btn_save').prop('disabled', true);
+
+    // Increase count
+    rider_count = rider_count + 1;
+    $('#total_riders').html(rider_count);
 
     // Restart the timer
     start = new Date().getTime();
@@ -195,26 +213,27 @@ function saveSurvey(){
 
 function postSurveys(){
     // Check for unposted surveys
-    surveys = _gd('surveys_to_save');
+    surveys = _getdict('surveys_to_save');
     if (surveys == null || surveys.length == 0) {return;}
+
+    _l(surveys.length + ' surveys to post');
 
     // Grab a survey and post it
     var survey = surveys.pop();
-    _l(survey);
-    _sd('surveys_to_save', surveys);
+    _l('Posting survey data: ' + survey);
+    _setdict('surveys_to_save', surveys);
 
     var params = {'type': 'POST'};
-    params['url'] = 'session/' + _g('cur_appt') + '/survey/';
+    params['url'] = 'session/' + _get('cur_appt') + '/survey/';
     params['data'] = survey;
     _req(params);
 
     // Move to posted
-
 }
 
 
 function getOrg(id){
-    var d = _gd('data');
+    var d = _getdict('data');
     for (i=0; i<d['membership_set'].length; i++){
         if (d['membership_set'][i].organization.id == id){
             return d['membership_set'][i].organization;
@@ -223,7 +242,7 @@ function getOrg(id){
 }
 
 function getAppointment(id) {
-    var d = _gd('data');
+    var d = _getdict('data');
     for (i=0; i<d['appointment_set'].length; i++){
         if (d['appointment_set'][i].id == id){
             return d['appointment_set'][i];
@@ -235,7 +254,7 @@ function getAppointments() {
     var d;
     _req({type: "GET", url: 'me',
         success: function (data){
-            _sd('data',data);
+            _setdict('data',data);
             d = data;
         }
     });
@@ -244,14 +263,14 @@ function getAppointments() {
 
 function startSession(id){
     // API call to start
-    if (_g('token')){
+    if (_get('token')){
         $.ajax
         ({
             type: "POST",
             url: config['apiUrl'] + 'session/'+id+'/start',
             async: false,
             crossDomain: true,
-            headers: {"Authorization": 'Token ' + _g('token')},
+            headers: {"Authorization": 'Token ' + _get('token')},
             success: function (data){
                 // Load the recording page
                 window.location.replace('#record/'+id);
@@ -263,16 +282,17 @@ function startSession(id){
     }
 }
 
-function endSession(id){
+function endSession(){
     // API call to end session
-    if (_g('token')){
+    id = _get('cur_appt');
+    if (_get('token')){
         $.ajax
         ({
             type: "POST",
             url: config['apiUrl'] + 'session/'+id+'/end',
             async: false,
             crossDomain: true,
-            headers: {"Authorization": 'Token ' + _g('token')},
+            headers: {"Authorization": 'Token ' + _get('token')},
             success: function (data){
                 // Load the recording page
                 window.location.replace('#done/'+id);

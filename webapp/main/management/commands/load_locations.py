@@ -25,7 +25,10 @@ class Command(BaseCommand):
         for v in values[1:]:
             [name, type, lat, long, ped, w, e, n, s] = v[:9]
             print "%s %s %s %s" % (name, type, lat, long)
-            loc, c = Location.objects.get_or_create(organization=org, name=name)
+            # This will create if not found
+            #loc, c = Location.objects.get_or_create(organization=org, name=name)
+            # Only update
+            loc = Location.objects.get(organization=org, name=name)
             loc.type = type
             loc.latitude = lat
             loc.longitude = long

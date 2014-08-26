@@ -1,16 +1,26 @@
 var map;
 var survey = [];
+var rider_count = 0;
+var tmp = null;
 var start = new Date().getTime();
 
 
 var config = {
     //apiUrl:'http://bikecounter.traklis.com/api/',
     //apiUrl:'http://i5imac:8001/api/',
-    apiUrl:'http://127.0.0.1:8001/api/',
+    //apiUrl:'http://127.0.0.1:8001/api/',
     surveyType:'default', // For configurable survey interfaces
     version: '0.1.0', // This should match the webapp version
     session_len: 600 // Number of minutes for a recording session
 }
+
+if (location.host.indexOf('localhost') > -1){
+    config['apiUrl'] = 'http://127.0.0.1:8001/api/';
+}
+else {
+    config['apiUrl'] = 'http://bikecounter.traklis.com/api/';
+}
+
 var timerInterval = null;
 var surveyInterval = null;
 
@@ -45,6 +55,11 @@ function route(event) {
         //console.log('appts: ' + appts);
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template);//, appts);
+    }
+    // Help screen
+    if (hash === "#help") {
+        var template = $('#tpl-help').html();
+        page = Mustache.to_html(template);
     }
     // Upcoming appts screen
     if (hash === "#upcoming") {
@@ -113,6 +128,7 @@ function route(event) {
         _l('cur_app:' + appt_id);
         _set('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
+        var loc = getAppointment(appt_id).location;
 
         // Blank out survey vals
         _l('metric length:' + org.organizationmetrics_set.length);
@@ -120,13 +136,22 @@ function route(event) {
         for (i=0; i<org.organizationmetrics_set.length; i++){
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+        rider_count = 0;
 
         // Start timer
         start = new Date().getTime();
         _set('start_time', start);
 
+        // Build dynamic list of direction options
+        var dirs = Array();
+        if (loc.has_north) {dirs.push('north');}
+        if (loc.has_south) {dirs.push('south');}
+        if (loc.has_east) {dirs.push('east');}
+        if (loc.has_west) {dirs.push('west');}
+
         var template = $('#tpl-record').html();
-        page = Mustache.to_html(template, {'org': org});
+        tmp = dirs;
+        page = Mustache.to_html(template, {'org': org, 'location': loc, 'dirs': dirs});
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);
