@@ -78,7 +78,10 @@
             <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
             {{/appointment_set.length}}
                 {{#appointment_set}}
-                    <a href="#appt/{{id}}">{{location.name}}</a><br>
+                    <a href="#appt/{{id}}">{{location.name}}</a>
+                    {{#actual_end}}Completed{{/actual_end}}
+                    {{^actual_end}}Not Started{{/actual_end}}
+                    <br>
                 {{/appointment_set}}
                 {{^appointment_set}}
                 No scheduled sessions

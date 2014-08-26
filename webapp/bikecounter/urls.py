@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/schedule/?$', login_required(OrgScheduleView.as_view()), name="org_schedule"),
     url(r'^(?P<slug>[-\w]+)/reports/?', login_required(ReportHomeView.as_view()), name="report_home"),
     url(r'^(?P<slug>[-\w]+)/signup/(?P<pk>\d+)?$', login_required(ApptSignupView.as_view()), name="appt_signup"),
+    url(r'^(?P<slug>[-\w]+)/cancel/(?P<pk>\d+)?$', login_required(ApptCancelView.as_view()), name="appt_cancel"),
     # API Urls
     #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

@@ -111,6 +111,7 @@ class Metric(TimeStampedModel):
 class OrganizationMetrics(TimeStampedModel):
     organization = models.ForeignKey(Organization)
     metric = models.ForeignKey(Metric)
+    required = models.BooleanField(default=True)
     order = models.IntegerField(default=0)
 
     class Meta:
@@ -128,6 +129,7 @@ class Appointment(TimeStampedModel):
     scheduled_start = models.DateTimeField()
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
+    time_taken = models.IntegerField(null=True, blank=True)
 
     class Meta:
         db_table = 'appointment'
@@ -142,6 +144,12 @@ class Appointment(TimeStampedModel):
     def end(self):
         self.actual_end = datetime.datetime.now()
         self.save()
+
+    def complete(self):
+        if self.actual_end is None:
+            return False
+        return True
+
 
 class Survey(TimeStampedModel):
     appointment = models.ForeignKey(Appointment)

@@ -36,6 +36,17 @@ class OrgHomeView(DetailView):
         return context
 
 
+class ApptCancelView(DetailView):
+    model = Appointment
+
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user == request.user:
+            obj.user = None
+            obj.save()
+        return HttpResponseRedirect(reverse('org_home', args=[obj.organization.slug]))
+
+
 class ApptSignupView(DetailView):
     model = Appointment
 

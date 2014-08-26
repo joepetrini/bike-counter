@@ -51,8 +51,6 @@ function route(event) {
     }
     // Home screen
     if (hash === "#home") {
-        //appts = getAppointments();
-        //console.log('appts: ' + appts);
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template);//, appts);
     }

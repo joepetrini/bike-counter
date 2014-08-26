@@ -16,7 +16,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = ('id', 'location', 'scheduled_start')
+        fields = ('id', 'user', 'location', 'scheduled_start', 'actual_start', 'actual_end')
 
 
 class ValueSerializer(serializers.ModelSerializer):
@@ -46,7 +46,7 @@ class OrganizationMetricSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrganizationMetrics
-        fields = ('organization', 'metric')
+        fields = ('organization', 'metric', 'required')
 
 
 class OrganizationSerializer(serializers.ModelSerializer):

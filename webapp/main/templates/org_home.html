@@ -11,12 +11,14 @@
     <tr>
       <th>Location</th>
       <th>Suggested Date</th>
+      <th></th>
     </tr>
   {% endif %}
   {% for s in sessions %}
     <tr>
       <td>{{ s.location }}</td>
       <td>{{ s.scheduled_start }}</td>
+      <td><input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt_cancel' s.organization.slug s.pk %}'"></td>
     </tr>
   {% endfor %}
   </table>
