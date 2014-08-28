@@ -40,3 +40,9 @@ nosetests.xml
 local.py
 db.sqlite3
 .idea
+
+# Cordova gen'd files
+android/bin/
+android/gen/
+android/assets/
+platforms/android/ant-build

@@ -51,8 +51,6 @@ function route(event) {
     }
     // Home screen
     if (hash === "#home") {
-        //appts = getAppointments();
-        //console.log('appts: ' + appts);
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template);//, appts);
     }
@@ -120,6 +118,17 @@ function route(event) {
             map = initializeMap(appt.location.latitude, appt.location.longitude);
         });
         */
+    }
+    // AppointmentStats view
+    var match = hash.match(/^#apptstats\/(\d{1,})/);
+    if (match) {
+        // Get the appointment data
+        var appt_id = Number(match[1]);
+        appt = getAppointment(appt_id);
+
+        // Build the template
+        var template = $('#tpl-apptstats').html();
+        page = Mustache.to_html(template, appt);
     }
     // Record survey view
     var match = hash.match(/^#record\/(\d{1,})/);

@@ -99,7 +99,7 @@ function boxClick(d){
 function tryComplete(){
     var complete = true;
     // If any metric is not filled out break
-    metric_len = Object.keys(survey).length + 1;
+    metric_len = Object.keys(survey).length;
     _l('Survey key len:' + metric_len);
     for (i=0; i < Object.keys(survey).length; i++){
         if (survey[Object.keys(survey)[i]] == null){
@@ -191,10 +191,35 @@ function saveSurvey(){
     s.push(data);
 
     // Push the array back to the queue
+    _l('Adding survey to queue, total len=' + s.length);
     _setdict('surveys_to_save', s);
 
     // Clear all the buttons and what not
     $(':radio').prop('checked', false);
+    $('.btn-group label').removeClass('active');
+
+    // Clear internal survey value array
+    for (i=0; i < Object.keys(survey).length; i++){
+        _l('survey key : ' + Object.keys(survey)[i]);
+        var k = Object.keys(survey)[i];
+        if (k != 'sidewalk' && k != 'wrong_way') {
+            _l('null out key : ' + k);
+            survey[Object.keys(survey)[i]] = null;
+        }
+    }
+
+    // Set all defaults back
+    $('input[data-default]').prop('checked', true);
+    $('input[data-default]').parent().addClass('active');
+    $('#btn_save').prop('disabled', true);
+
+
+
+
+    // Increase count
+    rider_count = rider_count + 1;
+    $('#total_riders').html(rider_count);
+    $('#riders_outer').fadeOut(500).fadeIn(500);
 
     // Restart the timer
     start = new Date().getTime();
@@ -205,9 +230,11 @@ function postSurveys(){
     surveys = _getdict('surveys_to_save');
     if (surveys == null || surveys.length == 0) {return;}
 
+    _l(surveys.length + ' surveys to post');
+
     // Grab a survey and post it
     var survey = surveys.pop();
-    _l(survey);
+    _l('Posting survey data: ' + survey);
     _setdict('surveys_to_save', surveys);
 
     var params = {'type': 'POST'};
@@ -216,7 +243,6 @@ function postSurveys(){
     _req(params);
 
     // Move to posted
-
 }
 
 

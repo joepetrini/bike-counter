@@ -1,5 +1,6 @@
 body {
     background-color: #C9E6ED;
+    margin-top:0px;
 }
 
 div.row {
@@ -8,6 +9,7 @@ div.row {
 
 div.appcontainer {
     padding-top:5px;
+    padding-bottom: 5px;
 }
 
 h1, h2, h3, h4 {
@@ -21,6 +23,9 @@ a {
 .btn {
     color: #fff;
     background-color: #b28585;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-width: 50px;
 }
 
 input[type="button"]:disabled {
@@ -36,4 +41,8 @@ input[type="button"]:disabled {
     color: #ffffff;
     background-color: #e05a31;
     border-color: #e05a31;
+}
+
+.btn-group {
+    margin-bottom:10px;
 }

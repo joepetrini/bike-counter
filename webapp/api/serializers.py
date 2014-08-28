@@ -19,6 +19,18 @@ class AppointmentSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'location', 'scheduled_start', 'actual_start', 'actual_end')
 
 
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('name', 'system_name')
+
+
+class OrganizationEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrganizationEvents
+        fields = ('organization', 'event')
+
+
 class ValueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Value
@@ -52,10 +64,12 @@ class OrganizationMetricSerializer(serializers.ModelSerializer):
 class OrganizationSerializer(serializers.ModelSerializer):
     location_set = LocationSerializer()
     organizationmetrics_set = OrganizationMetricSerializer()
+    organizationevents_set = OrganizationEventSerializer()
 
     class Meta:
         model = Organization
-        fields = ('id', 'name', 'city', 'state', 'location_set', 'organizationmetrics_set')
+        fields = ('id', 'name', 'city', 'state', 'location_set',
+                  'organizationmetrics_set', 'organizationevents_set')
 
 
 class MembershipSerializer(serializers.ModelSerializer):

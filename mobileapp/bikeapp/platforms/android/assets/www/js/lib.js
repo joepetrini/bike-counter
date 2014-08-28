@@ -198,14 +198,28 @@ function saveSurvey(){
     $(':radio').prop('checked', false);
     $('.btn-group label').removeClass('active');
 
+    // Clear internal survey value array
+    for (i=0; i < Object.keys(survey).length; i++){
+        _l('survey key : ' + Object.keys(survey)[i]);
+        var k = Object.keys(survey)[i];
+        if (k != 'sidewalk' && k != 'wrong_way') {
+            _l('null out key : ' + k);
+            survey[Object.keys(survey)[i]] = null;
+        }
+    }
+
     // Set all defaults back
     $('input[data-default]').prop('checked', true);
     $('input[data-default]').parent().addClass('active');
     $('#btn_save').prop('disabled', true);
 
+
+
+
     // Increase count
     rider_count = rider_count + 1;
     $('#total_riders').html(rider_count);
+    $('#riders_outer').fadeOut(500).fadeIn(500);
 
     // Restart the timer
     start = new Date().getTime();

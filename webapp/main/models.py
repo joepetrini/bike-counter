@@ -108,6 +108,29 @@ class Metric(TimeStampedModel):
         return "%s - %s - %s" % (self.value_set, self.name, self.desc)
 
 
+class Event(TimeStampedModel):
+    name = models.CharField(max_length=25)
+    system_name = models.SlugField(max_length=25, unique=True)
+
+    class Meta:
+        db_table = 'events'
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+
+class OrganizationEvents(TimeStampedModel):
+    organization = models.ForeignKey(Organization)
+    event = models.ForeignKey(Event)
+
+    class Meta:
+        db_table = 'org_events'
+        unique_together = ('organization', 'event')
+
+    def __unicode__(self):
+        return "%s - %s" % (self.organization, self.event)
+
+
 class OrganizationMetrics(TimeStampedModel):
     organization = models.ForeignKey(Organization)
     metric = models.ForeignKey(Metric)
@@ -149,6 +172,19 @@ class Appointment(TimeStampedModel):
         if self.actual_end is None:
             return False
         return True
+
+
+class SurveyEvent(TimeStampedModel):
+    appointment = models.ForeignKey(Appointment)
+    event = models.ForeignKey(Event)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    class Meta:
+        db_table = 'survey_events'
+
+    def __unicode__(self):
+        return "%s - %s - %s" % (self.appointment, self.event)
 
 
 class Survey(TimeStampedModel):
