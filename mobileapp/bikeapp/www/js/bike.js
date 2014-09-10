@@ -3,6 +3,8 @@ var survey = [];
 var rider_count = 0;
 var tmp = null;
 var start = new Date().getTime();
+var total_time = 0; // Total recording time in ms
+var paused = false; // To Track if in paused state
 
 
 var config = {
@@ -26,6 +28,14 @@ var surveyInterval = null;
 
 var slider = new PageSlider($("#container"));
 $(window).on('hashchange', route);
+
+
+/* Disable back button on android */
+document.addEventListener('deviceready', function() {
+    document.addEventListener("backbutton", goBack, false);
+}, false);
+function goBack(){}
+
 
 window.addEventListener('load', function () {
     new FastClick(document.body);
@@ -148,6 +158,8 @@ function route(event) {
         rider_count = 0;
 
         // Start timer
+        total_time = 0;
+        paused = false;
         start = new Date().getTime();
         _set('start_time', start);
 

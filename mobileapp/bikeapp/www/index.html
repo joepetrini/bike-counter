@@ -74,6 +74,15 @@
 
 <script id="tpl-upcoming" type="text/template">
     <div class="row">
+        <span class="col-xs-4 text-left">
+            <input type="button" class="btn btn-primary" onclick="window.location.replace('#home')" value="&laquo;&nbsp;Home">
+        </span>
+        <span class="col-xs-8 text-left">
+            <h3>{{location.name}}</h3>
+            Need to show some stats about the session, simple counts graphs etc
+        </span>
+    </div>
+    <div class="row">
         <div class="col-md-10 col-md-offset-1" style="padding-bottom: 10px">
             {{#appointment_set.length}}
             <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
@@ -142,7 +151,7 @@
 <script id="tpl-record" type="text/template">
   <div class="row page appcontainer" id="page1">
     <!-------------- LEFT ------------->
-    <div class="col-xs-4 text-center">
+    <div class="col-xs-4 text-center" id="rec_left">
         <div class="heading">Helmet</div>
         <div id="btn-test" class="btn-group" data-toggle="buttons">
             <label class="btn btn-val">
@@ -197,9 +206,9 @@
       <div id="timer">&nbsp;</div>
 
       <br>
-      <input type="button" class="btn btn-primary" value="Pause" onclick="showPage('2')">
+      <input id="btn_pause" type="button" class="btn btn-primary" value="Pause" onclick="pause()">
       <br>
-      <input style="margin-top:5px;" type="button" class="btn btn-primary" value="End Session" onclick="endSession()">
+      <input style="margin-top:5px;" id="btn_end" type="button" class="btn btn-primary" value="End Session" onclick="endSession()">
 
       <!--
       <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
@@ -214,6 +223,7 @@
 
     <!----------- RIGHT ----------->
     <div class="col-xs-4 text-center">
+        <span id="rec_right">
         <div class="heading">Gender</div>
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-val">
@@ -239,7 +249,6 @@
             <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
         </div>
     </div>
-
 
   </div>
         <!--
@@ -275,6 +284,12 @@
         </div>
       </div>
       -->
+  <div class="row hidden" id="pagepause">
+      <div class="col-md-10 col-md-offset-1">
+          <br>paused!
+          <input type="button" value="Unpause" onclick="pause()">
+      </div>
+  </div>
   <div class="row page hidden" id="page2">
       <div class="col-md-10 col-md-offset-1">
           page 2<br>
