@@ -58,6 +58,9 @@ class Location(TimeStampedModel):
     has_south = models.BooleanField(default=True)
     has_west = models.BooleanField(default=True)
 
+    direction1 = models.CharField(max_length=20, null=True, blank=True)
+    direction2 = models.CharField(max_length=20, null=True, blank=True)
+
     class Meta:
         db_table = 'location'
         ordering = ['name']
@@ -164,8 +167,9 @@ class Appointment(TimeStampedModel):
         self.actual_start = datetime.datetime.now()
         self.save()
 
-    def end(self):
+    def end(self, time_taken):
         self.actual_end = datetime.datetime.now()
+        self.time_taken = int(time_taken)
         self.save()
 
     def complete(self):

@@ -23,7 +23,7 @@ class Command(BaseCommand):
         sht = gc.open_by_key(key).get_worksheet(0)
         values = sht.get_all_values()
         for v in values[1:]:
-            [name, type, lat, long, ped, w, e, n, s] = v[:9]
+            [name, type, lat, long, ped, w, e, n, s, street1, street2] = v[:11]
             print "%s %s %s %s" % (name, type, lat, long)
             # This will create if not found
             #loc, c = Location.objects.get_or_create(organization=org, name=name)
@@ -36,4 +36,6 @@ class Command(BaseCommand):
             loc.has_west = to_bool(w)
             loc.has_north = to_bool(n)
             loc.has_south = to_bool(s)
+            loc.direction1 = street1
+            loc.direction2 = street2
             loc.save()

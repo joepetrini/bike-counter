@@ -137,7 +137,50 @@ function clearSurveys(){
     _setdict('surveys_to_save', null);
 }
 
+function pause(){
+    // Unpause
+    if (paused){
+        paused = false;
+        $('#btn_pause').prop('disabled', false);
+        $('#btn_end').prop('disabled', false);
+        $('#btn_pause').val('Pause');
+        $('.rec_content').show();
+    }
+    // Pause
+    else {
+        paused = true;
+        $('#btn_pause').prop('disabled', false);
+        $('#btn_end').prop('disabled', true);
+        $('#btn_pause').val('Unpause');
+        $('.rec_content').hide();
+    }
+    $('#btn_pause').blur();
+}
+
 function updateTime(){
+    if (paused) {return;}
+
+    // Add 1000 ms to total time
+    total_time += 1000;
+
+    var diff = (config['session_len'] * 6000 - 1) - total_time;
+    var minutes = Math.floor(diff / 60000);
+    var seconds = String(Math.round(diff / 1000));
+    seconds = seconds % 60;
+
+    // Check if the session is done recording
+    if (diff < 0){
+        clearInterval(surveyInterval);
+        clearInterval(timerInterval);
+        var appt = _get('cur_appt');
+        endSession(appt);
+        //window.location.replace('#done/'+appt);
+    }
+    else {
+        $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
+    }
+
+    /*
     start = _get('start_time');
     var now = new Date().getTime();
     var diff = (config['session_len'] * 6000 - 1) - (now - start);
@@ -157,6 +200,7 @@ function updateTime(){
     else {
         $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
     }
+    */
 }
 
 function saveSurvey(){
@@ -296,7 +340,7 @@ function startSession(id){
     }
 }
 
-function endSession(){
+function endSession(appt){
     // API call to end session
     id = _get('cur_appt');
     if (_get('token')){
@@ -304,8 +348,9 @@ function endSession(){
         ({
             type: "POST",
             url: config['apiUrl'] + 'session/'+id+'/end',
-            async: false,
+            /*async: false,*/
             crossDomain: true,
+            data: {'total_time': total_time},
             headers: {"Authorization": 'Token ' + _get('token')},
             success: function (data){
                 // Load the recording page

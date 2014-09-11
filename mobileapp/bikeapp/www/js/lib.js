@@ -83,7 +83,7 @@ function boxClick(d){
     // Clear any selected value
     var metric = $(d).attr('name');
     var value = $(d).val();
-    _l('clicked value:' + metric);
+    _l('clicked value:' + metric + ' : ' + value);
     //$('.'+metric).css('background-color','#FFF');
 
     // Select this one
@@ -98,15 +98,21 @@ function boxClick(d){
 
 function tryComplete(){
     var complete = true;
-    // If any metric is not filled out break
+
     metric_len = Object.keys(survey).length;
     _l('Survey key len:' + metric_len);
+
+    // If any metric is not filled out break
     for (i=0; i < Object.keys(survey).length; i++){
+
+        _l(Object.keys(survey)[i] + ' = ' + survey[Object.keys(survey)[i]]);
+
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
-            break;
+            //break;
         }
     }
+
     _l('tryComplete: ' + complete);
 
     if (complete == true) {
@@ -138,21 +144,21 @@ function clearSurveys(){
 }
 
 function pause(){
+    // Unpause
     if (paused){
         paused = false;
         $('#btn_pause').prop('disabled', false);
         $('#btn_end').prop('disabled', false);
         $('#btn_pause').val('Pause');
-        $('#rec_left').show();
-        $('#rec_right').show();
+        $('.rec_content').show();
     }
+    // Pause
     else {
         paused = true;
         $('#btn_pause').prop('disabled', false);
         $('#btn_end').prop('disabled', true);
         $('#btn_pause').val('Unpause');
-        $('#rec_left').hide();
-        $('#rec_right').hide();
+        $('.rec_content').hide();
     }
     $('#btn_pause').blur();
 }
@@ -173,7 +179,7 @@ function updateTime(){
         clearInterval(surveyInterval);
         clearInterval(timerInterval);
         var appt = _get('cur_appt');
-        endSession(appt, total_time);
+        endSession(appt);
         //window.location.replace('#done/'+appt);
     }
     else {
@@ -340,7 +346,7 @@ function startSession(id){
     }
 }
 
-function endSession(appt, total_time){
+function endSession(appt){
     // API call to end session
     id = _get('cur_appt');
     if (_get('token')){
@@ -348,7 +354,7 @@ function endSession(appt, total_time){
         ({
             type: "POST",
             url: config['apiUrl'] + 'session/'+id+'/end',
-            async: false,
+            /*async: false,*/
             crossDomain: true,
             data: {'total_time': total_time},
             headers: {"Authorization": 'Token ' + _get('token')},

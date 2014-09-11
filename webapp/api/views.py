@@ -46,9 +46,8 @@ class ApptViewSet(viewsets.ModelViewSet):
 
     @action(methods=['POST'])
     def end(self, request, pk=None):
-        print "end session %s" % request.DATA
         appt = self.get_object()
-        appt.end()
+        appt.end(request.DATA['total_time'])
         return Response(None, status=status.HTTP_200_OK)
 
     @action(methods=['POST'])

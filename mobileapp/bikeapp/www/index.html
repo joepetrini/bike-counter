@@ -149,52 +149,63 @@
 
 
 <script id="tpl-record" type="text/template">
+
   <div class="row page appcontainer" id="page1">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center" id="rec_left">
-        <div class="heading">Helmet</div>
-        <div id="btn-test" class="btn-group" data-toggle="buttons">
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
-            </label>
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
-            </label>
-        </div>
-        <div class="clearfix"></div>
+        <div class="rec_content">
+            <div class="heading">Helmet</div>
+            <div id="btn-test" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
+                </label>
+            </div>
+            <div class="clearfix"></div>
 
-        <div class="heading">Direction</div>
-        <div class="btn-group" data-toggle="buttons">
-          {{#dirs}}
-          <label class="btn btn-val">
-            <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
-          </label>
-          {{/dirs}}
-          <!--
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
-            </label>
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
-            </label>
-          -->
-        </div>
+            <div class="heading">Direction</div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{location.direction1}}">{{location.direction1}}
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{location.direction2}}">{{location.direction2}}
+                </label>
+              <!--
+              {{#dirs}}
+              <label class="btn btn-val">
+                <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
+              </label>
+              {{/dirs}}
+              -->
+              <!--
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
+                </label>
+              -->
+            </div>
 
-        <div class="heading">SideWalk</div>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
-            </label>
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="sidewalk" data-default="true" value="no">No
-            </label>
+            <div class="heading">SideWalk</div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="sidewalk" data-default="true" value="no">No
+                </label>
+            </div>
+            <!--
+            <div><br>
+                <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
+            </div>
+            -->
         </div>
-        <!--
-        <div><br>
-            <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
-        </div>
-        -->
-    </div>
+    </div><!-- rec_left -->
 
 
     <!--------- CENTER -------->
@@ -222,35 +233,36 @@
 
 
     <!----------- RIGHT ----------->
-    <div class="col-xs-4 text-center">
-        <span id="rec_right">
-        <div class="heading">Gender</div>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-val">
-                <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" value="m">M
-            </label>
-            <label class="btn btn-val">
-                <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
-            </label>
-        </div>
+    <div class="col-xs-4 text-center" id="rec_right">
+        <div class="rec_content">
+            <div class="heading">Gender</div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val">
+                    <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" value="m">M
+                </label>
+                <label class="btn btn-val">
+                    <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
+                </label>
+            </div>
 
-        <div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-        <div class="heading">Wrong Way</div>
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
-            </label>
-            <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="wrong_way" data-default="true" value="no">No
-            </label>
+            <div class="heading">Wrong Way</div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="wrong_way" data-default="true" value="no">No
+                </label>
+            </div>
+            <div><br><br><br>
+                <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
+            </div>
         </div>
-        <div><br><br><br>
-            <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
-        </div>
-    </div>
+    </div><!-- rec_right -->
 
-  </div>
+  </div><!-- page1 -->
         <!--
       <div class="heading">Gender?</div>
       <div class="metric">
@@ -307,6 +319,22 @@
           <input type="button" id="submit_survey" value="Submit" onclick="submitSurvey()">
       </div>
   </div>
+    <script type="text/javascript">
+        // Set all defaults
+        $('input[data-default]').prop('checked', true);
+        $('input[data-default]').parent().addClass('active');
+        $('#btn_save').prop('disabled', true);
+
+        defaults = $('input[data-default=true]');
+        for (i=0; i<defaults.length; i++){
+            var k = $($('input[data-default=true]')[i]).prop('name');
+            var v = $($('input[data-default=true]')[i]).prop('value');
+            _l('setting up default ' + k + ' = ' + v);
+            survey[k] = v;
+        }
+
+    </script>
+
 </script>
 
 
