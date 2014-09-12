@@ -41,7 +41,7 @@
       <td>{{ s.location }}</td>
       <td>{{ s.scheduled_start }}</td>
       <td>
-        {% if sessions.count < 2 %}
+        {% if sessions.count < 20000 %}
           <input type="button" class="btn btn-primary" value="Signup" onclick="document.location='{% url 'appt_signup' s.organization.slug s.pk %}'">
         {% endif %}
       </td>
