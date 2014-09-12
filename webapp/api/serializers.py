@@ -23,10 +23,12 @@ class AppointmentSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('name', 'system_name')
+        fields = ('id', 'name', 'system_name')
 
 
 class OrganizationEventSerializer(serializers.ModelSerializer):
+    event = EventSerializer()
+
     class Meta:
         model = OrganizationEvents
         fields = ('organization', 'event')

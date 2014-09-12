@@ -20,12 +20,23 @@ a {
     color: #4ea1b4;
 }
 
+.img-event {
+    width: 80px;
+    height: 80px;
+}
+
 .btn {
     color: #fff;
     background-color: #b28585;
     padding-top: 15px;
     padding-bottom: 15px;
     min-width: 50px;
+}
+
+.btn-nav {
+    margin-top:2px;
+    padding-top:4px;
+    padding-bottom:4px;
 }
 
 input[type="button"]:disabled {
@@ -45,6 +56,10 @@ input[type="button"]:disabled {
 
 .btn-group {
     margin-bottom:10px;
+}
+
+.btn-event {
+    background-color: #3d78d1;
 }
 
 div.overlay {

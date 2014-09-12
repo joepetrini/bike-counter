@@ -183,6 +183,8 @@ class SurveyEvent(TimeStampedModel):
     event = models.ForeignKey(Event)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    guid = models.CharField(max_length=50, null=True, blank=True)
+
 
     class Meta:
         db_table = 'survey_events'

@@ -70,6 +70,13 @@ class ApptViewSet(viewsets.ModelViewSet):
             print "%s %s" % (k, v)
         return Response(None, status=status.HTTP_200_OK)
 
+    @action(methods=['POST'])
+    def event(self, request, pk=None):
+        appt = self.get_object()
+        # TODO get event type and add to related survey
+        for k, v in request.DATA.items():
+            print "{}{}".format(k, v)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """

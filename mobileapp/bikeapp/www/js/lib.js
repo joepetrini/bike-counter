@@ -209,6 +209,33 @@ function updateTime(){
     */
 }
 
+function saveEvent(id){
+    // Generate unique id for event
+    //var guid = guid();
+
+    // Get the unposted array
+    s = _getdict('events_to_save');
+    if (s == null){
+        s = [];
+    }
+
+    // Add this survey to the array
+    data = {'event_id': id, 'guid': guid()};
+    s.push(data);
+
+    // Push the array back to the queue
+    _l('Adding survey to queue, total len=' + s.length);
+    _setdict('events_to_save', s);
+
+    // Increase count
+    rider_count = rider_count + 1;
+    $('#eventcount_' + id).html('1');
+    $('#eventcount_' + id).fadeOut(500).fadeIn(500);
+
+
+
+}
+
 function saveSurvey(){
     // tryComplete first
     if (tryComplete() == false){
@@ -263,9 +290,6 @@ function saveSurvey(){
     $('input[data-default]').parent().addClass('active');
     $('#btn_save').prop('disabled', true);
 
-
-
-
     // Increase count
     rider_count = rider_count + 1;
     $('#total_riders').html(rider_count);
@@ -276,23 +300,47 @@ function saveSurvey(){
 }
 
 function postSurveys(){
-    // Check for unposted surveys
+    // Check for unposted surveys and events
     surveys = _getdict('surveys_to_save');
-    if (surveys == null || surveys.length == 0) {return;}
+    events = _getdict('events_to_save');
+
+    //    if (surveys == null || surveys.length == 0) {return;}
+    if (events.length == 0 && surveys.length == 0) {return;}
+
 
     _l(surveys.length + ' surveys to post');
+    if (surveys.length > 0){
+        // Pop a survey off the queue
+        var survey = surveys.pop();
+        _l('Posting survey data: ' + survey);
 
-    // Grab a survey and post it
-    var survey = surveys.pop();
-    _l('Posting survey data: ' + survey);
-    _setdict('surveys_to_save', surveys);
+        // Resave the queue
+        _setdict('surveys_to_save', surveys);
 
-    var params = {'type': 'POST'};
-    params['url'] = 'session/' + _get('cur_appt') + '/survey/';
-    params['data'] = survey;
-    _req(params);
+        // Post the survey
+        var params = {'type': 'POST'};
+        params['url'] = 'session/' + _get('cur_appt') + '/survey/';
+        params['data'] = survey;
+        _req(params);
+    }
 
-    // Move to posted
+    // TODO - Test all this!
+    _l(events.length + ' events to post');
+    if (events.length > 0){
+        // Pop an evetn off the queue
+        var event = events.pop();
+        _l('Posting event data: ' + event);
+
+        // Resave the queue
+        _setdict('events_to_save', events);
+
+        // Post the survey
+        var params = {'type': 'POST'};
+        params['url'] = 'session/' + _get('cur_appt') + '/event/';
+        params['data'] = event;
+        _req(params);
+    }
+
 }
 
 

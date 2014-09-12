@@ -1,6 +1,7 @@
 var map;
 var survey = [];
 var rider_count = 0;
+var event_count = [];
 var tmp = null;
 var start = new Date().getTime();
 var total_time = 0; // Total recording time in ms
@@ -156,7 +157,19 @@ function route(event) {
             _l('adding ' + org.organizationmetrics_set[i].metric.system_name + ' to metrics');
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+        // Reset rider count
         rider_count = 0;
+
+        // Rebuild event count array
+        event_count = new Array();
+        for (i=0; i < org.organizationevents_set.length; i++){
+            var ev = org.organizationevents_set[i];
+            // Don't count pedestrians at intersections
+            if (ev.system_name == 'pedestrian' && loc.type == 'intersection') {
+                continue;
+            }
+            event_count[ev.id] = 0;
+        }
 
         // Start timer
         total_time = 0;
