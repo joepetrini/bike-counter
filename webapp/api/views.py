@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework import authentication
-from main.models import Organization, Location, Appointment, Survey, SurveyValue, Metric, Value
+from main.models import Organization, Location, Appointment, Survey, SurveyValue, Metric, Value, Event, SurveyEvent
 
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -73,9 +73,12 @@ class ApptViewSet(viewsets.ModelViewSet):
     @action(methods=['POST'])
     def event(self, request, pk=None):
         appt = self.get_object()
-        # TODO get event type and add to related survey
         for k, v in request.DATA.items():
-            print "{}{}".format(k, v)
+            print "{} {}".format(k, v)
+        # TODO get event type and add to related survey
+        ev = Event.objects.get(id=request.DATA['event_id'])
+        se, c = SurveyEvent.objects.get_or_create(appointment=appt, event=ev)
+        return Response(None, status=status.HTTP_200_OK)
 
 
 class UserViewSet(viewsets.ModelViewSet):

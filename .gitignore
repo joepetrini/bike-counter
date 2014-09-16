@@ -46,3 +46,4 @@ android/bin/
 android/gen/
 android/assets/
 platforms/android/ant-build
+mobileapp/bikeapp/platforms

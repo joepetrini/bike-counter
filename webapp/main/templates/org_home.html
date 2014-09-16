@@ -5,7 +5,7 @@
 <h3>{{ object.name }} home</h3>
 
 {% if sessions %}
-<h4>My Upcoming Sessions</h4>
+<h4>My Sessions</h4>
   <table class="table table-striped">
   {% if sessions.count != 0 %}
     <tr>
@@ -18,7 +18,14 @@
     <tr>
       <td>{{ s.location }}</td>
       <td>{{ s.scheduled_start }}</td>
-      <td><input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt_cancel' s.organization.slug s.pk %}'"></td>
+      <td>
+        {% if s.actual_end %}
+          Completed - {{ s.actual_end|date:"SHORT_DATE_FORMAT" }}
+          <!-- - {{ s.time_taken_in_min }}-->
+        {% else %}
+          <input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt_cancel' s.organization.slug s.pk %}'">
+        {% endif %}
+      </td>
     </tr>
   {% endfor %}
   </table>

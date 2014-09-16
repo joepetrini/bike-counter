@@ -2,6 +2,7 @@ var map;
 var survey = [];
 var rider_count = 0;
 var event_count = [];
+var events_for_loc = [];
 var tmp = null;
 var start = new Date().getTime();
 var total_time = 0; // Total recording time in ms
@@ -13,8 +14,8 @@ var config = {
     //apiUrl:'http://i5imac:8001/api/',
     //apiUrl:'http://127.0.0.1:8001/api/',
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.0', // This should match the webapp version
-    session_len: 600 // Number of minutes for a recording session
+    version: '0.1.1', // This should match the webapp version
+    session_len: 900 // Number of minutes for a recording session
 }
 
 if (location.host.indexOf('localhost') > -1){
@@ -69,6 +70,10 @@ function route(event) {
     if (hash === "#help") {
         var template = $('#tpl-help').html();
         page = Mustache.to_html(template);
+    }
+    // Logout
+    if (hash === '#logout') {
+        logout();
     }
     // Upcoming appts screen
     if (hash === "#upcoming") {
@@ -161,13 +166,16 @@ function route(event) {
         rider_count = 0;
 
         // Rebuild event count array
+        events_for_loc = [];
         event_count = new Array();
         for (i=0; i < org.organizationevents_set.length; i++){
             var ev = org.organizationevents_set[i];
             // Don't count pedestrians at intersections
-            if (ev.system_name == 'pedestrian' && loc.type == 'intersection') {
+            if (ev.event.system_name == 'pedestrian' && loc.type == 'intersection') {
                 continue;
             }
+            _l(ev);
+            events_for_loc.push({'event': {'id': ev.event.id, 'name': ev.event.name}});
             event_count[ev.id] = 0;
         }
 
@@ -187,7 +195,7 @@ function route(event) {
         */
 
         var template = $('#tpl-record').html();
-        page = Mustache.to_html(template, {'org': org, 'location': loc});
+        page = Mustache.to_html(template, {'org': org, 'location': loc, 'events': events_for_loc});
         //page = Mustache.to_html(template, {'org': org, 'location': loc, 'dirs': dirs});
 
         // Run the post survey every 10 seconds

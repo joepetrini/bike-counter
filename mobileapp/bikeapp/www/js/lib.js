@@ -39,6 +39,11 @@ function _req(params){
     $.ajax(params);
 }
 
+function logout() {
+    _set('token', null);
+    window.location.replace('');
+}
+
 function login() {
     $('#err-login').hide();
 
@@ -279,7 +284,8 @@ function saveSurvey(){
     for (i=0; i < Object.keys(survey).length; i++){
         _l('survey key : ' + Object.keys(survey)[i]);
         var k = Object.keys(survey)[i];
-        if (k != 'sidewalk' && k != 'wrong_way') {
+        // TODO - update to respect default values, not hardcode
+        if (k != 'sidewalk' && k != 'wrong_way' && k != 'gender') {
             _l('null out key : ' + k);
             survey[Object.keys(survey)[i]] = null;
         }

@@ -229,18 +229,18 @@
       <div class="row text-center" style="padding-top:15px">
           <table class="table">
               <tr>
-                  {{#org.organizationevents_set}}
+                  {{#events}}
                   <td>{{event.name}}</td>
-                  {{/org.organizationevents_set}}
+                  {{/events}}
               </tr>
               <tr>
-                  {{#org.organizationevents_set}}
+                  {{#events}}
                   <!-- TODO - test the events buttons -->
                   <td>
                       <button class="btn btn-event" onclick="saveEvent({{event.id}})">+ 1</button>
                       <span class="badge" id="eventcount_{{event.id}}">0</span>
                   </td>
-                  {{/org.organizationevents_set}}
+                  {{/events}}
               </tr>
           </table>
       </div>
@@ -255,7 +255,7 @@
             <div class="heading">Gender</div>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val">
-                    <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" value="m">M
+                    <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
                 </label>
                 <label class="btn btn-val">
                     <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F

@@ -163,6 +163,9 @@ class Appointment(TimeStampedModel):
     def __unicode__(self):
         return "%s - %s - %s - %s" % (self.organization.name, self.location, self.user, self.scheduled_start)
 
+    def time_taken_in_min(self):
+        return self.time_taken / 60
+
     def start(self):
         self.actual_start = datetime.datetime.now()
         self.save()
@@ -190,7 +193,7 @@ class SurveyEvent(TimeStampedModel):
         db_table = 'survey_events'
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.appointment, self.event)
+        return "%s - %s - %s" % (self.created, self.appointment, self.event)
 
 
 class Survey(TimeStampedModel):
