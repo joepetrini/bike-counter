@@ -176,7 +176,7 @@ function route(event) {
             }
             _l(ev);
             events_for_loc.push({'event': {'id': ev.event.id, 'name': ev.event.name}});
-            event_count[ev.id] = 0;
+            event_count[ev.event.id] = 0;
         }
 
         // Start timer

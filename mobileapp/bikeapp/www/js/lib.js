@@ -233,12 +233,11 @@ function saveEvent(id){
     _setdict('events_to_save', s);
 
     // Increase count
-    rider_count = rider_count + 1;
-    $('#eventcount_' + id).html('1');
-    $('#eventcount_' + id).fadeOut(500).fadeIn(500);
-
-
-
+    event_count[id]++;
+    $('#eventcount_' + id).fadeOut(500, function() {
+        $(this).html(event_count[id]).fadeIn(1000);
+        $('#btn_event_' + id).blur();
+    });
 }
 
 function saveSurvey(){

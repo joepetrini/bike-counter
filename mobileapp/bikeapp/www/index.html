@@ -237,7 +237,7 @@
                   {{#events}}
                   <!-- TODO - test the events buttons -->
                   <td>
-                      <button class="btn btn-event" onclick="saveEvent({{event.id}})">+ 1</button>
+                      <button id="btn_event_{{event.id}}" class="btn btn-event" onclick="saveEvent({{event.id}})">+ 1</button>
                       <span class="badge" id="eventcount_{{event.id}}">0</span>
                   </td>
                   {{/events}}

@@ -9,6 +9,7 @@ class RequireMembershipMiddleware(object):
         try:
             slug = view_kwargs['slug']
             m = Membership.objects.get(user=request.user, organization__slug=slug)
+            request.current_org = slug
         except KeyError:
             try:
                 m = Membership.objects.filter(user=request.user)[0]

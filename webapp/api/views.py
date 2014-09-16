@@ -77,7 +77,7 @@ class ApptViewSet(viewsets.ModelViewSet):
             print "{} {}".format(k, v)
         # TODO get event type and add to related survey
         ev = Event.objects.get(id=request.DATA['event_id'])
-        se, c = SurveyEvent.objects.get_or_create(appointment=appt, event=ev)
+        se = SurveyEvent.objects.create(appointment=appt, event=ev)
         return Response(None, status=status.HTTP_200_OK)
 
 

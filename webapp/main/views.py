@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView, UpdateView
 #from django.views.generic.edit import FormView
 from .models import Organization, Appointment, Membership, Location
-
+from .logic import stats_for_appt
 
 class OrgListView(ListView):
     model = Organization
@@ -33,6 +33,16 @@ class OrgHomeView(DetailView):
         unassigned = Appointment.objects.filter(user=None, organization=self.object)
         context['sessions'] = sessions
         context['unassigned'] = unassigned
+        return context
+
+
+class ApptDetailView(DetailView):
+    model = Appointment
+    template_name = 'appointment_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ApptDetailView, self).get_context_data(**kwargs)
+        context['stats'] = stats_for_appt(self.object)
         return context
 
 

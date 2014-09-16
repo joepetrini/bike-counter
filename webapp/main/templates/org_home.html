@@ -20,10 +20,12 @@
       <td>{{ s.scheduled_start }}</td>
       <td>
         {% if s.actual_end %}
+          <a href="{% url 'appt-detail' s.organization.slug s.pk %}">
           Completed - {{ s.actual_end|date:"SHORT_DATE_FORMAT" }}
+          </a>
           <!-- - {{ s.time_taken_in_min }}-->
         {% else %}
-          <input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt_cancel' s.organization.slug s.pk %}'">
+          <input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt-cancel' s.organization.slug s.pk %}'">
         {% endif %}
       </td>
     </tr>
@@ -49,7 +51,7 @@
       <td>{{ s.scheduled_start }}</td>
       <td>
         {% if sessions.count < 20000 %}
-          <input type="button" class="btn btn-primary" value="Signup" onclick="document.location='{% url 'appt_signup' s.organization.slug s.pk %}'">
+          <input type="button" class="btn btn-primary" value="Signup" onclick="document.location='{% url 'appt-signup' s.organization.slug s.pk %}'">
         {% endif %}
       </td>
     </tr>

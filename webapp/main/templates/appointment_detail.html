@@ -1,0 +1,34 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'org_home' request.current_org %}">Home</a></li>
+</ol>
+
+<h3>{{ object.location }}</h3>
+
+  <h4>Event Details</h4>
+
+  <h4>Survey Details</h4>
+  <table class="table table-striped">
+  {% for s in object.survey_set.all %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{s.created}}</td>
+      <td>
+        <table>
+        {% for sv in s.surveyvalue_set.all %}
+        <tr>
+          <td>{{ sv.metric.name }}&nbsp;&nbsp;&nbsp;</td>
+          <td>{{ sv.value.display_value }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}
+
+
+
