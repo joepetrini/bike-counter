@@ -403,22 +403,24 @@ function endSession(appt){
     // API call to end session
     id = _get('cur_appt');
     if (_get('token')){
-        $.ajax
-        ({
-            type: "POST",
-            url: config['apiUrl'] + 'session/'+id+'/end',
-            /*async: false,*/
-            crossDomain: true,
-            data: {'total_time': total_time},
-            headers: {"Authorization": 'Token ' + _get('token')},
-            success: function (data){
-                // Load the recording page
-                window.location.replace('#done/'+id);
-            },
-            error: function(data){
-                return;
-            }
-        });
+        if (confirm('Confirm end session?')) {
+            $.ajax
+            ({
+                type: "POST",
+                url: config['apiUrl'] + 'session/'+id+'/end',
+                /*async: false,*/
+                crossDomain: true,
+                data: {'total_time': total_time},
+                headers: {"Authorization": 'Token ' + _get('token')},
+                success: function (data){
+                    // Load the recording page
+                    window.location.replace('#done/'+id);
+                },
+                error: function(data){
+                    return;
+                }
+            });
+        }
     }
 }
 

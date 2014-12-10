@@ -17,6 +17,8 @@ h1, h2, h3, h4 {
 }
 
 a {
+    font-size: 18px;
+    line-height: 28px;
     color: #4ea1b4;
 }
 
