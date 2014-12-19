@@ -22,7 +22,7 @@ if (location.host.indexOf('localhost') > -1){
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
 }
 else {
-    config['apiUrl'] = 'http://bikecounter.traklis.com/api/';
+    config['apiUrl'] = 'http://www.bikecounts.com/api/';
 }
 
 var timerInterval = null;

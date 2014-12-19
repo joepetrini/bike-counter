@@ -4,8 +4,8 @@ from .serializers import UserSerializer, LocationSerializer, AppointmentSerializ
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import action
-from rest_framework import authentication
+from rest_framework.decorators import detail_route #action
+#from rest_framework import authentication
 from main.models import Organization, Location, Appointment, Survey, SurveyValue, Metric, Value, Event, SurveyEvent
 
 
@@ -37,20 +37,23 @@ class ApptViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 
-    @action(methods=['POST'])
+    #@action(methods=['POST'])
+    @detail_route(methods=['POST'])
     def start(self, request, pk=None):
         appt = self.get_object()
         # TODO: check that appointment is not complete
         appt.start()
         return Response(None, status=status.HTTP_200_OK)
 
-    @action(methods=['POST'])
+    #@action(methods=['POST'])
+    @detail_route(methods=['POST'])
     def end(self, request, pk=None):
         appt = self.get_object()
         appt.end(request.DATA['total_time'])
         return Response(None, status=status.HTTP_200_OK)
 
-    @action(methods=['POST'])
+    #@action(methods=['POST'])
+    @detail_route(methods=['POST'])
     def survey(self, request, pk=None):
         appt = self.get_object()
         # TODO: check that appointment is not complete
@@ -70,7 +73,8 @@ class ApptViewSet(viewsets.ModelViewSet):
             print "%s %s" % (k, v)
         return Response(None, status=status.HTTP_200_OK)
 
-    @action(methods=['POST'])
+    #@action(methods=['POST'])
+    @detail_route(methods=['POST'])
     def event(self, request, pk=None):
         appt = self.get_object()
         for k, v in request.DATA.items():
