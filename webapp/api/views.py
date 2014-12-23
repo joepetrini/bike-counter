@@ -17,6 +17,11 @@ class LocationViewSet(viewsets.ModelViewSet):
     serializer_class = LocationSerializer
 
 
+#class OrgViewSet(viewsets.ModelViewSet):
+#    queryset = Membership.objects.all()
+#    serializer_class = OrganizationSerializer
+
+
 class MeDetail(APIView):
     """
     Retrieve, update or delete a user instance.

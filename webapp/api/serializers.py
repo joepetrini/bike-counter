@@ -13,11 +13,11 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    location = LocationSerializer()
+    #location = LocationSerializer()
 
     class Meta:
         model = Appointment
-        fields = ('id', 'user', 'location', 'scheduled_start', 'actual_start', 'actual_end')
+        fields = ('id', 'user')#, 'location', 'scheduled_start', 'actual_start', 'actual_end')
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -85,13 +85,13 @@ class MembershipSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     appointment_set = AppointmentSerializer()
-    location_set = LocationSerializer()
-    membership_set = MembershipSerializer()
+    #location_set = LocationSerializer()
+    #membership_set = MembershipSerializer()
     #membership_set = serializers.RelationsList()
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'appointment_set', 'membership_set')
+        fields = ('id', 'username', 'email', 'first_name', 'appointment_set')#, 'membership_set', 'location_set')
 
 
 
