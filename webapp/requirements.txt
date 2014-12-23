@@ -1,3 +1,4 @@
+# Python Version = 2.7
 Django==1.7
 django-bootstrap3==3.3.0
 django-debug-toolbar==1.0.1
