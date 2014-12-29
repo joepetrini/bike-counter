@@ -3,7 +3,7 @@ bike-counter
 
 Web and mobile application to support the data collection and reporting for urban bike counting efforts.  
 
-Built in conjuction with [Code for Philly](http://codeforphilly.org/projects/Philly_Bike_Coalition_Survey_App) and [Philly Bike Coalition](http://www.bicyclecoalition.org/).
+Built in conjunction with [Code for Philly](http://codeforphilly.org/projects/Philly_Bike_Coalition_Survey_App) and [Philly Bike Coalition](http://www.bicyclecoalition.org/).
 
 ## Requirements
 * Python 2.7
