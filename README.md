@@ -9,14 +9,37 @@ Built in conjunction with [Code for Philly](http://codeforphilly.org/projects/Ph
 * Python 2.7
 * Pip
 
-## Recent Milesones
-* Mobile - login, select appt, start recording screens done
-* iOS and android app started using cordova
-* API framework and token based auth working
-* 1st prototype testable
-* Staging site up and running
-* 1st round data model done
 
-## Data Capture Prototypes
-[HTML5 mobile site with jquery](http://bikecounter.traklis.com/mockups/joe/mockup1.html)
+## Running the django web application
 
+    # Clone the github repo
+    git clone https://github.com/joepetrini/bike-counter.git bikecounts
+
+    # Create a virutalenv using virtualenvwrapper
+    # get https://virtualenvwrapper.readthedocs.org/en/latest/
+    mkvirtualenv bikecounts
+    cd webapp
+
+    # Install project requirements
+    pip install -r requirements.txt
+
+    # Copy the local settings template
+    # Update local.py with db settings, or leave as is for sqlite file
+    cp bikecounter/settings/local_copyme.py bikecounter/settings/local.py
+
+    # Run the database migration to update schema
+    python manage.py migrate
+
+    # Load initial data
+    python manage.py loaddata init_data.json
+
+    # Run it
+    python manage.py runserver
+
+
+## Running the mobile app
+
+    cd mobilebapp/bikeapp/www
+    sh server.sh
+
+View it at http://localhost:1080

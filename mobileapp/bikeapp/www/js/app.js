@@ -6,7 +6,7 @@
     // Loaded into local storage on app launch
     var config = {
         //apiUrl:'http://bikecounter.traklis.com/api/',
-        apiUrl:'http://localhost:8001/api/',
+        apiUrl:'http://localhost:8000/api/',
         surveyType:'default' // For configurable survey interfaces
     }
 

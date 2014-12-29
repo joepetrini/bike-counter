@@ -7,6 +7,7 @@
         "created": "2014-03-21T13:28:34.956Z",
         "modified": "2014-03-21T13:28:34.956Z",
         "state": null,
+        "session_length": 90,
         "slug": "phl-bike"
     },
     "model": "main.organization",
@@ -14,38 +15,19 @@
 },
 {
     "fields": {
-        "organization": 1,
-        "user": 1,
-        "role": "member",
-        "modified": "2014-03-21T16:19:29.382Z",
-        "created": "2014-03-21T16:19:29.381Z"
-    },
-    "model": "main.membership",
-    "pk": 1
-},
-{
-    "fields": {
-        "organization": 1,
-        "user": 7,
-        "role": "member",
-        "modified": "2014-04-07T20:10:56.148Z",
-        "created": "2014-04-07T20:10:56.147Z"
-    },
-    "model": "main.membership",
-    "pk": 3
-},
-{
-    "fields": {
         "has_west": true,
-        "description": null,
+        "description": "",
         "created": "2014-03-21T20:18:34.128Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.884Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.867Z",
         "longitude": "-75.161484",
         "has_north": true,
+        "direction2": "Wash",
         "latitude": "39.93719",
         "organization": 1,
+        "direction1": "11th",
         "type": "intersection",
         "name": "11th and Washington"
     },
@@ -57,13 +39,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-03-25T15:36:29.216Z",
-        "has_south": true,
         "has_east": true,
+        "has_south": true,
+        "enabled": true,
         "modified": "2014-03-25T15:36:29.223Z",
         "longitude": null,
         "has_north": true,
+        "direction2": null,
         "latitude": null,
         "organization": 1,
+        "direction1": null,
         "type": "intersection",
         "name": "22nd and Sansom"
     },
@@ -75,13 +60,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.727Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.894Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.878Z",
         "longitude": "-75.14823",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.955403",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "Ben Franklin Bridge"
     },
@@ -93,13 +81,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.731Z",
-        "has_south": false,
         "has_east": false,
-        "modified": "2014-04-02T13:50:08.897Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.883Z",
         "longitude": "-75.181894",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.951527",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "Walnut St Bridge - Mid Bridge"
     },
@@ -111,13 +102,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.735Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.900Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.888Z",
         "longitude": "-75.187039",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.947023",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "South St Bridge  - Mid Bridge"
     },
@@ -129,13 +123,16 @@
         "has_west": false,
         "description": null,
         "created": "2014-04-01T19:52:39.740Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.903Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.892Z",
         "longitude": "-75.181046",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.953001",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "Chestnut St Bridge - Mid Bridge"
     },
@@ -147,13 +144,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.743Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.906Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.895Z",
         "longitude": "-75.180354",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.954459",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "Market St Bridge - Mid Bridge"
     },
@@ -165,13 +165,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.747Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.908Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.898Z",
         "longitude": "-75.183497",
         "has_north": false,
+        "direction2": "West",
         "latitude": "39.964319",
         "organization": 1,
+        "direction1": "East",
         "type": "bridge",
         "name": "Spring Garden St Bridge - Mid Bridge"
     },
@@ -183,13 +186,16 @@
         "has_west": false,
         "description": null,
         "created": "2014-04-01T19:52:39.751Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.911Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.901Z",
         "longitude": "-75.158259",
         "has_north": false,
+        "direction2": "Pine",
         "latitude": "39.944905",
         "organization": 1,
+        "direction1": "10th",
         "type": "intersection",
         "name": "10th and Pine"
     },
@@ -201,13 +207,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.755Z",
-        "has_south": false,
         "has_east": false,
-        "modified": "2014-04-02T13:50:08.914Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.904Z",
         "longitude": "-75.162644",
         "has_north": true,
+        "direction2": "Spruce",
         "latitude": "39.946927",
         "organization": 1,
+        "direction1": "13th",
         "type": "intersection",
         "name": "13th and Spruce"
     },
@@ -217,15 +226,18 @@
 {
     "fields": {
         "has_west": false,
-        "description": null,
+        "description": "",
         "created": "2014-04-01T19:52:39.759Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.916Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.910Z",
         "longitude": "-75.165099",
         "has_north": true,
+        "direction2": "Pine",
         "latitude": "39.945555",
         "organization": 1,
+        "direction1": "Broad",
         "type": "intersection",
         "name": "Broad and Pine"
     },
@@ -237,13 +249,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.763Z",
-        "has_south": false,
         "has_east": false,
-        "modified": "2014-04-02T13:50:08.921Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.915Z",
         "longitude": "-75.17785",
         "has_north": true,
+        "direction2": "Spruce",
         "latitude": "39.948609",
         "organization": 1,
+        "direction1": "22nd",
         "type": "intersection",
         "name": "22nd and Spruce"
     },
@@ -255,13 +270,16 @@
         "has_west": false,
         "description": null,
         "created": "2014-04-01T19:52:39.766Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.924Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.918Z",
         "longitude": "-75.176585",
         "has_north": false,
+        "direction2": "Pine",
         "latitude": "39.946987",
         "organization": 1,
+        "direction1": "21st",
         "type": "intersection",
         "name": "21st and Pine"
     },
@@ -273,13 +291,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.770Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.928Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.922Z",
         "longitude": "-75.199207",
         "has_north": true,
+        "direction2": "Spruce",
         "latitude": "39.951251",
         "organization": 1,
+        "direction1": "38th",
         "type": "intersection",
         "name": "38th and Spruce"
     },
@@ -291,13 +312,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.773Z",
-        "has_south": true,
         "has_east": false,
-        "modified": "2014-04-02T13:50:08.932Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.926Z",
         "longitude": "-75.210048",
         "has_north": false,
+        "direction2": "Walnut",
         "latitude": "39.955037",
         "organization": 1,
+        "direction1": "44th",
         "type": "intersection",
         "name": "44th and Walnut"
     },
@@ -309,13 +333,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.777Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.936Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.930Z",
         "longitude": "-75.146579",
         "has_north": true,
+        "direction2": "Spring Garden",
         "latitude": "39.961183",
         "organization": 1,
+        "direction1": "5th",
         "type": "intersection",
         "name": "5th and Spring Garden"
     },
@@ -327,13 +354,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.781Z",
-        "has_south": false,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.941Z",
+        "has_south": false,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.933Z",
         "longitude": "-75.15572",
         "has_north": true,
+        "direction2": "CecilB",
         "latitude": "39.978374",
         "organization": 1,
+        "direction1": "13th",
         "type": "intersection",
         "name": "13th and Cecil B Moore"
     },
@@ -345,13 +375,16 @@
         "has_west": true,
         "description": null,
         "created": "2014-04-01T19:52:39.784Z",
-        "has_south": true,
         "has_east": true,
-        "modified": "2014-04-02T13:50:08.946Z",
+        "has_south": true,
+        "enabled": true,
+        "modified": "2014-09-11T15:05:55.938Z",
         "longitude": "-75.134441",
         "has_north": true,
+        "direction2": "Frankford",
         "latitude": "39.968828",
         "organization": 1,
+        "direction1": "Girard",
         "type": "intersection",
         "name": "Girard and Frankford"
     },
@@ -370,9 +403,9 @@
 },
 {
     "fields": {
-        "system_name": "direction",
-        "modified": "2014-03-27T22:43:45.446Z",
-        "name": "Direction",
+        "system_name": "cardinality",
+        "modified": "2014-09-11T15:07:04.575Z",
+        "name": "Cardinality",
         "created": "2014-03-27T22:43:45.445Z"
     },
     "model": "main.valueset",
@@ -387,6 +420,16 @@
     },
     "model": "main.valueset",
     "pk": 3
+},
+{
+    "fields": {
+        "system_name": "direction",
+        "modified": "2014-09-11T15:07:12.491Z",
+        "name": "Direction",
+        "created": "2014-09-11T15:07:12.488Z"
+    },
+    "model": "main.valueset",
+    "pk": 4
 },
 {
     "fields": {
@@ -464,9 +507,9 @@
     "fields": {
         "stored_value": "m",
         "value_set": 3,
-        "modified": "2014-04-22T14:30:08.673Z",
+        "modified": "2014-09-16T13:59:27.105Z",
         "created": "2014-04-22T14:30:08.670Z",
-        "is_default": false,
+        "is_default": true,
         "display_value": "Male"
     },
     "model": "main.value",
@@ -486,6 +529,30 @@
 },
 {
     "fields": {
+        "stored_value": "1",
+        "value_set": 4,
+        "modified": "2014-09-12T14:50:37.455Z",
+        "created": "2014-09-11T15:07:37.634Z",
+        "is_default": false,
+        "display_value": "one"
+    },
+    "model": "main.value",
+    "pk": 12
+},
+{
+    "fields": {
+        "stored_value": "2",
+        "value_set": 4,
+        "modified": "2014-09-12T14:50:32.576Z",
+        "created": "2014-09-11T15:07:49.328Z",
+        "is_default": false,
+        "display_value": "two"
+    },
+    "model": "main.value",
+    "pk": 13
+},
+{
+    "fields": {
         "system_name": "helmet",
         "name": "Helmet",
         "value_set": 1,
@@ -498,12 +565,12 @@
 },
 {
     "fields": {
-        "system_name": "direction",
-        "name": "Direction",
+        "system_name": "cardinality",
+        "name": "Cardinality",
         "value_set": 2,
         "created": "2014-03-27T22:45:06.640Z",
-        "modified": "2014-03-27T22:45:06.644Z",
-        "desc": "Which direction?"
+        "modified": "2014-09-11T15:09:10.022Z",
+        "desc": "Which nsew direction?"
     },
     "model": "main.metric",
     "pk": 2
@@ -546,68 +613,155 @@
 },
 {
     "fields": {
+        "system_name": "direction",
+        "name": "Direction",
+        "value_set": 4,
+        "created": "2014-09-11T15:09:29.681Z",
+        "modified": "2014-09-11T15:09:29.686Z",
+        "desc": "Which direction?"
+    },
+    "model": "main.metric",
+    "pk": 6
+},
+{
+    "fields": {
+        "system_name": "bike_on_bus",
+        "modified": "2014-08-28T14:08:49.889Z",
+        "name": "Bike On Bus",
+        "created": "2014-08-28T14:08:49.887Z"
+    },
+    "model": "main.event",
+    "pk": 1
+},
+{
+    "fields": {
+        "system_name": "pedestrian",
+        "modified": "2014-09-12T17:20:20.592Z",
+        "name": "Pedestrian",
+        "created": "2014-09-12T17:20:20.588Z"
+    },
+    "model": "main.event",
+    "pk": 2
+},
+{
+    "fields": {
+        "event": 1,
         "organization": 1,
+        "modified": "2014-08-28T14:10:31.219Z",
+        "created": "2014-08-28T14:10:31.209Z"
+    },
+    "model": "main.organizationevents",
+    "pk": 1
+},
+{
+    "fields": {
+        "event": 2,
+        "organization": 1,
+        "modified": "2014-09-12T17:20:38.745Z",
+        "created": "2014-09-12T17:20:38.731Z"
+    },
+    "model": "main.organizationevents",
+    "pk": 2
+},
+{
+    "fields": {
+        "created": "2014-03-27T22:31:36.868Z",
         "metric": 1,
-        "order": 2,
+        "required": true,
         "modified": "2014-04-22T14:33:07.259Z",
-        "created": "2014-03-27T22:31:36.868Z"
+        "organization": 1,
+        "order": 2
     },
     "model": "main.organizationmetrics",
     "pk": 1
 },
 {
     "fields": {
+        "created": "2014-03-27T22:45:08.933Z",
+        "metric": 6,
+        "required": true,
+        "modified": "2014-09-11T15:09:40.439Z",
         "organization": 1,
-        "metric": 2,
-        "order": 1,
-        "modified": "2014-04-22T14:33:03.510Z",
-        "created": "2014-03-27T22:45:08.933Z"
+        "order": 1
     },
     "model": "main.organizationmetrics",
     "pk": 2
 },
 {
     "fields": {
-        "organization": 1,
+        "created": "2014-04-22T14:30:36.717Z",
         "metric": 3,
-        "order": 0,
+        "required": true,
         "modified": "2014-04-22T14:32:57.015Z",
-        "created": "2014-04-22T14:30:36.717Z"
+        "organization": 1,
+        "order": 0
     },
     "model": "main.organizationmetrics",
     "pk": 3
 },
 {
     "fields": {
-        "organization": 1,
+        "created": "2014-04-22T14:35:57.670Z",
         "metric": 4,
-        "order": 4,
+        "required": true,
         "modified": "2014-04-22T14:35:57.675Z",
-        "created": "2014-04-22T14:35:57.670Z"
+        "organization": 1,
+        "order": 4
     },
     "model": "main.organizationmetrics",
     "pk": 4
 },
 {
     "fields": {
-        "organization": 1,
+        "created": "2014-04-22T14:36:19.482Z",
         "metric": 5,
-        "order": 5,
+        "required": true,
         "modified": "2014-04-22T14:36:19.487Z",
-        "created": "2014-04-22T14:36:19.482Z"
+        "organization": 1,
+        "order": 5
     },
     "model": "main.organizationmetrics",
     "pk": 5
 },
 {
     "fields": {
-        "actual_end": "2014-04-22T15:10:17.905Z",
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2014-12-29T15:20:40.274Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$QXyJVjzHnPWt$4fgnQLGqbegWkuiqbG9pjiYN14JKRdHu7g1c5B5Kx4c=",
+        "email": "changeme@aaa.com",
+        "date_joined": "2014-03-21T13:22:19.333Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "organization": 1,
+        "user": 1,
+        "role": "member",
+        "modified": "2014-03-21T16:19:29.382Z",
+        "created": "2014-03-21T16:19:29.381Z"
+    },
+    "model": "main.membership",
+    "pk": 1
+},
+{
+    "fields": {
+        "actual_end": "2014-10-28T23:24:04.791Z",
         "created": "2014-03-25T13:27:42.520Z",
-        "modified": "2014-04-22T15:10:17.905Z",
-        "scheduled_start": "2014-03-25T13:27:40Z",
+        "modified": "2014-10-28T23:24:04.791Z",
+        "scheduled_start": "2014-08-26T13:27:40Z",
         "user": 1,
         "organization": 1,
-        "actual_start": "2014-04-22T15:09:00.647Z",
+        "actual_start": "2014-10-28T23:19:23.874Z",
+        "time_taken": 160000,
         "location": 1
     },
     "model": "main.appointment",
@@ -616,15 +770,16 @@
 {
     "fields": {
         "actual_end": null,
-        "created": "2014-04-03T16:16:10.366Z",
-        "modified": "2014-04-03T16:16:10.376Z",
-        "scheduled_start": "2014-04-03T16:16:09Z",
+        "created": "2014-08-26T14:26:37.212Z",
+        "modified": "2014-08-26T14:26:37.212Z",
+        "scheduled_start": "2014-09-05T14:26:37.197Z",
         "user": null,
         "organization": 1,
         "actual_start": null,
+        "time_taken": 0,
         "location": 18
     },
     "model": "main.appointment",
-    "pk": 2
+    "pk": 6
 }
 ]
