@@ -54,6 +54,7 @@ function login() {
         $('#err-login').html('Invalid username or password').show();
         return;
     }
+    _l('posting to /auth');
     $.ajax({
         type: "POST",
         url: config['apiUrl'] + 'auth',
@@ -61,6 +62,7 @@ function login() {
         data: {username:username, password:password},
         success: function (data){
             if (data.token){
+                _l('logged in.  redir to #home');
                 _set('token', data.token);
                 window.location.replace('#home');
             }

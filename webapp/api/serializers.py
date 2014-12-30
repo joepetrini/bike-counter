@@ -13,11 +13,11 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    #location = LocationSerializer()
+    location = LocationSerializer()
 
     class Meta:
         model = Appointment
-        fields = ('id', 'user')#, 'location', 'scheduled_start', 'actual_start', 'actual_end')
+        fields = ('id', 'user', 'location', 'scheduled_start', 'actual_start', 'actual_end')
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -41,7 +41,7 @@ class ValueSerializer(serializers.ModelSerializer):
 
 
 class ValueSetSerializer(serializers.ModelSerializer):
-    value_set = ValueSerializer()
+    value_set = ValueSerializer(many=True, read_only=True)
 
     class Meta:
         model = ValueSet
@@ -65,9 +65,9 @@ class OrganizationMetricSerializer(serializers.ModelSerializer):
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
-    location_set = LocationSerializer()
-    organizationmetrics_set = OrganizationMetricSerializer()
-    organizationevents_set = OrganizationEventSerializer()
+    location_set = LocationSerializer(many=True, read_only=True)
+    organizationmetrics_set = OrganizationMetricSerializer(many=True, read_only=True)
+    organizationevents_set = OrganizationEventSerializer(many=True, read_only=True)
 
     class Meta:
         model = Organization
@@ -84,14 +84,14 @@ class MembershipSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    appointment_set = AppointmentSerializer()
-    #location_set = LocationSerializer()
-    #membership_set = MembershipSerializer()
+    appointment_set = AppointmentSerializer(many=True, read_only=True)
+    #location_set = LocationSerializer(many=True, read_only=True)
+    membership_set = MembershipSerializer(many=True, read_only=True)
     #membership_set = serializers.RelationsList()
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'appointment_set')#, 'membership_set', 'location_set')
+        fields = ('id', 'username', 'email', 'first_name', 'appointment_set', 'membership_set')
 
 
 
