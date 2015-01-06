@@ -35,8 +35,12 @@ $(window).on('hashchange', route);
 /* Disable back button on android */
 document.addEventListener('deviceready', function() {
     document.addEventListener("backbutton", goBack, false);
+    document.addEventListener("pause", onPause, false);
 }, false);
 function goBack(){}
+function onPause(){
+    alert('pause');
+}
 
 
 window.addEventListener('load', function () {

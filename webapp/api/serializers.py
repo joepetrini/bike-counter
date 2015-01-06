@@ -71,7 +71,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organization
-        fields = ('id', 'name', 'city', 'state', 'location_set',
+        fields = ('id', 'name', 'city', 'state', 'location_set', 'session_length',
                   'organizationmetrics_set', 'organizationevents_set')
 
 

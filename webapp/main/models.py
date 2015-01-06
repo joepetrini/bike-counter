@@ -156,6 +156,9 @@ class Appointment(TimeStampedModel):
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
     time_taken = models.IntegerField(null=True, blank=True)
+    longest_pause = models.IntegerField(default=0)
+    total_pause = models.IntegerField(default=0)
+    total_away = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'appointment'
