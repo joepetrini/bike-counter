@@ -7,6 +7,11 @@ var tmp = null;
 var start = new Date().getTime();
 var total_time = 0; // Total recording time in ms
 var paused = false; // To Track if in paused state
+var pause_start = null; // Track time when pause started
+var away_start = null; // Track time when away started
+var total_paused = 0;
+var longest_pause = 0;
+var total_away = 0;
 
 
 var config = {
@@ -35,10 +40,11 @@ $(window).on('hashchange', route);
 /* Disable back button on android */
 document.addEventListener('deviceready', function() {
     document.addEventListener("backbutton", goBack, false);
-    document.addEventListener("pause", onPause, false);
+    document.addEventListener("pause", onAway, false);
 }, false);
 function goBack(){}
-function onPause(){
+function onAway(){
+    away_start = new Date().getTime();
     alert('pause');
 }
 

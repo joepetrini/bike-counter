@@ -162,6 +162,7 @@ function pause(){
     // Pause
     else {
         paused = true;
+        pause_start = new Date().getTime();
         $('#btn_pause').prop('disabled', false);
         $('#btn_end').prop('disabled', true);
         $('#btn_pause').val('Unpause');
@@ -412,7 +413,7 @@ function endSession(appt){
                 url: config['apiUrl'] + 'session/'+id+'/end',
                 /*async: false,*/
                 crossDomain: true,
-                data: {'total_time': total_time},
+                data: {'total_time': total_time, 'total_paused': total_paused, 'longest_pause': longest_pause, 'total_away': total_away},
                 headers: {"Authorization": 'Token ' + _get('token')},
                 success: function (data){
                     // Load the recording page
