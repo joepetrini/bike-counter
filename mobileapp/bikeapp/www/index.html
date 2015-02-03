@@ -167,10 +167,10 @@
             <div class="heading">Direction</div>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{location.direction1}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{loc.direction1}}
                 </label>
                 <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="2">{{location.direction2}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="2">{{loc.direction2}}
                 </label>
               <!--
               {{#dirs}}
@@ -226,7 +226,7 @@
       <br>
       <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
       -->
-      <div class="row text-center" style="padding-top:15px">
+      <div id="events_div" class="row text-center" style="padding-top:15px">
           <table class="table">
               <tr>
                   {{#events}}

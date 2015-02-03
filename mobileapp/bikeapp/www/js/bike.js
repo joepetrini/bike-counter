@@ -19,7 +19,7 @@ var config = {
     //apiUrl:'http://i5imac:8001/api/',
     //apiUrl:'http://127.0.0.1:8001/api/',
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.1', // This should match the webapp version
+    version: '0.1.4', // This should match the webapp version
     session_len: 900 // Number of minutes for a recording session
 }
 
@@ -164,7 +164,7 @@ function route(event) {
         _set('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
         var loc = getAppointment(appt_id).location;
-
+        _l('location direction: ' + loc.direction1);
         // Blank out survey vals
         _l('metric length:' + org.organizationmetrics_set.length);
         survey = {};
@@ -205,7 +205,7 @@ function route(event) {
         */
 
         var template = $('#tpl-record').html();
-        page = Mustache.to_html(template, {'org': org, 'location': loc, 'events': events_for_loc});
+        page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
         //page = Mustache.to_html(template, {'org': org, 'location': loc, 'dirs': dirs});
 
         // Run the post survey every 10 seconds

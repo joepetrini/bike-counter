@@ -19,6 +19,7 @@ class Command(BaseCommand):
             return
         org = Organization.objects.all()[0]
         key = '0AgUErk7rE6TLdGJ0NE90U2pDVE9MRkZrU2hGR0FhRlE'
+        key = '1dxJ-xw5K8k0q3YBmEuD5rIkdxG8eoV8eM3NPNFhk9QQ'
         gc = gspread.login(args[0], args[1])
         sht = gc.open_by_key(key).get_worksheet(0)
         values = sht.get_all_values()

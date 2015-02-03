@@ -22,7 +22,11 @@ function _setdict(key, v){
 
 // Get data helper
 function _getdict(key) {
-    return JSON.parse(window.localStorage.getItem(key));
+    var ret = window.localStorage.getItem(key);
+    if (ret != null){
+        return JSON.parse(ret);
+    }
+    return [];
 }
 
 // API request
@@ -158,6 +162,7 @@ function pause(){
         $('#btn_end').prop('disabled', false);
         $('#btn_pause').val('Pause');
         $('.rec_content').show();
+        $('#events_div').show();
     }
     // Pause
     else {
@@ -167,6 +172,7 @@ function pause(){
         $('#btn_end').prop('disabled', true);
         $('#btn_pause').val('Unpause');
         $('.rec_content').hide();
+        $('#events_div').hide();
     }
     $('#btn_pause').blur();
 }
