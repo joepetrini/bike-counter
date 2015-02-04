@@ -43,3 +43,12 @@ Built in conjunction with [Code for Philly](http://codeforphilly.org/projects/Ph
     sh server.sh
 
 View it at http://localhost:1080
+
+
+## Building the mobile app
+    Mobile apps are compiled using phonegap
+
+    # Android
+
+    cd mobileapp/bikeapp
+    cordova build android --release
