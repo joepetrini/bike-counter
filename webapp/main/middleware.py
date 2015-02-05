@@ -1,3 +1,4 @@
+from django.conf import settings
 from .models import Organization, Membership
 
 
@@ -23,4 +24,5 @@ def membership_context_processor(request):
         m = request.member
     except AttributeError:
         m = None
-    return {'member': m,}
+    d = {'member': m, 'version': settings.VERSION}
+    return d

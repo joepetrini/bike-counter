@@ -1,28 +1,65 @@
-var map;
-var survey = [];
+/*************************
+    Global Vars
+*************************/
+// Google map
+// var map;
+
+// Key val dictionary for storing selected values
+var survey = {};
+// Total number of surveys submitted
 var rider_count = 0;
+// Array for all event counts
 var event_count = [];
-var events_for_loc = [];
-var tmp = null;
-var start = new Date().getTime();
+
+//var events_for_loc = [];
+//var tmp = null;
+// Appt start time
+var start = null;//new Date().getTime();
+// Time in ms for current appt, see updateTime() func
 var total_time = 0; // Total recording time in ms
-var paused = false; // To Track if in paused state
-var pause_start = null; // Track time when pause started
-var away_start = null; // Track time when away started
+// To Track if in paused state
+var paused = false;
+// Track time when pause started
+var pause_start = null;
+// Track time when away started
+var away_start = null;
 var total_paused = 0;
 var longest_pause = 0;
 var total_away = 0;
-
+// For updating time elapsed
+var timerInterval = null;
+// For posting surveys queued up
+var surveyInterval = null;
 
 var config = {
-    //apiUrl:'http://bikecounter.traklis.com/api/',
-    //apiUrl:'http://i5imac:8001/api/',
-    //apiUrl:'http://127.0.0.1:8001/api/',
     surveyType:'default', // For configurable survey interfaces
     version: '0.1.4', // This should match the webapp version
+    // TODO pull set this from org setting
     session_len: 900 // Number of minutes for a recording session
 }
 
+/* Wire up page routing */
+$(window).on('hashchange', route);
+
+// Hook in events - http://docs.phonegap.com/en/4.0.0/cordova_events_events.md.html
+document.addEventListener('deviceready', function() {
+    alert('deviceready');
+    // TODO check for active session on app load
+
+    // Disable back/menu/search button on android
+    document.addEventListener("backbutton", goBack, false);
+    document.addEventListener("menubutton", goBack, false);
+    document.addEventListener("searchbutton", goBack, false);
+
+
+    // Application loses focus
+    document.addEventListener("pause", onAway, false);
+
+    // Application regains focus
+    document.addEventListener("resume", onResume, false);
+}, false);
+
+/* Change api url depending on host */
 if (location.host.indexOf('localhost') > -1){
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
 }
@@ -30,22 +67,15 @@ else {
     config['apiUrl'] = 'http://www.bikecounts.com/api/';
 }
 
-var timerInterval = null;
-var surveyInterval = null;
 
-var slider = new PageSlider($("#container"));
-$(window).on('hashchange', route);
-
-
-/* Disable back button on android */
-document.addEventListener('deviceready', function() {
-    document.addEventListener("backbutton", goBack, false);
-    document.addEventListener("pause", onAway, false);
-}, false);
+/* Event handlers */
 function goBack(){}
 function onAway(){
     away_start = new Date().getTime();
     alert('pause');
+}
+function onResume(){
+    alert('resume');
 }
 
 
@@ -118,7 +148,7 @@ function route(event) {
         setTimeout(function() {
             var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
             console.log('lat:' + appt.location.latitude);
-            map = initializeMap(appt.location.latitude, appt.location.longitude);
+            var map = initializeMap(appt.location.latitude, appt.location.longitude);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
@@ -138,12 +168,6 @@ function route(event) {
             }
             */
         }, 0);
-        /*
-        window.addEventListener('load', function () {
-            console.log('lat:' + appt.location.latitude);
-            map = initializeMap(appt.location.latitude, appt.location.longitude);
-        });
-        */
     }
     // AppointmentStats view
     var match = hash.match(/^#apptstats\/(\d{1,})/);
@@ -196,6 +220,7 @@ function route(event) {
         _set('start_time', start);
 
         // Build dynamic list of direction options
+        // changed with adding dir1/dir2
         /*
         var dirs = Array();
         if (loc.has_north) {dirs.push('north');}
@@ -206,7 +231,6 @@ function route(event) {
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
-        //page = Mustache.to_html(template, {'org': org, 'location': loc, 'dirs': dirs});
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);
@@ -215,10 +239,8 @@ function route(event) {
     // Login
     if (hash == '') {
         var template = $('#tpl-login').html();
-        page = Mustache.to_html(template, {'name':'joe'});
-        //$('#container').html(page);
+        page = Mustache.to_html(template, {});
     }
-    //slider.slidePage($(page));
     $('#container').html(page);
 }
 

@@ -46,9 +46,9 @@ View it at http://localhost:1080
 
 
 ## Building the mobile app
-    Mobile apps are compiled using phonegap
+Mobile apps are compiled using Apache Cordova
 
-    # Android
+# Android
 
     cd mobileapp/bikeapp
     cordova build android --release
