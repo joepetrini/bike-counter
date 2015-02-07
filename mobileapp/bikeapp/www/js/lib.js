@@ -43,6 +43,12 @@ function _req(params){
     $.ajax(params);
 }
 
+function check_login() {
+    if (_get('token') == null){
+        logout();
+    }
+}
+
 function logout() {
     _set('token', null);
     window.location.replace('');

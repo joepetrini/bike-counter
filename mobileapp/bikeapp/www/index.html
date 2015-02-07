@@ -14,12 +14,21 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             $(":input[type='text']:first").focus();
+            // Set dynamic button height/width
+            var h = ($(window).height() - 100) / 3;
+            $('.btn').css('height', h + 'px');
+            $('.btn').css('padding-top', (h/2 - 14) + 'px');
+            var w = ($(window).width() - 90) / 6;
+            $('.btn-val').css('width', w + 'px');
+            w = ($(window).width() - 250) / 9;
+            if (w > 150) {w = 150;}
+            $('.btn-event').css('width', w + 'px');
         });
     </script>
 </head>
 <body>
 <style>
-    body {margin-top:10px;}
+    /*body {margin-top:10px;}*/
     .rotate90 {
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);
@@ -35,7 +44,7 @@
         transform: rotate(270deg);
     }
 </style>
-<div id="container" class="container">
+<div id="container" class="container" style="width:100%">
 
 </div>
 
@@ -151,13 +160,13 @@
 
 <script id="tpl-record" type="text/template">
 
-  <div class="row page appcontainer" id="page1">
+  <div class="row page appcontainer" id="page1" style="width:100%">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center" id="rec_left">
         <div class="rec_content">
             <div class="heading">Helmet</div>
             <div id="btn-test" class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val">
+                <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
                 </label>
                 <label class="btn btn-val">
@@ -168,7 +177,7 @@
 
             <div class="heading">Direction</div>
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val">
+                <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{loc.direction1}}
                 </label>
                 <label class="btn btn-val">
@@ -193,7 +202,7 @@
 
             <div class="heading">SideWalk</div>
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val">
+                <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
                 </label>
                 <label class="btn btn-val">
@@ -256,7 +265,7 @@
         <div class="rec_content">
             <div class="heading">Gender</div>
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val">
+                <label class="btn btn-val btn-line">
                     <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
                 </label>
                 <label class="btn btn-val">
@@ -268,14 +277,14 @@
 
             <div class="heading">Wrong Way</div>
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val">
+                <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
                 </label>
                 <label class="btn btn-val">
                     <input type="radio" onchange="boxClick(this)" name="wrong_way" data-default="true" value="no">No
                 </label>
             </div>
-            <div><br><br><br>
+            <div><br>
                 <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
             </div>
         </div>

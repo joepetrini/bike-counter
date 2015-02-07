@@ -97,6 +97,9 @@ function route(event) {
     var page,
         hash = window.location.hash;
 
+    if (hash != '') {
+        check_login();
+    }
     if (hash === "#pick_org") {
         var template = $('#tpl-pick-org').html();
         page = Mustache.to_html(template, {});
@@ -231,6 +234,16 @@ function route(event) {
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
+
+        // Set dynamic button height/width
+        var h = ($(window).height() - 100) / 3;
+        $('.btn').css('height', h + 'px');
+        $('.btn').css('padding-top', (h/2 - 14) + 'px');
+        var w = ($(window).width() - 90) / 6;
+        $('.btn-val').css('width', w + 'px');
+        w = ($(window).width() - 250) / 9;
+        if (w > 150) {w = 150;}
+        $('.btn-event').css('width', w + 'px');
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);
