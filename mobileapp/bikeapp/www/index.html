@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
     <!--<link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">-->
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
@@ -13,16 +13,40 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
+            new FastClick(document.body);
+
+            // Set focus to first input on page
             $(":input[type='text']:first").focus();
+
             // Set dynamic button height/width
+            /*
             var h = ($(window).height() - 100) / 3;
-            $('.btn').css('height', h + 'px');
-            $('.btn').css('padding-top', (h/2 - 14) + 'px');
-            var w = ($(window).width() - 90) / 6;
+            $('.btn-val').css('height', h + 'px');
+            $('#btn_save').css('height', h + 'px');
+            $('.btn-val').css('padding-top', (h/2 - 14) + 'px');
+            var w = ($(window).width() - 120) / 6;
             $('.btn-val').css('width', w + 'px');
+            //alert('btn-val witdh to ' + w);
             w = ($(window).width() - 250) / 9;
             if (w > 150) {w = 150;}
             $('.btn-event').css('width', w + 'px');
+            alert($('#btn_save')[0].height);
+            */
+            // TODO check for active session on app load
+
+            // Disable back/menu/search button on android
+            document.addEventListener("backbutton", goBack, false);
+            document.addEventListener("menubutton", goBack, false);
+            document.addEventListener("searchbutton", goBack, false);
+
+            // Application loses focus
+            document.addEventListener("pause", onAway, false);
+
+            // Application regains focus
+            document.addEventListener("resume", onResume, false);
+
+            // Application Open
+            onAppOpen();
         });
     </script>
 </head>
@@ -413,7 +437,7 @@
 <script src="jslib/jquery.js"></script>
 <script src="jslib/jquery.storage.js"></script>
 <script src="jslib/fastclick.js"></script>
-<script src="jslib/pageslider.js"></script>
+<!--<script src="jslib/pageslider.js"></script>-->
 <script src="jslib/mustache.js"></script>
 <script src="js/lib.js"></script>
 <script src="js/bike.js"></script>

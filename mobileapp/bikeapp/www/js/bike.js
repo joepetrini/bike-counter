@@ -38,60 +38,33 @@ var config = {
     session_len: 900 // Number of minutes for a recording session
 }
 
-/* Wire up page routing */
-$(window).on('hashchange', route);
-
-// Hook in events - http://docs.phonegap.com/en/4.0.0/cordova_events_events.md.html
-document.addEventListener('deviceready', function() {
-    alert('deviceready');
-    // TODO check for active session on app load
-
-    // Disable back/menu/search button on android
-    document.addEventListener("backbutton", goBack, false);
-    document.addEventListener("menubutton", goBack, false);
-    document.addEventListener("searchbutton", goBack, false);
-
-
-    // Application loses focus
-    document.addEventListener("pause", onAway, false);
-
-    // Application regains focus
-    document.addEventListener("resume", onResume, false);
-}, false);
-
 /* Change api url depending on host */
 if (location.host.indexOf('localhost') > -1){
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
 }
 else {
-    config['apiUrl'] = 'http://www.bikecounts.com/api/';
+    config['apiUrl'] = 'http://127.0.0.1:8001/api/';
+    //config['apiUrl'] = 'http://www.bikecounts.com/api/';
 }
 
+/* Wire up page routing */
+$(window).on('hashchange', route);
 
-/* Event handlers */
+/* Event handlers - set in index.html head */
+function onAppOpen(){
+    var a = _get('cur_appt');
+    if (a != null){
+        window.location.replace('#record/'+a);
+    }
+}
+
 function goBack(){}
 function onAway(){
     away_start = new Date().getTime();
-    alert('pause');
 }
 function onResume(){
-    alert('resume');
+
 }
-
-
-window.addEventListener('load', function () {
-    new FastClick(document.body);
-    $('.clickable').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {window.location = href;}
-    });
-    /*
-    var map = initializeMap();
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
-        map.setCenter(77,-39);
-    });
-    */
-    }, false);
 
 function route(event) {
     var page,
@@ -201,6 +174,9 @@ function route(event) {
         }
         // Reset rider count
         rider_count = 0;
+        if (_get('cur_app_rider_count') != null){
+            rider_count = parseInt(_get('cur_app_rider_count'));
+        }
 
         // Rebuild event count array
         events_for_loc = [];
@@ -218,9 +194,12 @@ function route(event) {
 
         // Start timer
         total_time = 0;
+        if (_get('cur_app_total_time') != null){
+            total_time = parseInt(_get('cur_app_total_time'));
+        }
         paused = false;
-        start = new Date().getTime();
-        _set('start_time', start);
+        //start = new Date().getTime();
+        //_set('start_time', start);
 
         // Build dynamic list of direction options
         // changed with adding dir1/dir2
@@ -236,6 +215,7 @@ function route(event) {
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
 
         // Set dynamic button height/width
+        /*
         var h = ($(window).height() - 100) / 3;
         $('.btn').css('height', h + 'px');
         $('.btn').css('padding-top', (h/2 - 14) + 'px');
@@ -244,6 +224,10 @@ function route(event) {
         w = ($(window).width() - 250) / 9;
         if (w > 150) {w = 150;}
         $('.btn-event').css('width', w + 'px');
+        */
+        setTimeout(function() {
+            $('#total_riders').html(rider_count);
+        }, 1);
 
         // Run the post survey every 10 seconds
         surveyInterval = setInterval(postSurveys, 3000);

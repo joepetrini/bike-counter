@@ -188,6 +188,7 @@ function updateTime(){
 
     // Add 1000 ms to total time
     total_time += 1000;
+    _set('cur_app_total_time', total_time);
 
     var diff = (config['session_len'] * 6000 - 1) - total_time;
     var minutes = Math.floor(diff / 60000);
@@ -312,6 +313,7 @@ function saveSurvey(){
 
     // Increase count
     rider_count = rider_count + 1;
+    _set('cur_app_rider_count', rider_count);
     $('#total_riders').html(rider_count);
     $('#riders_outer').fadeOut(500).fadeIn(500);
 
@@ -429,6 +431,9 @@ function endSession(appt){
                 headers: {"Authorization": 'Token ' + _get('token')},
                 success: function (data){
                     // Load the recording page
+                    _set('cur_appt', null);
+                    _set('cur_app_total_time', null);
+                    _set('cur_app_rider_count', 0);
                     window.location.replace('#done/'+id);
                 },
                 error: function(data){

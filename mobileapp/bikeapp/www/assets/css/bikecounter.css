@@ -51,7 +51,7 @@ a {
     color: #fff;
     background-color: #b28585;
     /*padding-top: 20px;*/
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     vertical-align: middle;
     min-width: 50px;
 }
@@ -73,7 +73,14 @@ input[type="button"]:disabled {
 .btn-primary {
     background-color: #e05a31;
     border-color: #d0b0b5;
-    width:80px;
+}
+
+.btn-val {
+    width: 50%;
+    padding: 25px 0 25px 0;
+}
+#btn_save {
+    padding: 25px 0 25px 0;
 }
 
 .btn-val.active, .btn-val:hover {
@@ -84,6 +91,7 @@ input[type="button"]:disabled {
 
 .btn-group {
     margin-bottom:10px;
+    width:100%;
 }
 
 .btn-event {

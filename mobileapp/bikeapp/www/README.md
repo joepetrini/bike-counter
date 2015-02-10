@@ -4,7 +4,8 @@
     * Mobile pages split into id=tpl-[page] elements
 * CSS in assets/css/bikecounter.css
 * JS in bike.js and lib.js
-    * bike.js has all app level variables, event hooks, and routing
+    * Onready in index.html has event hooks for app load/pause
+    * bike.js has all app level variables, and routing
     * lib.js has all application logic code
 
 # Page Events
