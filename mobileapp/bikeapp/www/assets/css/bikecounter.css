@@ -29,6 +29,7 @@ div.row {
 div.appcontainer {
     min-height:100%;
     margin:0px;
+    font-size: 14px;
 }
 
 h1, h2, h3, h4 {
@@ -68,8 +69,8 @@ a {
 }
 
 input[type="text"], input[type="password"] {
-    font-size:36px;
-    height: 64px;
+    font-size:24px;
+    height: 42px;
 }
 
 input[type="button"]:disabled {

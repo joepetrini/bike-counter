@@ -8,31 +8,24 @@
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/le.min.js"></script>
     <link href="assets/css/bikecounter.css" rel="stylesheet">
     <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
-        $( document ).ready(function() {
+        $(document).ready(function() {
+            LE.init('02440e16-09c5-4c06-b0c2-c85d314d0cc4');
+
             new FastClick(document.body);
+
+            // External links
+            $("a[target='_blank']").click(function(e){
+                e.preventDefault();
+                window.open($(e.currentTarget).attr('href'), '_system', '');
+            });
 
             // Set focus to first input on page
             $(":input[type='text']:first").focus();
-
-            // Set dynamic button height/width
-            /*
-            var h = ($(window).height() - 100) / 3;
-            $('.btn-val').css('height', h + 'px');
-            $('#btn_save').css('height', h + 'px');
-            $('.btn-val').css('padding-top', (h/2 - 14) + 'px');
-            var w = ($(window).width() - 120) / 6;
-            $('.btn-val').css('width', w + 'px');
-            //alert('btn-val witdh to ' + w);
-            w = ($(window).width() - 250) / 9;
-            if (w > 150) {w = 150;}
-            $('.btn-event').css('width', w + 'px');
-            alert($('#btn_save')[0].height);
-            */
-            // TODO check for active session on app load
 
             // Disable back/menu/search button on android
             document.addEventListener("backbutton", goBack, false);
@@ -44,10 +37,15 @@
 
             // Application regains focus
             document.addEventListener("resume", onResume, false);
-
             // Application Open
-            onAppOpen();
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+                document.addEventListener("deviceready", onAppLoad, false);
+            } else {
+                onAppLoad();
+            }
         });
+
+
     </script>
 </head>
 <body>
@@ -83,7 +81,7 @@
         <input id="password" type="password" class="form-control" value="" placeholder="password">
         <br>
         <input type="button" id="btn-login" class="btn btn-primary" onclick="login()" value="Log In">
-        <br><br><a href="https://www.bikecounts.com/register">New User? Register</a>
+        <br><br><a href="https://www.bikecounts.com/register" target="_blank">Register</a>
         <br><br>
         <div id="err-login" class="alert alert-danger" style="display:none"></div>
         <script type="text/javascript">
@@ -158,7 +156,7 @@
             <span class="col-xs-4 text-left">
                 <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#home')" value="&laquo;&nbsp;Home">
             </span>
-            <span class="col-xs-8 text-left">
+            <span class="col-xs-4 text-center">
                 <h3>{{location.name}}</h3>
             </span>
         </div>
@@ -441,6 +439,5 @@
 <script src="jslib/mustache.js"></script>
 <script src="js/lib.js"></script>
 <script src="js/bike.js"></script>
-
 </body>
 </html>

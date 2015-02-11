@@ -15,7 +15,8 @@
 # Cordova Info
 [Install](http://cordova.apache.org/docs/en/4.0.0/guide_cli_index.md.html)
 
-
+# Deployment instructions
+* Check config['apiurl'] in bike.js points to bikecounts.com
 # Notes
 To handle app exit, add last_active var, in load hook, if last_active diff from now
 within X time and current session in effect auto load into that session in a paused state.

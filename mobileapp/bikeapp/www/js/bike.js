@@ -3,7 +3,7 @@
 *************************/
 // Google map
 // var map;
-
+var platform = 'brw';
 // Key val dictionary for storing selected values
 var survey = {};
 // Total number of surveys submitted
@@ -33,7 +33,7 @@ var surveyInterval = null;
 
 var config = {
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.4', // This should match the webapp version
+    version: '0.1.52', // This should match the webapp version
     // TODO pull set this from org setting
     session_len: 900 // Number of minutes for a recording session
 }
@@ -44,19 +44,42 @@ if (location.host.indexOf('localhost') > -1){
 }
 else {
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
-    //config['apiUrl'] = 'http://www.bikecounts.com/api/';
+    if (navigator.userAgent.match(/(Android|BlackBerry)/)) {
+        config['apiUrl'] = 'http://10.0.2.2:8001/api/';
+    }
+    // Uncomment below before posting app!
+    //config['apiUrl'] = 'https://www.bikecounts.com/api/';
 }
 
 /* Wire up page routing */
 $(window).on('hashchange', route);
 
 /* Event handlers - set in index.html head */
-function onAppOpen(){
-    var a = _get('cur_appt');
-    _l('curappt : ' + a);
+function onAppLoad(){
+    // Set device version
+    if (typeof window.device !== 'undefined'){
+        platform = window.device.platform.substring(0,3);
+    }
 
-    if (a != null && a != 'null'){
-        window.location.replace('#record/'+a);
+    // Logout user on version change
+    var v = _get('version');
+    if (config['version'] != v){
+        _set('version', config['version']);
+        logout();
+        return;
+    }
+
+    // Check for an open appt
+    var appt = _get('cur_appt');
+    _l('curappt : ' + appt);
+
+    if (appt != null){
+        window.location.replace('#record/' + appt);
+        setTimeout(pause, 500);
+    }
+
+    if (_get('token') != null){
+        window.location.replace('#home');
     }
 }
 

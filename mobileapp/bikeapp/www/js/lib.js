@@ -3,21 +3,39 @@ function _l(msg){
     if (typeof console == "object") {
         console.log(msg);
     }
+    LE.log(platform+':'+msg);
 }
 
 // Set value helper
 function _set(key, v){
-    window.localStorage.setItem(key, v);
+    _l('setting:' + key + ' to ' + v);
+    if (v == null) {
+        window.localStorage.removeItem(key);
+    }
+    else {
+        window.localStorage.setItem(key, v);
+    }
+    return;
 }
 
 // Get value helper
 function _get(key) {
-    return window.localStorage.getItem(key);
+    var ret = window.localStorage.getItem(key);
+    _l('getting:' + key + ' as ' + ret);
+    if (ret == 'null' | ret == 'NaN'){
+        return null;
+    }
+    return ret;
 }
 
 // Set data helper
 function _setdict(key, v){
-    window.localStorage.setItem(key, JSON.stringify(v));
+    if (v == null) {
+        window.localStorage.removeItem(key);
+    }
+    else {
+        window.localStorage.setItem(key, JSON.stringify(v));
+    }
 }
 
 // Get data helper
@@ -51,6 +69,11 @@ function check_login() {
 
 function logout() {
     _set('token', null);
+    _set('cur_appt', null);
+    _set('cur_app_rider_count', null);
+    _set('cur_app_total_time', null);
+    clearInterval(timerInterval);
+    clearInterval(surveyInterval);
     window.location.replace('');
 }
 
@@ -64,13 +87,16 @@ function login() {
         $('#err-login').html('Invalid username or password').show();
         return;
     }
-    _l('posting to /auth');
+    _l('posting to /auth ' + username + ':' + password);
     $.ajax({
         type: "POST",
-        url: config['apiUrl'] + 'auth',
+        url: config['apiUrl'] + 'auth?z=' + jQuery.now(),
         crossDomain: true,
+        /*async: false,*/
+        cache: false,
         data: {username:username, password:password},
         success: function (data){
+            _l('success from auth ' + data);
             if (data.token){
                 _l('logged in.  redir to #home');
                 _set('token', data.token);
@@ -80,7 +106,9 @@ function login() {
                 $('#err-login').html(data.message).show();
             }
         },
-        error: function (data){
+        error: function (data, status, err){
+            _l('login error data: ' + data + ' status:' + data.status + ' err:' + err);
+            _l('login error token: ' + data.token);
             $('#login_error').html('Invalid login').show();
         }
     });
@@ -434,6 +462,8 @@ function endSession(appt){
                     _set('cur_appt', null);
                     _set('cur_app_total_time', null);
                     _set('cur_app_rider_count', 0);
+                    clearInterval(timerInterval);
+                    clearInterval(surveyInterval);
                     window.location.replace('#done/'+id);
                 },
                 error: function(data){

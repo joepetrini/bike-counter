@@ -19,14 +19,14 @@
 
 # org.apache.cordova.inappbrowser
 
-Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywoływania `window.open()` , lub kiedy otwarcie łącza utworzone jako`<a target="_blank">`.
+Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywoływania`window.open()`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     
 
 **Uwaga**: The InAppBrowser okno zachowuje się jak standardowe przeglądarki, a nie ma dostępu do API Cordova.
 
-## Instalacji
+## Instalacja
 
     cordova plugin add org.apache.cordova.inappbrowser
     
@@ -77,17 +77,22 @@ Otwiera URL w nowym `InAppBrowser` wystąpienie, bieżące wystąpienie przeglą
     *   **presentationstyle**: zestaw `pagesheet` , `formsheet` lub `fullscreen` Aby ustawić [styl prezentacji][1] (domyślnie`fullscreen`).
     *   **transitionstyle**: zestaw `fliphorizontal` , `crossdissolve` lub `coververtical` Aby ustawić [styl przejścia][2] (domyślnie`coververtical`).
     *   **toolbarposition**: zestaw `top` lub `bottom` (domyślnie `bottom` ). Powoduje, że pasek ma być na górze lub na dole okna.
+    
+    Windows tylko:
+    
+    *   **ukryte**: zestaw `yes` do stworzenia przeglądarki i ładowania strony, ale nie pokazuje go. Loadstop zdarzenie fires po zakończeniu ładowania. Pominąć lub zestaw `no` (domyślnie) do przeglądarki otworzyć i załadować normalnie.
 
  [1]: http://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
  [2]: http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
-*   Jeżyna 10
+*   BlackBerry 10
 *   Firefox OS
 *   iOS
+*   Windows 8 i 8.1
 *   Windows Phone 7 i 8
 
 ### Przykład
@@ -169,9 +174,10 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   iOS
+*   Windows 8 i 8.1
 *   Windows Phone 7 i 8
 
 ### Szybki przykład
@@ -200,9 +206,10 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   iOS
+*   Windows 8 i 8.1
 *   Windows Phone 7 i 8
 
 ### Szybki przykład
@@ -224,10 +231,11 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   Firefox OS
 *   iOS
+*   Windows 8 i 8.1
 *   Windows Phone 7 i 8
 
 ### Szybki przykład
@@ -247,9 +255,10 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   iOS
+*   Windows 8 i 8.1
 
 ### Szybki przykład
 
@@ -278,9 +287,10 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   iOS
+*   Windows 8 i 8.1
 
 ### Szybki przykład
 
@@ -308,7 +318,7 @@ Obiekt zwrócony z wywołania`window.open`.
 
 ### Obsługiwane platformy
 
-*   Amazon ogień OS
+*   Amazon Fire OS
 *   Android
 *   iOS
 

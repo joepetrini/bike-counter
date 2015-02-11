@@ -119,3 +119,42 @@
 * **FFOS** app needs to be privileged
 * CB-6127 Updated translations for docs
 * CB-6769 ios: Fix statusbar color reset wasn't working on iOS7+
+
+### 0.5.2 (Sep 17, 2014)
+* CB-7471 cordova-plugin-inappbrowser documentation translation: cordova-plugin-inappbrowser
+* CB-7490 Fixes InAppBrowser manual tests crash on windows platform
+* CB-7249 cordova-plugin-inappbrowser documentation translation: cordova-plugin-inappbrowser
+* CB-7424 Wrong docs: anchor tags are not supported by the InAppBrowser
+* CB-7133 clarify that anchor1 doesn't exist
+* CB-7133 more fixup of tests on Android
+* CB-7133 fix up the tests for Android
+* Add just a bit more logging
+* CB-7133 port inappbrowser to plugin-test-framework
+* phonegap events supported for \_blank target
+* inappbrowser \_blank target position is fixed
+* amazon-fireos related changes.
+
+### 0.5.3 (Oct 03, 2014)
+* Windows implementation fixes and improvements
+* zIndex fixed
+* renamed InAppBrowser back to inappbrowser for case sensitive operating systems
+* Update french translation
+* Update doc to add Windows 8
+* Update windows proxy to be both compatible with windows 8 and 8.1
+* Rename windows81 by windows8 in src directory
+* Append Windows 8.1 platform configuration in plugin.xml
+* Append Windows 8.1 proxy using x-ms-webview
+
+### 0.5.4 (Dec 02, 2014)
+* CB-7784 Exit event is not fired after `InAppBrowser` closing
+* CB-7697 Add `locationBar` support to `InAppBrowser` **Windows** platform version
+* CB-7690 `InAppBrowser` `loadstart/loadstop` events issues
+* CB-7695 Fix `InAppBrowser` `injectScriptFile` for **Windows 8.1** / **Windows Phone 8.1**
+* CB-7692 `InAppBrowser` local url opening bug in 8.1
+* CB-7688 `Alert` is not supported in `InAppBrowser` on **Windows** platform
+* CB-7977 Mention `deviceready` in plugin docs
+* CB-7876 change test target to avoid undesired redirects
+* CB-7712 remove references to `closebuttoncaption`
+* CB-7850 clarify role of whitelist
+* CB-7720 check if event is null since OK string from success callback was removed
+* CB-7471 cordova-plugin-inappbrowser documentation translation: cordova-plugin-inappbrowser

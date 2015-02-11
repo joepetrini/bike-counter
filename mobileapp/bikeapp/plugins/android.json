@@ -13,14 +13,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.GeoBroker\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         }
@@ -48,9 +40,6 @@
             "PACKAGE_NAME": "com.phlbikecount"
         },
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.phlbikecount"
-        },
-        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.phlbikecount"
         },
         "org.apache.cordova.geolocation": {
