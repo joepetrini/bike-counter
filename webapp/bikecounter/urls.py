@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from django.contrib.auth.models import User, Group
+from django.views.decorators.cache import cache_page
+#from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 #from rest_framework.urlpatterns import format_suffix_patterns
@@ -23,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/reports/?', login_required(ReportHomeView.as_view()), name="report_home"),
     url(r'^(?P<slug>[-\w]+)/signup/(?P<pk>\d+)?$', login_required(ApptSignupView.as_view()), name="appt-signup"),
     url(r'^(?P<slug>[-\w]+)/cancel/(?P<pk>\d+)?$', login_required(ApptCancelView.as_view()), name="appt-cancel"),
-    url(r'^(?P<slug>[-\w]+)/detail/(?P<pk>\d+)?$', login_required(ApptDetailView.as_view()), name="appt-detail"),
+    url(r'^(?P<slug>[-\w]+)/detail/(?P<pk>\d+)?$', login_required(cache_page(60)(ApptDetailView.as_view())), name="appt-detail"),
     # API Urls
     #url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

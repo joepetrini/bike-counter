@@ -1,8 +1,10 @@
 #from django.utils.translation import ugettext as _
 import datetime
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from model_utils.models import TimeStampedModel
+from django.utils.timezone import now
 from model_utils import Choices
 
 
@@ -68,6 +70,11 @@ class Location(TimeStampedModel):
     def __unicode__(self):
         return "%s - %s" % (self.organization.name, self.name)
 
+    def directions(self):
+        return Value.objects.filter(
+            Q(value_set__system_name='direction'),
+            Q(stored_value__iexact=self.direction1) | Q(stored_value__iexact=self.direction2)
+        )
 
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
@@ -139,6 +146,7 @@ class OrganizationMetrics(TimeStampedModel):
     metric = models.ForeignKey(Metric)
     required = models.BooleanField(default=True)
     order = models.IntegerField(default=0)
+    report = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'org_metrics'
@@ -206,6 +214,7 @@ class Survey(TimeStampedModel):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     time_to_take = models.IntegerField(blank=True, null=True)
     guid = models.CharField(max_length=50, null=True, blank=True)
+    recorded_at = models.DateTimeField(default=now)
 
     class Meta:
         db_table = 'survey'

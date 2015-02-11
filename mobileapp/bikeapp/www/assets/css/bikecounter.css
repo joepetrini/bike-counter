@@ -1,12 +1,13 @@
 html {height: 100%}
 
 body {
-    background-color: #C9E6ED;
+    /*background-color: #C9E6ED;*/
     margin:0px;
     padding:0px;
     width:100%;
     height:100%;
     min-height:100%;
+    font-size:22px;
 }
 
 div.row {
@@ -22,7 +23,7 @@ div.row {
     height:100%;
     min-height:100%;
     width:100%;
-    background-color: #d43f3a;
+    /*background-color: #d43f3a;*/
 }
 
 div.appcontainer {
@@ -35,8 +36,8 @@ h1, h2, h3, h4 {
 }
 
 a {
-    font-size: 18px;
-    line-height: 28px;
+    font-size: 28px;
+    line-height: 44px;
     color: #4ea1b4;
 }
 
@@ -66,6 +67,11 @@ a {
     padding-bottom:4px;
 }
 
+input[type="text"], input[type="password"] {
+    font-size:36px;
+    height: 64px;
+}
+
 input[type="button"]:disabled {
     background-color: #999999;
 }
@@ -73,6 +79,7 @@ input[type="button"]:disabled {
 .btn-primary {
     background-color: #e05a31;
     border-color: #d0b0b5;
+    font-size: 20px;
 }
 
 .btn-val {

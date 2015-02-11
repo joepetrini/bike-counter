@@ -1,10 +1,10 @@
 #from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView, UpdateView
 #from django.views.generic.edit import FormView
 from .models import Organization, Appointment, Membership, Location
-from .logic import stats_for_appt
+from .logic import stats_for_appt, csv_for_appt
 
 class OrgListView(ListView):
     model = Organization
@@ -39,6 +39,13 @@ class OrgHomeView(DetailView):
 class ApptDetailView(DetailView):
     model = Appointment
     template_name = 'appointment_detail.html'
+
+    def render_to_response(self, context, **response_kwargs):
+        if self.request.GET.has_key('csv'):
+            out = csv_for_appt(self.object)
+            return HttpResponse(content=out, content_type='text/csv')
+        else:
+            return super(ApptDetailView, self).render_to_response(context, **response_kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ApptDetailView, self).get_context_data(**kwargs)

@@ -53,7 +53,9 @@ $(window).on('hashchange', route);
 /* Event handlers - set in index.html head */
 function onAppOpen(){
     var a = _get('cur_appt');
-    if (a != null){
+    _l('curappt : ' + a);
+
+    if (a != null && a != 'null'){
         window.location.replace('#record/'+a);
     }
 }

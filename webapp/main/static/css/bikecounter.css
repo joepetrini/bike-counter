@@ -26,3 +26,27 @@ span.label {letter-spacing:1px;font-size:11px}
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     background-color: #e05a31;
 }
+
+.statbox {
+    float:left;
+    border:1px solid #ddd;
+    width: 150px;
+    text-align: center;
+    margin-right: 30px;
+}
+.statbox b{
+    font-size: 16px;
+    line-height: 20px;
+    display:block;
+    margin: 10px auto 6px auto;
+}
+.statbox p{
+    font-size: 22px;
+}
+
+.freqbar{
+    width:10px;
+    background-color: #4ea1b4;
+    vertical-align: bottom;
+    margin-right:2px;
+}

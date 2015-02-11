@@ -5,29 +5,50 @@
   <li><a href="{% url 'org_home' request.current_org %}">Home</a></li>
 </ol>
 
-<h3>{{ object.location }}</h3>
+<div class="row">
+  <div class="col-md-6">
+    <h3>{{ object.location }}</h3>
+  </div>
+  <div class="col-md-6 text-right">
+    <a href="?csv=true">Download as csv</a>
+  </div>
+</div>
 
-  <h4>Event Details</h4>
+<div class="row">
+  <div class="col-md-12">
+    <div class="statbox">
+      <b>Total</b>
+      <p>{{stats.total}}</p>
+    </div>
+    {% for k,v in stats.metrics.items %}
+      <div class="statbox">
+        <b>{{v.name}}</b>
+        <p>
+          {% for kk,vv in v.stats.items %}
+            {{kk}} - {{vv}}<br>
+          {% endfor %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
-  <h4>Survey Details</h4>
-  <table class="table table-striped">
-  {% for s in object.survey_set.all %}
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{s.created}}</td>
-      <td>
-        <table>
-        {% for sv in s.surveyvalue_set.all %}
-        <tr>
-          <td>{{ sv.metric.name }}&nbsp;&nbsp;&nbsp;</td>
-          <td>{{ sv.value.display_value }}</td>
-        </tr>
-        {% endfor %}
-        </table>
-      </td>
-    </tr>
-  {% endfor %}
-  </table>
+<br><br>
+<h4>Count Frequency By Minute</h4>
+<br>
+<table>
+  <tr>
+{% for k, v in stats.minutes.items %}
+    <td style="vertical-align: bottom">
+      <div class="freqbar" style="height:{% if v == 0%}1{%else%}{% widthratio v 1 3 %}0{%endif%}px"></div>
+    </td>
+{% endfor %}
+</tr></table>
+<!--
+<h4>Event Details</h4>
+<h4>Survey Details</h4>
+-->
+
 {% endblock %}
 
 
