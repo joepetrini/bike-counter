@@ -35,7 +35,7 @@ var config = {
     surveyType:'default', // For configurable survey interfaces
     version: '0.1.52', // This should match the webapp version
     // TODO pull set this from org setting
-    session_len: 900 // Number of minutes for a recording session
+    session_len: 90 // Number of minutes for a recording session
 }
 
 /* Change api url depending on host */
@@ -48,7 +48,7 @@ else {
         config['apiUrl'] = 'http://10.0.2.2:8001/api/';
     }
     // Uncomment below before posting app!
-    //config['apiUrl'] = 'https://www.bikecounts.com/api/';
+    config['apiUrl'] = 'https://www.bikecounts.com/api/';
 }
 
 /* Wire up page routing */
@@ -71,15 +71,18 @@ function onAppLoad(){
 
     // Check for an open appt
     var appt = _get('cur_appt');
-    _l('curappt : ' + appt);
-
+    _l('cur appt : ' + appt);
     if (appt != null){
+        _l('redirecting to record appt ' + appt);
         window.location.replace('#record/' + appt);
+        // Open in a paused state
         setTimeout(pause, 500);
+        return;
     }
 
     if (_get('token') != null){
         window.location.replace('#home');
+        return;
     }
 }
 
@@ -185,11 +188,13 @@ function route(event) {
     var match = hash.match(/^#record\/(\d{1,})/);
     if (match) {
         var appt_id = Number(match[1]);
-        _l('cur_app:' + appt_id);
+        _l('in #record cur_app:' + appt_id);
         _set('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
         var loc = getAppointment(appt_id).location;
+        config['session_len'] = parseInt(org.session_length);
         _l('location direction: ' + loc.direction1);
+
         // Blank out survey vals
         _l('metric length:' + org.organizationmetrics_set.length);
         survey = {};
@@ -197,13 +202,15 @@ function route(event) {
             _l('adding ' + org.organizationmetrics_set[i].metric.system_name + ' to metrics');
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
-        // Reset rider count
+
+        // Reset rider count, unless restoring session
         rider_count = 0;
         if (_get('cur_app_rider_count') != null){
             rider_count = parseInt(_get('cur_app_rider_count'));
         }
 
         // Rebuild event count array
+        // TODO restore session counts
         events_for_loc = [];
         event_count = new Array();
         for (i=0; i < org.organizationevents_set.length; i++){
@@ -217,7 +224,7 @@ function route(event) {
             event_count[ev.event.id] = 0;
         }
 
-        // Start timer
+        // Start timer, restore if in session
         total_time = 0;
         if (_get('cur_app_total_time') != null){
             total_time = parseInt(_get('cur_app_total_time'));

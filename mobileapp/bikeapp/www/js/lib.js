@@ -8,7 +8,7 @@ function _l(msg){
 
 // Set value helper
 function _set(key, v){
-    _l('setting:' + key + ' to ' + v);
+    //_l('setting:' + key + ' to ' + v);
     if (v == null) {
         window.localStorage.removeItem(key);
     }
@@ -21,7 +21,7 @@ function _set(key, v){
 // Get value helper
 function _get(key) {
     var ret = window.localStorage.getItem(key);
-    _l('getting:' + key + ' as ' + ret);
+    //_l('getting:' + key + ' as ' + ret);
     if (ret == 'null' | ret == 'NaN'){
         return null;
     }
@@ -108,8 +108,7 @@ function login() {
         },
         error: function (data, status, err){
             _l('login error data: ' + data + ' status:' + data.status + ' err:' + err);
-            _l('login error token: ' + data.token);
-            $('#login_error').html('Invalid login').show();
+            $('#err-login').html('Invalid login').show();
         }
     });
 }
@@ -214,11 +213,11 @@ function pause(){
 function updateTime(){
     if (paused) {return;}
 
-    // Add 1000 ms to total time
+    // Add 1000ms to total time
     total_time += 1000;
     _set('cur_app_total_time', total_time);
 
-    var diff = (config['session_len'] * 6000 - 1) - total_time;
+    var diff = (config['session_len'] * 60 * 1000 - 1) - total_time;
     var minutes = Math.floor(diff / 60000);
     var seconds = String(Math.round(diff / 1000));
     seconds = seconds % 60;
