@@ -71,10 +71,16 @@ class Location(TimeStampedModel):
         return "%s - %s" % (self.organization.name, self.name)
 
     def directions(self):
-        return Value.objects.filter(
-            Q(value_set__system_name='direction'),
-            Q(stored_value__iexact=self.direction1) | Q(stored_value__iexact=self.direction2)
-        )
+        dirs = []
+        if self.has_east:
+            dirs.append(Value.objects.get(value_set__system_name='direction', stored_value='east'))
+        if self.has_west:
+            dirs.append(Value.objects.get(value_set__system_name='direction', stored_value='west'))
+        if self.has_north:
+            dirs.append(Value.objects.get(value_set__system_name='direction', stored_value='north'))
+        if self.has_south:
+            dirs.append(Value.objects.get(value_set__system_name='direction', stored_value='south'))
+        return dirs
 
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
