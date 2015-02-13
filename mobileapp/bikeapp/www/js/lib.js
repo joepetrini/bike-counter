@@ -3,7 +3,7 @@ function _l(msg){
     if (typeof console == "object") {
         console.log(msg);
     }
-    LE.log(platform+':'+msg);
+    LE.log(platform+':'+_get('username')+':'+msg);
 }
 
 // Set value helper
@@ -19,11 +19,12 @@ function _set(key, v){
 }
 
 // Get value helper
-function _get(key) {
+function _get(key, defval) {
+    defval = defval || null;
     var ret = window.localStorage.getItem(key);
     //_l('getting:' + key + ' as ' + ret);
-    if (ret == 'null' | ret == 'NaN'){
-        return null;
+    if (ret == null | ret == 'null' | ret == 'NaN'){
+        return defval;
     }
     return ret;
 }
@@ -69,6 +70,7 @@ function check_login() {
 
 function logout() {
     _set('token', null);
+    _set('username', null);
     _set('cur_appt', null);
     _set('cur_app_rider_count', null);
     _set('cur_app_total_time', null);
@@ -87,18 +89,17 @@ function login() {
         $('#err-login').html('Invalid username or password').show();
         return;
     }
-    _l('posting to /auth ' + username + ':' + password);
+    _set('username', username);
+    _l('posting to /auth ' + username);
     $.ajax({
         type: "POST",
         url: config['apiUrl'] + 'auth?z=' + jQuery.now(),
         crossDomain: true,
-        /*async: false,*/
         cache: false,
         data: {username:username, password:password},
         success: function (data){
-            _l('success from auth ' + data);
             if (data.token){
-                _l('logged in.  redir to #home');
+                _l('logged in. redir to #home');
                 _set('token', data.token);
                 window.location.replace('#home');
             }
@@ -191,6 +192,7 @@ function pause(){
     // Unpause
     if (paused){
         paused = false;
+        _set('current_pause', 0);
         $('#btn_pause').prop('disabled', false);
         $('#btn_end').prop('disabled', false);
         $('#btn_pause').val('Pause');
@@ -211,7 +213,19 @@ function pause(){
 }
 
 function updateTime(){
-    if (paused) {return;}
+    if (paused) {
+        current_pause = parseInt(_get('current_pause', 0));
+        total_pause = parseInt(_get('total_pause', 0));
+        longest_pause = parseInt(_get('longest_pause', 0));
+        total_pause += 1000;
+        current_pause += 1000;
+        if (current_pause > longest_pause){
+            _set('longest_pause', current_pause);
+        }
+        _set('total_pause', total_pause);
+        _set('current_pause', current_pause);
+        return;
+    }
 
     // Add 1000ms to total time
     total_time += 1000;
@@ -315,7 +329,7 @@ function saveSurvey(){
     s.push(data);
 
     // Push the array back to the queue
-    _l('Adding survey to queue, total len=' + s.length);
+    //_l('Adding survey to queue, total len=' + s.length);
     _setdict('surveys_to_save', s);
 
     // Clear all the buttons and what not
@@ -324,11 +338,11 @@ function saveSurvey(){
 
     // Clear internal survey value array
     for (i=0; i < Object.keys(survey).length; i++){
-        _l('survey key : ' + Object.keys(survey)[i]);
+        //_l('survey key : ' + Object.keys(survey)[i]);
         var k = Object.keys(survey)[i];
         // TODO - update to respect default values, not hardcode
         if (k != 'sidewalk' && k != 'wrong_way' && k != 'gender') {
-            _l('null out key : ' + k);
+            //_l('null out key : ' + k);
             survey[Object.keys(survey)[i]] = null;
         }
     }
@@ -433,6 +447,9 @@ function startSession(id){
             crossDomain: true,
             headers: {"Authorization": 'Token ' + _get('token')},
             success: function (data){
+                _set('total_pause', 0);
+                _set('longest_pause', 0);
+                _set('current_pause', 0);
                 // Load the recording page
                 window.location.replace('#record/'+id);
             },
@@ -448,13 +465,16 @@ function endSession(appt){
     id = _get('cur_appt');
     if (_get('token')){
         if (confirm('Confirm end session?')) {
+            total_pause = _get('total_pause');
+            longest_pause = _get('longest_pause', 0);
+            _l('totalp: ' + total_pause + ' longp:'+longest_pause);
             $.ajax
             ({
                 type: "POST",
                 url: config['apiUrl'] + 'session/'+id+'/end',
                 /*async: false,*/
                 crossDomain: true,
-                data: {'total_time': total_time, 'total_paused': total_paused, 'longest_pause': longest_pause, 'total_away': total_away},
+                data: {'total_time': total_time, 'total_pause': total_pause, 'longest_pause': longest_pause, 'total_away': total_away},
                 headers: {"Authorization": 'Token ' + _get('token')},
                 success: function (data){
                     // Load the recording page

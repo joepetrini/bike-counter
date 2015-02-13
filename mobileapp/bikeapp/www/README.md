@@ -17,6 +17,20 @@
 
 # Deployment instructions
 * Check config['apiurl'] in bike.js points to bikecounts.com
+
+Android
+check ant.properties has
+ - key.store=/Users/joepetrini/.android/bikecount.keystore
+ - key.alias=bikecount
+
+cordova build android --release
+
+
+IOS
+cordova build ios --device
+cd platforms/ios/build/device
+/usr/bin/xcrun -sdk iphoneos PackageApplication "$(pwd)/Bikecount.app" -o "$(pwd)/Bikecount.ipa"
+
 # Notes
 To handle app exit, add last_active var, in load hook, if last_active diff from now
 within X time and current session in effect auto load into that session in a paused state.

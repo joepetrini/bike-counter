@@ -23,8 +23,6 @@ var paused = false;
 var pause_start = null;
 // Track time when away started
 var away_start = null;
-var total_paused = 0;
-var longest_pause = 0;
 var total_away = 0;
 // For updating time elapsed
 var timerInterval = null;
@@ -33,8 +31,8 @@ var surveyInterval = null;
 
 var config = {
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.52', // This should match the webapp version
-    // TODO pull set this from org setting
+    version: '0.1.5', // This should match the webapp version
+    // Overridden from org setting
     session_len: 90 // Number of minutes for a recording session
 }
 
@@ -88,10 +86,11 @@ function onAppLoad(){
 
 function goBack(){}
 function onAway(){
+    _l('onAway fired');
     away_start = new Date().getTime();
 }
 function onResume(){
-
+    _l('onResume fired');
 }
 
 function route(event) {

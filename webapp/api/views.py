@@ -55,7 +55,7 @@ class ApptViewSet(viewsets.ModelViewSet):
     def end(self, request, pk=None):
         appt = self.get_object()
         appt.end(request.DATA['total_time'])
-        appt.total_pause = int(request.DATA['total_paused'])
+        appt.total_pause = int(request.DATA['total_pause'])
         appt.longest_pause = int(request.DATA['longest_pause'])
         appt.total_away = int(request.DATA['total_away'])
         appt.save()
