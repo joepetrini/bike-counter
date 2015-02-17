@@ -58,9 +58,10 @@ def stats_for_appt(appt):
 def sim_appt(appt, avg_time=25):
     with transaction.atomic():
         # Clear data
-        for s in appt.survey_set.all():
-            SurveyValue.objects.filter(survey=s).delete()
-        Survey.objects.filter(appointment=appt).delete()
+        appt.reset()
+        #for s in appt.survey_set.all():
+        #    SurveyValue.objects.filter(survey=s).delete()
+        #Survey.objects.filter(appointment=appt).delete()
 
         start = now()
         total_time = 0

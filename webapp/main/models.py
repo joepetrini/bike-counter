@@ -55,13 +55,15 @@ class Location(TimeStampedModel):
 
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    has_east = models.BooleanField(default=True)
     has_north = models.BooleanField(default=True)
+    has_east = models.BooleanField(default=True)
     has_south = models.BooleanField(default=True)
     has_west = models.BooleanField(default=True)
 
-    direction1 = models.CharField(max_length=20, null=True, blank=True)
-    direction2 = models.CharField(max_length=20, null=True, blank=True)
+    direction1 = models.CharField(max_length=20, null=True, blank=True,
+                                  help_text="Name of the first checked has_DIR above")
+    direction2 = models.CharField(max_length=20, null=True, blank=True,
+                                  help_text="Name of the second checked has_DIR above")
 
     class Meta:
         db_table = 'location'
@@ -108,7 +110,7 @@ class Value(TimeStampedModel):
         return super(Value, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return "%s - %s" % (self.value_set, self.display_value)
+        return "%s - %s - %s" % (self.value_set, self.display_value, self.stored_value)
 
 
 class Metric(TimeStampedModel):
@@ -190,6 +192,14 @@ class Appointment(TimeStampedModel):
     def end(self, time_taken):
         self.actual_end = datetime.datetime.now()
         self.time_taken = int(time_taken)
+        self.save()
+
+    def reset(self):
+        # Clear data
+        for s in self.survey_set.all():
+            SurveyValue.objects.filter(survey=s).delete()
+        Survey.objects.filter(appointment=self).delete()
+        self.actual_end = None
         self.save()
 
     def complete(self):

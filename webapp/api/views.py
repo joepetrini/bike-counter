@@ -65,8 +65,7 @@ class ApptViewSet(viewsets.ModelViewSet):
     def reset(self, request, pk=None):
         appt = self.get_object()
         if request.user.is_superuser or request.user == appt.user:
-            appt.actual_end = None
-            appt.save()
+            appt.reset()
             return Response(None, status=status.HTTP_200_OK)
         else:
             return Response(None, status=status.HTTP_401_UNAUTHORIZED)
@@ -83,13 +82,19 @@ class ApptViewSet(viewsets.ModelViewSet):
         for k, v in request.DATA.items():
             try:
                 metric = Metric.objects.get(system_name=k)
-                value = Value.objects.get(value_set=metric.value_set, stored_value=v)
+                if metric.value_set.system_name == "direction":
+                    # TODO - Update direction lookup logic, posted values are '1' or '2'
+                    #if v == '1':
+                    value = Value.objects.get(value_set=metric.value_set, stored_value=v)
+                else:
+                    value = Value.objects.get(value_set=metric.value_set, stored_value=v)
                 sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
+                print "Saving %s = %s" % (k, v)
             except Metric.DoesNotExist:
-                continue
+                print "Metric does not exist metric:sys_name=%s or value:stored_val=%s" % (k, v)
             except Value.DoesNotExist:
-                print "Value does not exist %s in %s" % (k, v)
-            print "%s %s" % (k, v)
+                print "Value does not exist metric:sys_name=%s or value:stored_val=%s" % (k, v)
+
         return Response(None, status=status.HTTP_200_OK)
 
     #@action(methods=['POST'])
