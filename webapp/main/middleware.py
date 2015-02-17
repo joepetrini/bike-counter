@@ -16,6 +16,7 @@ class RequireMembershipMiddleware(object):
                 m = Membership.objects.filter(user=request.user)[0]
             except IndexError:
                 m = None
+        # TODO - update current membership for multi-org on session
         request.member = m
 
 

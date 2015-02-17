@@ -3,33 +3,16 @@
 {% block title %}Manage Schedule{% endblock %}
 {% block content %}
 
+<h2>Reports</h2>
 <div class="row">
   <span class="col-md-6">
-    <h3>Appointment Reports</h3>
+    <h4><a href="{% url 'report-locations' request.current_org  %}">Location Info</a></h4>
+  </span>
+  <span class="col-md-6">
+
   </span>
 </div>
 
-<table class="table table-striped">
-  <tr><td>Location</td><td>Time</td><td>Assigned To</td><td>Results</td></tr>
-{% for apt in object_list %}
-  <tr>
-      <td>{{apt.location}}</td>
-      <td>{{apt.scheduled_start}}</td>
-      <td>{{apt.user}}</td>
-      <td>
-      {% for survey in apt.survey_set.all %}
-        <table>
-        {% for sv in survey.surveyvalue_set.all %}
-          <tr>
-          <td>{{ sv.metric.name }}&nbsp;&nbsp;</td><td>{{ sv.value.display_value }}</td>
-          </tr>
-        {% endfor %}
-        </table>
-      {% endfor %}
-      </td>
-  </tr>
-{% endfor %}
-</table>
 
 {% endblock %}
 
