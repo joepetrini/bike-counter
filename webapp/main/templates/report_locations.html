@@ -1,0 +1,61 @@
+{% extends '_base.html' %}
+{% load admin_urls %}
+{% block title %}Location Report{% endblock %}
+{% block content %}
+  <ol class="breadcrumb">
+    <li><a href="{% url 'org_home' request.current_org %}">Home</a></li>
+    <li><a href="{% url 'reports' request.current_org %}">Reports</a></li>
+  </ol>
+
+  <h3>{{ org.name }} Locations</h3>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Enabled</th>
+      <th>Type</th>
+      <th>Direction1</th>
+      <th>Direction2</th>
+      <th>North</th>
+      <th>East</th>
+      <th>South</th>
+      <th>West</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for loc in org.location_set.all %}
+    <tr>
+        <td>{{ loc }}</td>
+        <td>{{ loc.enabled }}</td>
+        <td>{{ loc.type }}</td>
+        <td>{{ loc.direction1|default:"" }}</td>
+        <td>{{ loc.direction2|default:"" }}</td>
+        <td>
+          {% if loc.has_north %}
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          {% endif %}
+        </td>
+        <td>
+          {% if loc.has_east %}
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          {% endif %}
+        </td>
+        <td>
+          {% if loc.has_south %}
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          {% endif %}
+        </td>
+           <td>
+          {% if loc.has_west %}
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          {% endif %}
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+
+{% endblock %}
+
+
+

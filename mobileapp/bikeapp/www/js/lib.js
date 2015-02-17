@@ -128,7 +128,7 @@ function boxClick(d){
     // Clear any selected value
     var metric = $(d).attr('name');
     var value = $(d).val();
-    _l('clicked value:' + metric + ' : ' + value);
+    //_l('clicked value:' + metric + ' : ' + value);
     //$('.'+metric).css('background-color','#FFF');
 
     // Select this one
@@ -145,20 +145,19 @@ function tryComplete(){
     var complete = true;
 
     metric_len = Object.keys(survey).length;
-    _l('Survey key len:' + metric_len);
+    //_l('Survey key len:' + metric_len);
 
     // If any metric is not filled out break
     for (i=0; i < Object.keys(survey).length; i++){
-
         _l(Object.keys(survey)[i] + ' = ' + survey[Object.keys(survey)[i]]);
 
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
-            //break;
+            break;
         }
     }
 
-    _l('tryComplete: ' + complete);
+    //_l('tryComplete: ' + complete);
 
     if (complete == true) {
         $('#btn_save').prop('disabled', false);
@@ -247,32 +246,10 @@ function updateTime(){
     else {
         $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
     }
-
-    /*
-    start = _get('start_time');
-    var now = new Date().getTime();
-    var diff = (config['session_len'] * 6000 - 1) - (now - start);
-    var minutes = Math.floor(diff / 60000);
-    var seconds = String(Math.round(diff / 1000));
-
-    seconds = seconds % 60;
-
-    // Check if the session is done recording
-    if (diff < 0){
-        clearInterval(surveyInterval);
-        clearInterval(timerInterval);
-        var appt = _get('cur_appt');
-        endSession(appt);
-        //window.location.replace('#done/'+appt);
-    }
-    else {
-        $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
-    }
-    */
 }
 
 function saveEvent(id){
-    // Generate unique id for event
+    // TODO - Generate unique id for event
     //var guid = guid();
 
     // Get the unposted array
@@ -371,7 +348,7 @@ function postSurveys(){
     if (events.length == 0 && surveys.length == 0) {return;}
 
 
-    _l(surveys.length + ' surveys to post');
+    //_l(surveys.length + ' surveys to post');
     if (surveys.length > 0){
         // Pop a survey off the queue
         var survey = surveys.pop();
@@ -388,7 +365,7 @@ function postSurveys(){
     }
 
     // TODO - Test all this!
-    _l(events.length + ' events to post');
+    //_l(events.length + ' events to post');
     if (events.length > 0){
         // Pop an evetn off the queue
         var event = events.pop();

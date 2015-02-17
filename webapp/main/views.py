@@ -1,7 +1,7 @@
 #from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 #from django.views.generic.edit import FormView
 from .models import Organization, Appointment, Membership, Location
 from .logic import stats_for_appt, csv_for_appt
@@ -90,3 +90,12 @@ class OrgScheduleView(ListView):
 class ReportHomeView(ListView):
     model = Appointment
     template_name = 'report_home.html'
+
+
+class ReportLocationsView(TemplateView):
+    template_name = 'report_locations.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ReportLocationsView, self).get_context_data(**kwargs)
+        context['org'] = Organization.objects.get(slug=self.request.current_org)
+        return context

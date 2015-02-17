@@ -198,7 +198,9 @@ class Appointment(TimeStampedModel):
         return True
 
     def status(self):
-        if self.actual_end is None:
+        if self.actual_start and self.actual_end is None:
+            return "In progress"
+        elif self.actual_end is None:
             return "Not started"
         return "Complete"
 
