@@ -197,6 +197,11 @@ class Appointment(TimeStampedModel):
             return False
         return True
 
+    def status(self):
+        if self.actual_end is None:
+            return "Not started"
+        return "Complete"
+
 
 class SurveyEvent(TimeStampedModel):
     appointment = models.ForeignKey(Appointment)

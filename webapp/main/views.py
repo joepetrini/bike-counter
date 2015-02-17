@@ -33,6 +33,9 @@ class OrgHomeView(DetailView):
         unassigned = Appointment.objects.filter(user=None, organization=self.object)
         context['sessions'] = sessions
         context['unassigned'] = unassigned
+        if self.request.user.is_superuser:
+            all = Appointment.objects.filter(organization=self.object)
+            context['all'] = all
         return context
 
 

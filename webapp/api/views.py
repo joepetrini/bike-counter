@@ -61,6 +61,16 @@ class ApptViewSet(viewsets.ModelViewSet):
         appt.save()
         return Response(None, status=status.HTTP_200_OK)
 
+    @detail_route(methods=['GET'])
+    def reset(self, request, pk=None):
+        appt = self.get_object()
+        if request.user.is_superuser or request.user == appt.user:
+            appt.actual_end = None
+            appt.save()
+            return Response(None, status=status.HTTP_200_OK)
+        else:
+            return Response(None, status=status.HTTP_401_UNAUTHORIZED)
+
     #@action(methods=['POST'])
     @detail_route(methods=['POST'])
     def survey(self, request, pk=None):

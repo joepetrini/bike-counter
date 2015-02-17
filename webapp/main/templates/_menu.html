@@ -9,12 +9,15 @@
 <!--        <li><a href="">activity</a></li>-->
         {% if user.is_superuser or member.role == 'admin' %}
           <li><a href="{% url 'org_schedule' member.organization.slug %}">schedule</a></li>
-          <li><a href="{% url 'report_home' member.organization.slug %}">reports</a></li>
+          <!--<li><a href="{% url 'report_home' member.organization.slug %}">reports</a></li>-->
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user %}
-          <li><a href="{% url 'profile' %}">{{user}}</a></li>
+          {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">admin</a></li>
+          {% endif %}
+          <!--<li><a href="{% url 'profile' %}">{{user}}</a></li>-->
           <li><a href="{% url 'logout' %}">logout</a></li>
         {% else %}
           <li><a href="{% url 'login' %}">login</a></li>
