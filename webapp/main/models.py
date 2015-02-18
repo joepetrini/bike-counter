@@ -197,6 +197,14 @@ class Appointment(TimeStampedModel):
         self.time_taken = int(time_taken)
         self.save()
 
+    def reset(self):
+        # Clear data
+        for s in self.survey_set.all():
+            SurveyValue.objects.filter(survey=s).delete()
+        Survey.objects.filter(appointment=self).delete()
+        self.actual_end = None
+        self.save()
+
     def complete(self):
         if self.actual_end is None:
             return False
