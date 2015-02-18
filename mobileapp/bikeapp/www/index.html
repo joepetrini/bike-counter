@@ -188,6 +188,32 @@
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center" id="rec_left">
         <div class="rec_content">
+
+            <div class="heading">Direction</div>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-val btn-line">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{loc.direction1}}
+                </label>
+                <label class="btn btn-val">
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="2">{{loc.direction2}}
+                </label>
+                <!--
+                {{#dirs}}
+                <label class="btn btn-val">
+                  <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
+                </label>
+                {{/dirs}}
+                -->
+                <!--
+                  <label class="btn btn-val">
+                      <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
+                  </label>
+                  <label class="btn btn-val">
+                      <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
+                  </label>
+                -->
+            </div>
+
             <div class="heading">Helmet</div>
             <div id="btn-test" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -199,30 +225,7 @@
             </div>
             <div class="clearfix"></div>
 
-            <div class="heading">Direction</div>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{loc.direction1}}
-                </label>
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="2">{{loc.direction2}}
-                </label>
-              <!--
-              {{#dirs}}
-              <label class="btn btn-val">
-                <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
-              </label>
-              {{/dirs}}
-              -->
-              <!--
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
-                </label>
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
-                </label>
-              -->
-            </div>
+
 
             <div class="heading">SideWalk</div>
             <div class="btn-group" data-toggle="buttons">

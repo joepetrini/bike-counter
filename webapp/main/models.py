@@ -55,13 +55,18 @@ class Location(TimeStampedModel):
 
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    direction1 = models.CharField(max_length=20, null=True, blank=True)
+    direction1_label = models.CharField(max_length=50, null=True, blank=True)
+    direction2 = models.CharField(max_length=20, null=True, blank=True)
+    direction2_label = models.CharField(max_length=50, null=True, blank=True)
+
+    # Not used
     has_east = models.BooleanField(default=True)
     has_north = models.BooleanField(default=True)
     has_south = models.BooleanField(default=True)
     has_west = models.BooleanField(default=True)
 
-    direction1 = models.CharField(max_length=20, null=True, blank=True)
-    direction2 = models.CharField(max_length=20, null=True, blank=True)
 
     class Meta:
         db_table = 'location'
@@ -228,6 +233,7 @@ class Survey(TimeStampedModel):
     time_to_take = models.IntegerField(blank=True, null=True)
     guid = models.CharField(max_length=50, null=True, blank=True)
     recorded_at = models.DateTimeField(default=now)
+    direction = models.CharField(max_length=20, null=True, blank=True)
 
     class Meta:
         db_table = 'survey'

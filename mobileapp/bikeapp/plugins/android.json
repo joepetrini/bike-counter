@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -28,6 +32,12 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
                             "count": 1
                         }
                     ]
@@ -46,6 +56,9 @@
             "PACKAGE_NAME": "com.phlbikecount"
         },
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.phlbikecount"
+        },
+        "org.apache.cordova.vibration": {
             "PACKAGE_NAME": "com.phlbikecount"
         }
     },

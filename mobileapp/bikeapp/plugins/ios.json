@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -38,6 +42,12 @@
                     "CoreLocation.framework": [
                         {
                             "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
                             "count": 1
                         }
                     ]
@@ -66,6 +76,12 @@
             "PACKAGE_NAME": "com.phlbikecount"
         },
         "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "com.phlbikecount"
+        },
+        "cz.Velda.cordova.plugin.devicefeedback": {
+            "PACKAGE_NAME": "com.phlbikecount"
+        },
+        "org.apache.cordova.vibration": {
             "PACKAGE_NAME": "com.phlbikecount"
         }
     },
