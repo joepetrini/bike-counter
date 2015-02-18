@@ -187,12 +187,11 @@ function route(event) {
     var match = hash.match(/^#record\/(\d{1,})/);
     if (match) {
         var appt_id = Number(match[1]);
-        _l('in #record cur_app:' + appt_id);
+        //_l('in #record cur_app:' + appt_id);
         _set('cur_appt', appt_id);
         var org = getOrg(getAppointment(appt_id).location.organization);
         var loc = getAppointment(appt_id).location;
         config['session_len'] = parseInt(org.session_length);
-        _l('location direction: ' + loc.direction1);
 
         // Blank out survey vals
         _l('metric length:' + org.organizationmetrics_set.length);
@@ -201,6 +200,9 @@ function route(event) {
             _l('adding ' + org.organizationmetrics_set[i].metric.system_name + ' to metrics');
             survey[org.organizationmetrics_set[i].metric.system_name] = null;
         }
+        // Add direction in
+        survey['direction'] = null;
+
 
         // Reset rider count, unless restoring session
         rider_count = 0;
@@ -267,7 +269,7 @@ function route(event) {
     // Login
     if (hash == '') {
         var template = $('#tpl-login').html();
-        page = Mustache.to_html(template, {});
+        page = Mustache.to_html(template, {'version': config.version});
     }
     $('#container').html(page);
 }

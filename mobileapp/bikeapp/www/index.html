@@ -75,6 +75,7 @@
     <div class="row">
     <div class="col-xs-4">
         <img src="assets/img/phlbikeco.png">
+        <div style="font-size:10px;color:#aaa">v{{version}}</div>
     </div>
     <div class="col-xs-7" style="padding-top:25px">
         <input id="username" type="text" class="form-control" value="" placeholder="username" autocapitalize="off">
@@ -192,10 +193,10 @@
             <div class="heading">Direction</div>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="1">{{loc.direction1}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1_label}}
                 </label>
                 <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="2">{{loc.direction2}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction2}}">{{loc.direction2_label}}
                 </label>
                 <!--
                 {{#dirs}}

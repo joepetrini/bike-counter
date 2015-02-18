@@ -1,5 +1,5 @@
 # Python Version = 2.7
-Django==1.7
+Django==1.7.4
 django-bootstrap3==3.3.0
 django-debug-toolbar==1.0.1
 django-extensions==1.4.9
@@ -7,5 +7,6 @@ django-filter==0.7
 django-model-utils==2.0.2
 djangorestframework==3.0.2
 gspread==0.1.0
+raven==5.2.0
 six==1.8.0
 sqlparse==0.1.14

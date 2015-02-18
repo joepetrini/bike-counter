@@ -14,12 +14,11 @@
       <th>Location</th>
       <th>Enabled</th>
       <th>Type</th>
-      <th>Direction1</th>
-      <th>Direction2</th>
-      <th>North</th>
-      <th>East</th>
-      <th>South</th>
-      <th>West</th>
+      <th>Dir1</th>
+      <th>Dir1Label</th>
+      <th>Dir2</th>
+      <th>Dir2Label</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -29,26 +28,13 @@
         <td>{{ loc.enabled }}</td>
         <td>{{ loc.type }}</td>
         <td>{{ loc.direction1|default:"" }}</td>
+        <td>{{ loc.direction1_label|default:"" }}</td>
         <td>{{ loc.direction2|default:"" }}</td>
+        <td>{{ loc.direction2_label|default:"" }}</td>
         <td>
-          {% if loc.has_north %}
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-          {% endif %}
-        </td>
-        <td>
-          {% if loc.has_east %}
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-          {% endif %}
-        </td>
-        <td>
-          {% if loc.has_south %}
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-          {% endif %}
-        </td>
-           <td>
-          {% if loc.has_west %}
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-          {% endif %}
+          <a target="new" href="{%url 'admin:main_location_change' loc.pk %}">
+            <button class="btn btn-primary"><span class="glyphicon glyphicon-new-window"></span></button>
+          </a>
         </td>
     </tr>
   {% endfor %}

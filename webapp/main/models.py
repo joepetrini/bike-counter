@@ -22,6 +22,9 @@ class Organization(TimeStampedModel):
     def __unicode__(self):
         return "%s - %s, %s" % (self.name, self.city, self.state)
 
+    def metrics_list(self):
+        return OrganizationMetrics.objects.filter(
+            organization=self).values_list('metric__system_name', flat=True)
 
 class Membership(TimeStampedModel):
     ROLES = Choices(
@@ -181,6 +184,7 @@ class Appointment(TimeStampedModel):
 
     class Meta:
         db_table = 'appointment'
+        ordering = ['actual_end', 'scheduled_start']
 
     def __unicode__(self):
         return "%s - %s - %s - %s" % (self.organization.name, self.location, self.user, self.scheduled_start)

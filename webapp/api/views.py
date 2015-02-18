@@ -4,9 +4,10 @@ from .serializers import UserSerializer, LocationSerializer, AppointmentSerializ
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import detail_route #action
-#from rest_framework import authentication
-from main.models import Organization, Location, Appointment, Survey, SurveyValue, Metric, Value, Event, SurveyEvent
+from rest_framework.decorators import detail_route  # action
+# from rest_framework import authentication
+from main.models import Organization, OrganizationMetrics, Location, Appointment, Survey, SurveyValue, Metric, Value, \
+    Event, SurveyEvent
 
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -42,7 +43,7 @@ class ApptViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
 
-    #@action(methods=['POST'])
+
     @detail_route(methods=['POST'])
     def start(self, request, pk=None):
         appt = self.get_object()
@@ -50,7 +51,7 @@ class ApptViewSet(viewsets.ModelViewSet):
         appt.start()
         return Response(None, status=status.HTTP_200_OK)
 
-    #@action(methods=['POST'])
+
     @detail_route(methods=['POST'])
     def end(self, request, pk=None):
         appt = self.get_object()
@@ -61,6 +62,7 @@ class ApptViewSet(viewsets.ModelViewSet):
         appt.save()
         return Response(None, status=status.HTTP_200_OK)
 
+
     @detail_route(methods=['GET'])
     def reset(self, request, pk=None):
         appt = self.get_object()
@@ -70,26 +72,27 @@ class ApptViewSet(viewsets.ModelViewSet):
         else:
             return Response(None, status=status.HTTP_401_UNAUTHORIZED)
 
-    #@action(methods=['POST'])
+
     @detail_route(methods=['POST'])
     def survey(self, request, pk=None):
         appt = self.get_object()
         # TODO: check that appointment is not complete
+
         # Create a new survey
-        survey = Survey(appointment=appt)
-        print survey
-        survey.save()
+        direction = str(request.DATA['direction']).lower()
+        guid = str(request.DATA['guid']).lower()
+        survey = Survey.objects.create(appointment=appt, direction=direction, guid=guid)
+
+        # Get the available metric system_names for this org
+        metrics = appt.organization.metrics_list()
         for k, v in request.DATA.items():
             try:
-                metric = Metric.objects.get(system_name=k)
-                if metric.value_set.system_name == "direction":
-                    # TODO - Update direction lookup logic, posted values are '1' or '2'
-                    #if v == '1':
+                # If posted data is in expected metrics, save it
+                if str(k).lower() in metrics:
+                    metric = Metric.objects.get(system_name=k)
                     value = Value.objects.get(value_set=metric.value_set, stored_value=v)
-                else:
-                    value = Value.objects.get(value_set=metric.value_set, stored_value=v)
-                sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
-                print "Saving %s = %s" % (k, v)
+                    sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
+                    print "Saving %s = %s" % (k, v)
             except Metric.DoesNotExist:
                 print "Metric does not exist metric:sys_name=%s or value:stored_val=%s" % (k, v)
             except Value.DoesNotExist:
@@ -97,7 +100,7 @@ class ApptViewSet(viewsets.ModelViewSet):
 
         return Response(None, status=status.HTTP_200_OK)
 
-    #@action(methods=['POST'])
+
     @detail_route(methods=['POST'])
     def event(self, request, pk=None):
         appt = self.get_object()

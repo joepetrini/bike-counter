@@ -6,6 +6,16 @@ function _l(msg){
     LE.log(platform+':'+_get('username')+':'+msg);
 }
 
+// Vibrate helper
+function _vib(){
+    try {
+        navigator.vibrate(100);
+    }
+    catch (err){
+        _l(err);
+    }
+}
+
 // Set value helper
 function _set(key, v){
     //_l('setting:' + key + ' to ' + v);
@@ -304,6 +314,9 @@ function saveSurvey(){
     }
     // Add this survey to the array
     s.push(data);
+
+    // Vibrate
+    _vib();
 
     // Push the array back to the queue
     //_l('Adding survey to queue, total len=' + s.length);
