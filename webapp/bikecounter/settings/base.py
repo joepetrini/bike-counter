@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'django_extensions',
+    'pytz',
     'rest_framework',
     'rest_framework.authtoken',
     'main',
@@ -68,6 +69,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.middleware.XsSharing',
     'main.middleware.RequireMembershipMiddleware',
+    #'django.middleware.timezone.TimeZoneMiddleware',
+    'main.middleware.TimezoneMiddleware',
 )
 
 

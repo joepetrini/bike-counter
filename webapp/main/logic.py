@@ -8,12 +8,14 @@ from .models import *
 def csv_for_appt(appt):
     out = ''
     # Headers
-    out += "Time,Bike,"
+    out += "Time,Bike,Direction,"
     for m in appt.organization.organizationmetrics_set.all():
         out += "%s," % m.metric.name
     out = out[:-1] + "\n"
+
+    # Detail
     for s in appt.survey_set.all():
-        out += "%s,%s," % (s.created, s.is_bicycle)
+        out += "%s,%s,%s," % (s.created, s.is_bicycle, s.direction)
         for sv in s.surveyvalue_set.all():
             out += "%s," % sv.value.stored_value
         out = out[:-1] + "\n"
@@ -28,17 +30,26 @@ def stats_for_appt(appt):
     for i in range(0, ((appt.actual_end - appt.actual_start).seconds / 60)):
         min[i] = 0
 
+    metrics[-1] = {'name': 'direction', 'stats': {}}
+
     # List of metrics
     for m in appt.organization.organizationmetrics_set.filter(report=True):
         metrics[m.metric.id] = {'name': m.metric.name, 'stats': {}}
 
     # Value counts across all recorded info
     for s in appt.survey_set.all():
-        i = (s.recorded_at - appt.actual_start).seconds / 60
+        # Direction
         try:
-            min[i] += 1
+            metrics[-1]['stats'][s.direction] += 1
         except KeyError:
-            min[i] = 1
+            metrics[-1]['stats'][s.direction] = 1
+
+
+        minutes_in = (s.recorded_at - appt.actual_start).seconds / 60
+        try:
+            min[minutes_in] += 1
+        except KeyError:
+            min[minutes_in] = 1
 
         for sv in s.surveyvalue_set.select_related().all():
             # Not in reportable metrics

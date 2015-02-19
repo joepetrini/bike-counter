@@ -1,7 +1,6 @@
 {% extends '_base.html' %}
 {% block title %}{{object.name}} Home{% endblock %}
 {% block content %}
-
 <h3>{{ object.name }} home</h3>
 
 {% if sessions %}
@@ -9,7 +8,7 @@
   <table class="table table-striped">
   {% if sessions.count != 0 %}
     <tr>
-      <th>Location</th>
+      <th class="col-md-5">Location</th>
       <th>Suggested Date</th>
       <th></th>
     </tr>
@@ -40,7 +39,7 @@
   <table class="table table-striped">
   {% if unassigned.length != 0 %}
     <tr>
-      <th>Location</th>
+      <th class="col-md-5">Location</th>
       <th>Suggested Date</th>
       <th></th>
     </tr>
@@ -65,7 +64,7 @@
   {% csrf_token %}
   <table class="table table-striped">
     <tr>
-      <th>Location</th>
+      <th class="col-md-5">Location</th>
       <th>Suggested Date</th>
       <th>User</th>
       <th>Status</th>

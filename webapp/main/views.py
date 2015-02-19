@@ -46,7 +46,7 @@ class ApptDetailView(DetailView):
     def render_to_response(self, context, **response_kwargs):
         if self.request.GET.has_key('csv'):
             out = csv_for_appt(self.object)
-            return HttpResponse(content=out, content_type='text/csv')
+            return HttpResponse(content=out)#, content_type='text/csv')
         else:
             return super(ApptDetailView, self).render_to_response(context, **response_kwargs)
 

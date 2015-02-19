@@ -94,9 +94,9 @@ class ApptViewSet(viewsets.ModelViewSet):
                     sv, c = SurveyValue.objects.get_or_create(survey=survey, metric=metric, value=value)
                     print "Saving %s = %s" % (k, v)
             except Metric.DoesNotExist:
-                print "Metric does not exist metric:sys_name=%s or value:stored_val=%s" % (k, v)
+                print "Metric does not exist metric:sys_name=%s    value:stored_val=%s" % (k, v)
             except Value.DoesNotExist:
-                print "Value does not exist metric:sys_name=%s or value:stored_val=%s" % (k, v)
+                print "Value does not exist metric:sys_name=%s     value:stored_val=%s" % (k, v)
 
         return Response(None, status=status.HTTP_200_OK)
 
@@ -106,9 +106,9 @@ class ApptViewSet(viewsets.ModelViewSet):
         appt = self.get_object()
         for k, v in request.DATA.items():
             print "{} {}".format(k, v)
-        # TODO get event type and add to related survey
         ev = Event.objects.get(id=request.DATA['event_id'])
-        se = SurveyEvent.objects.create(appointment=appt, event=ev)
+        guid = request.DATA['guid']
+        se = SurveyEvent.objects.create(appointment=appt, event=ev, guid=guid)
         return Response(None, status=status.HTTP_200_OK)
 
 

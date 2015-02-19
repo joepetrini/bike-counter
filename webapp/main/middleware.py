@@ -1,5 +1,20 @@
+import pytz
+from django.utils import timezone
 from django.conf import settings
 from .models import Organization, Membership
+
+
+class TimezoneMiddleware(object):
+    def process_request(self, request):
+        # TODO - set timezone at user/org level
+        timezone.activate(pytz.timezone('US/Eastern'))
+
+        # If set at a session scope
+        #tzname = request.session.get('django_timezone')
+        #if tzname:
+        #    timezone.activate(pytz.timezone(tzname))
+        #else:
+        #    timezone.deactivate()
 
 
 class RequireMembershipMiddleware(object):

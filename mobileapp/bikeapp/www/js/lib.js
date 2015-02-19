@@ -16,6 +16,11 @@ function _vib(){
     }
 }
 
+// Pad zeros
+function _pad(num){
+    return ("0000" + num).substr(-2,2);
+}
+
 // Set value helper
 function _set(key, v){
     //_l('setting:' + key + ' to ' + v);
@@ -254,14 +259,11 @@ function updateTime(){
         //window.location.replace('#done/'+appt);
     }
     else {
-        $('#timer').html(String(minutes)+':'+String(seconds)+' remaining');
+        $('#timer').html(_pad(String(minutes))+':'+_pad(String(seconds))+' remaining');
     }
 }
 
 function saveEvent(id){
-    // TODO - Generate unique id for event
-    //var guid = guid();
-
     // Get the unposted array
     s = _getdict('events_to_save');
     if (s == null){
@@ -281,6 +283,7 @@ function saveEvent(id){
     $('#eventcount_' + id).fadeOut(500, function() {
         $(this).html(event_count[id]).fadeIn(1000);
         $('#btn_event_' + id).blur();
+        // TODO - store event counts for loading on session restore
     });
 }
 

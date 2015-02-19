@@ -193,10 +193,10 @@
             <div class="heading">Direction</div>
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1_label}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1}}
                 </label>
                 <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction2}}">{{loc.direction2_label}}
+                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction2}}">{{loc.direction2}}
                 </label>
                 <!--
                 {{#dirs}}
@@ -274,7 +274,6 @@
               </tr>
               <tr>
                   {{#events}}
-                  <!-- TODO - test the events buttons -->
                   <td>
                       <button id="btn_event_{{event.id}}" class="btn btn-event" onclick="saveEvent({{event.id}})">+ 1</button>
                       <span class="badge" id="eventcount_{{event.id}}">0</span>
