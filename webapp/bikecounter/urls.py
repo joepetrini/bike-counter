@@ -31,6 +31,8 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/auth/?', 'rest_framework.authtoken.views.obtain_auth_token'),
     #url(r'^api/user/?', views.CurrentUser.as_view(), name='api-user'),
+    # TODO - remove /me endpoint after v0.1.8
+    url(r'^api/me/?', views.ApptDetail.as_view(), name='api-me'),
     url(r'^api/appts/?', views.ApptDetail.as_view(), name='api-appts'),
     #url(r'^api/orgs/?', views.MeDetail.as_view(), name='api-me'),
     #url(r'^api/org/(?P<pk>\d+)/?', views.LocationViewSet.as_view(), name='api-locations'),
