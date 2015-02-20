@@ -10,6 +10,12 @@ from main.models import Organization, OrganizationMetrics, Location, Appointment
     Event, SurveyEvent
 
 
+class CurrentUser(APIView):
+    def get(self, request):
+            serializer = UserSerializer(request.user)
+            return Response(serializer.data)
+
+
 class LocationViewSet(viewsets.ModelViewSet):
     """
     Get all locations for an org
@@ -23,7 +29,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 #    serializer_class = OrganizationSerializer
 
 
-class MeDetail(APIView):
+class ApptDetail(APIView):
     """
     Retrieve, update or delete a user instance.
     """
@@ -32,7 +38,6 @@ class MeDetail(APIView):
 
     def get(self, request, format=None):
         if request.user.is_authenticated():
-            print type(request.user)
             serializer = UserSerializer(request.user)
             return Response(serializer.data)
         else:

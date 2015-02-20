@@ -206,6 +206,7 @@ class Appointment(TimeStampedModel):
         for s in self.survey_set.all():
             SurveyValue.objects.filter(survey=s).delete()
         Survey.objects.filter(appointment=self).delete()
+        SurveyEvent.objects.filter(appointment=self).delete()
         self.actual_end = None
         self.save()
 

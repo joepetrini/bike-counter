@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-VERSION = "0.1.5"
+VERSION = "0.1.7"
 API_VERSION = "1"
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/orgs'

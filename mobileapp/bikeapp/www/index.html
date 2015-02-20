@@ -6,7 +6,7 @@
     <!--<link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">-->
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jslib/jquery-ui.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/le.min.js"></script>
     <link href="assets/css/bikecounter.css" rel="stylesheet">
@@ -276,7 +276,7 @@
                   {{#events}}
                   <td>
                       <button id="btn_event_{{event.id}}" class="btn btn-event" onclick="saveEvent({{event.id}})">+ 1</button>
-                      <span class="badge" id="eventcount_{{event.id}}">0</span>
+                      <span class="badge" id="eventcount_{{event.id}}">{{event.count}}</span>
                   </td>
                   {{/events}}
               </tr>
@@ -438,6 +438,7 @@
 
 <script src="cordova.js"></script>
 <script src="jslib/jquery.js"></script>
+<script src="jslib/jquery-ui.min.js"></script>
 <script src="jslib/jquery.storage.js"></script>
 <script src="jslib/fastclick.js"></script>
 <!--<script src="jslib/pageslider.js"></script>-->

@@ -89,6 +89,7 @@ function logout() {
     _set('cur_appt', null);
     _set('cur_app_rider_count', null);
     _set('cur_app_total_time', null);
+    _setdict('event_counts', null);
     clearInterval(timerInterval);
     clearInterval(surveyInterval);
     window.location.replace('');
@@ -270,6 +271,9 @@ function saveEvent(id){
         s = [];
     }
 
+    // Vibrate
+    _vib();
+
     // Add this survey to the array
     data = {'event_id': id, 'guid': guid()};
     s.push(data);
@@ -280,6 +284,10 @@ function saveEvent(id){
 
     // Increase count
     event_count[id]++;
+
+    // Persist counts array
+    _setdict('event_counts', event_count);
+
     $('#eventcount_' + id).fadeOut(500, function() {
         $(this).html(event_count[id]).fadeIn(1000);
         $('#btn_event_' + id).blur();
@@ -320,6 +328,9 @@ function saveSurvey(){
 
     // Vibrate
     _vib();
+    // Flash background
+    $("body").animate({ backgroundColor: "#FFDCC9" }, 100).animate({ backgroundColor: "#FFF" }, 50);
+
 
     // Push the array back to the queue
     //_l('Adding survey to queue, total len=' + s.length);
@@ -420,7 +431,7 @@ function getAppointment(id) {
 
 function getAppointments() {
     var d;
-    _req({type: "GET", url: 'me',
+    _req({type: "GET", url: 'appts',
         success: function (data){
             _setdict('data',data);
             d = data;
@@ -443,6 +454,7 @@ function startSession(id){
                 _set('total_pause', 0);
                 _set('longest_pause', 0);
                 _set('current_pause', 0);
+                _setdict('event_counts', null);
                 // Load the recording page
                 window.location.replace('#record/'+id);
             },
@@ -474,6 +486,7 @@ function endSession(appt){
                     _set('cur_appt', null);
                     _set('cur_app_total_time', null);
                     _set('cur_app_rider_count', 0);
+                    _setdict('event_counts', null);
                     clearInterval(timerInterval);
                     clearInterval(surveyInterval);
                     window.location.replace('#done/'+id);

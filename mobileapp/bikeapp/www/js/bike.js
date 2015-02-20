@@ -214,15 +214,21 @@ function route(event) {
         // TODO restore session counts
         events_for_loc = [];
         event_count = new Array();
+        if (_getdict('event_counts')){
+            event_count = _getdict('event_counts');
+            _l('event_counts found setting local var : ' + event_count);
+        }
         for (i=0; i < org.organizationevents_set.length; i++){
             var ev = org.organizationevents_set[i];
             // Don't count pedestrians at intersections
             if (ev.event.system_name == 'pedestrian' && loc.type == 'intersection') {
                 continue;
             }
-            _l(ev);
-            events_for_loc.push({'event': {'id': ev.event.id, 'name': ev.event.name}});
-            event_count[ev.event.id] = 0;
+            _l('loading event: ' + ev);
+            if (typeof event_count[ev.event.id] == 'undefined'){
+                event_count[ev.event.id] = 0;
+            }
+            events_for_loc.push({'event': {'id': ev.event.id, 'name': ev.event.name, 'count': event_count[ev.event.id]}});
         }
 
         // Start timer, restore if in session
