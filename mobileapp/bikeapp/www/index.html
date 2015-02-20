@@ -86,6 +86,9 @@
         <br><br><a href="https://www.bikecounts.com/register" target="_blank">Register</a>
         <br><br>
         <div id="err-login" class="alert alert-danger" style="display:none"></div>
+        {{#is_superuser}}
+          <a href="#admin">DevTools</a>
+        {{/is_superuser}}
     </div>
     </div>
 </script>
@@ -433,6 +436,26 @@
             </div>
         </div>
     </div>
+</script>
+
+<script id="tpl-admin" type="text/template">
+  <div>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <button class="btn btn-primary btn-nav" onclick="window.location.replace('#home')">&laquo;&nbsp;Home</button>
+        <br><br>
+        <h4>Admin Tools</h4>
+        Current API Url: <span id="api_url">{{config.apiUrl}}</span>
+        <hr>
+        Change to:<br>
+          <a href="javascript:change_api_url('https://qa.bikecounts.com/api/')">https://qa.bikecounts.com/api/</a>
+          <br>
+          <a href="javascript:change_api_url('https://www.bikecounts.com/api/')">https://www.bikecounts.com/api/</a>
+          <br>
+          <a href="javascript:change_api_url('http://127.0.0.1:8001')">http://127.0.0.1:8001</a>
+      </div>
+    </div>
+  </div>
 </script>
 
 

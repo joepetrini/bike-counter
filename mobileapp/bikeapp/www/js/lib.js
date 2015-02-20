@@ -21,6 +21,14 @@ function _pad(num){
     return ("0000" + num).substr(-2,2);
 }
 
+// Wrapper for passing data to template
+function _tdata(dict){
+    dict['version'] = config.version;
+    dict['is_superuser'] = _getdict('data').is_superuser;
+    dict['config'] = config;
+    return dict;
+}
+
 // Set value helper
 function _set(key, v){
     //_l('setting:' + key + ' to ' + v);
@@ -75,6 +83,13 @@ function _req(params){
     params['dataType'] = 'json';
     params['async'] = false;
     $.ajax(params);
+}
+
+function change_api_url(url){
+    _l('url: ' + url);
+    _set('apiUrl', url);
+    $('#api_url').html(url);
+    window.location.replace('#admin');
 }
 
 function check_login() {

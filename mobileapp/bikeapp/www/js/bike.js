@@ -38,6 +38,7 @@ var config = {
 
 /* Change api url depending on host */
 if (location.host.indexOf('localhost') > -1){
+    _l('settign apiUrl');
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
 }
 else {
@@ -47,6 +48,9 @@ else {
     }
     // Uncomment below before posting app!
     config['apiUrl'] = 'https://www.bikecounts.com/api/';
+}
+if (_get('apiUrl')){
+    config['apiUrl'] = _get('apiUrl');
 }
 
 /* Wire up page routing */
@@ -97,7 +101,7 @@ function route(event) {
     var page,
         hash = window.location.hash;
 
-    if (hash != '') {
+    if (hash != '' && hash != '#admin') {
         check_login();
     }
     if (hash === "#pick_org") {
@@ -113,6 +117,11 @@ function route(event) {
     if (hash === "#help") {
         var template = $('#tpl-help').html();
         page = Mustache.to_html(template);
+    }
+    // Admin screen
+    if (hash === "#admin") {
+        var template = $('#tpl-admin').html();
+        page = Mustache.to_html(template, _tdata({}));
     }
     // Logout
     if (hash === '#logout') {
@@ -275,7 +284,7 @@ function route(event) {
     // Login
     if (hash == '') {
         var template = $('#tpl-login').html();
-        page = Mustache.to_html(template, {'version': config.version});
+        page = Mustache.to_html(template, _tdata({}));
     }
     $('#container').html(page);
 }
