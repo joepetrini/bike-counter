@@ -38,7 +38,7 @@ var config = {
 
 /* Change api url depending on host */
 if (location.host.indexOf('localhost') > -1){
-    _l('settign apiUrl');
+    //_l('settign apiUrl');
     config['apiUrl'] = 'http://127.0.0.1:8001/api/';
 }
 else {

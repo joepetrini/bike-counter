@@ -271,7 +271,7 @@ function updateTime(){
         clearInterval(surveyInterval);
         clearInterval(timerInterval);
         var appt = _get('cur_appt');
-        endSession(appt);
+        endSession(appt, true);
         //window.location.replace('#done/'+appt);
     }
     else {
@@ -480,11 +480,16 @@ function startSession(id){
     }
 }
 
-function endSession(appt){
+function endSession(appt, force){
     // API call to end session
     id = _get('cur_appt');
     if (_get('token')){
-        if (confirm('Confirm end session?')) {
+        var confirmed = true;
+        if (force == null){
+            confirmed = confirm('Confirm end session?');
+        }
+        //if (confirm('Confirm end session?')) {
+        if (force == true || confirmed){
             total_pause = _get('total_pause');
             longest_pause = _get('longest_pause', 0);
             _l('totalp: ' + total_pause + ' longp:'+longest_pause);
