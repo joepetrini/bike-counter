@@ -194,6 +194,9 @@
         <div class="rec_content">
 
             <div class="heading">Direction</div>
+            <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#dir_2').removeClass('active');survey['direction']='{{loc.direction1}}';tryComplete();">{{loc.direction1}}</button>
+            <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#dir_1').removeClass('active');survey['direction']='{{loc.direction2}}';tryComplete();">{{loc.direction2}}</button>
+            <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1}}
@@ -201,24 +204,13 @@
                 <label class="btn btn-val">
                     <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction2}}">{{loc.direction2}}
                 </label>
-                <!--
-                {{#dirs}}
-                <label class="btn btn-val">
-                  <input type="radio" onchange="boxClick(this)" name="direction" value="{{.}}">{{.}}
-                </label>
-                {{/dirs}}
-                -->
-                <!--
-                  <label class="btn btn-val">
-                      <input type="radio" onchange="boxClick(this)" name="direction" value="north">North
-                  </label>
-                  <label class="btn btn-val">
-                      <input type="radio" onchange="boxClick(this)" name="direction" value="west">West
-                  </label>
-                -->
             </div>
+            -->
 
             <div class="heading">Helmet</div>
+            <button id="helmet_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_2').removeClass('active');survey['helmet']='yes';tryComplete();">Yes</button>
+            <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_1').removeClass('active');survey['helmet']='no';tryComplete();">No</button>
+            <!--
             <div id="btn-test" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
@@ -227,11 +219,13 @@
                     <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
                 </label>
             </div>
-            <div class="clearfix"></div>
-
-
+            -->
+            <!--<div class="clearfix"></div>-->
 
             <div class="heading">SideWalk</div>
+            <button id="sidewalk_1" class="btn btn-val btn-line" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_2').removeClass('active');survey['sidewalk']='yes';tryComplete();">Yes</button>
+            <button id="sidewalk_2" class="btn btn-val active" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_1').removeClass('active');survey['sidewalk']='no';tryComplete();">No</button>
+            <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
@@ -240,6 +234,7 @@
                     <input type="radio" onchange="boxClick(this)" name="sidewalk" data-default="true" value="no">No
                 </label>
             </div>
+            -->
             <!--
             <div><br>
                 <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
@@ -294,6 +289,9 @@
     <div class="col-xs-4 text-center" id="rec_right">
         <div class="rec_content">
             <div class="heading">Gender</div>
+            <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="$(this).addClass('active');$('#gender_2').removeClass('active');survey['gender']='m';tryComplete();">Male</button>
+            <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="$(this).addClass('active');$('#gender_1').removeClass('active');survey['gender']='f';tryComplete();">Female</button>
+            <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
                     <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
@@ -302,10 +300,13 @@
                     <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
                 </label>
             </div>
-
+            -->
             <div class="clearfix"></div>
 
             <div class="heading">Wrong Way</div>
+            <button id="wrong_way_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#wrong_way_2').removeClass('active');survey['wrong_way']='yes';tryComplete();">Yes</button>
+            <button id="wrong_way_2" class="btn btn-val active" data-grp="direction" onclick="$(this).addClass('active');$('#wrong_way_1').removeClass('active');survey['wrong_way']='no';tryComplete();">No</button>
+            <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="wrong_way" value="yes">Yes
@@ -314,7 +315,9 @@
                     <input type="radio" onchange="boxClick(this)" name="wrong_way" data-default="true" value="no">No
                 </label>
             </div>
-            <div><br>
+            -->
+            <div class="heading">&nbsp;</div>
+            <div>
                 <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
             </div>
         </div>

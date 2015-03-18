@@ -156,10 +156,10 @@ function guid() {
 }
 
 function boxClick(d){
-    //_l('a');
     // Clear any selected value
     var metric = $(d).attr('name');
     var value = $(d).val();
+
     //_l('clicked value:' + metric + ' : ' + value);
     //$('.'+metric).css('background-color','#FFF');
 
@@ -169,45 +169,31 @@ function boxClick(d){
     // Update survey value
     //survey[metric] = String(d.id).replace(metric+'_','');
     survey[metric] = String(value);
+
     // Check if done
     tryComplete();
+    //$('#btn_save').prop('disabled', false);
 }
 
 function tryComplete(){
     var complete = true;
 
     metric_len = Object.keys(survey).length;
-    //_l('Survey key len:' + metric_len);
 
     // If any metric is not filled out break
     for (i=0; i < Object.keys(survey).length; i++){
-        _l(Object.keys(survey)[i] + ' = ' + survey[Object.keys(survey)[i]]);
-
+        //_l(Object.keys(survey)[i] + ' = ' + survey[Object.keys(survey)[i]]);
         if (survey[Object.keys(survey)[i]] == null){
             complete = false;
             break;
         }
     }
 
-    //_l('tryComplete: ' + complete);
-
     if (complete == true) {
         $('#btn_save').prop('disabled', false);
     } else {
         $('#btn_save').prop('disabled', true);
     }
-    /*
-    if (complete == true){
-        saveSurvey();
-        window.scrollTo(0, 0);
-        // TODO: Reload survey
-        for (i=0; i < Object.keys(survey).length; i++){
-            survey[Object.keys(survey)[i]] = null;
-        }
-        $('.box').css('background-color', '#FFF');
-        _l('saved');
-    }
-    */
 }
 
 function showPage(p){
@@ -295,7 +281,7 @@ function saveEvent(id){
     s.push(data);
 
     // Push the array back to the queue
-    _l('Adding survey to queue, total len=' + s.length);
+    //_l('Adding survey to queue, total len=' + s.length);
     _setdict('events_to_save', s);
 
     // Increase count
@@ -353,10 +339,12 @@ function saveSurvey(){
     _setdict('surveys_to_save', s);
 
     // Clear all the buttons and what not
+    /*
     $(':radio').prop('checked', false);
     $('.btn-group label').removeClass('active');
 
     // Clear internal survey value array
+
     for (i=0; i < Object.keys(survey).length; i++){
         //_l('survey key : ' + Object.keys(survey)[i]);
         var k = Object.keys(survey)[i];
@@ -370,6 +358,17 @@ function saveSurvey(){
     // Set all defaults back
     $('input[data-default]').prop('checked', true);
     $('input[data-default]').parent().addClass('active');
+    */
+
+    // Set all UI back
+    $('.btn-val').removeClass('active');
+    $('#gender_1').addClass('active');
+    $('#sidewalk_2').addClass('active');
+    $('#wrong_way_2').addClass('active');
+
+    // Set underlying survey vals back to original
+    survey = $.extend({}, survey_orig);
+
     $('#btn_save').prop('disabled', true);
 
     // Increase count
@@ -395,7 +394,7 @@ function postSurveys(){
     if (surveys.length > 0){
         // Pop a survey off the queue
         var survey = surveys.pop();
-        _l('Posting survey data: ' + survey);
+        //_l('Posting survey data: ' + survey);
 
         // Resave the queue
         _setdict('surveys_to_save', surveys);
@@ -412,7 +411,7 @@ function postSurveys(){
     if (events.length > 0){
         // Pop an evetn off the queue
         var event = events.pop();
-        _l('Posting event data: ' + event);
+        //_l('Posting event data: ' + event);
 
         // Resave the queue
         _setdict('events_to_save', events);
