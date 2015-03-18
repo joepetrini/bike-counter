@@ -86,6 +86,8 @@ input[type="button"]:disabled {
 .btn-val {
     width: 50%;
     padding: 25px 0 25px 0;
+    position: relative;
+    float:left;
 }
 #btn_save {
     padding: 25px 0 25px 0;

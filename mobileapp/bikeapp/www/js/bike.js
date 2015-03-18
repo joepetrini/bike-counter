@@ -6,6 +6,8 @@
 var platform = 'brw';
 // Key val dictionary for storing selected values
 var survey = {};
+// Loaded one time and used to reset survey variable on save
+var survey_orig = {};
 // Total number of surveys submitted
 var rider_count = 0;
 // Array for all event counts
@@ -203,6 +205,7 @@ function route(event) {
         config['session_len'] = parseInt(org.session_length);
 
         // Blank out survey vals
+        /*
         _l('metric length:' + org.organizationmetrics_set.length);
         survey = {};
         for (i=0; i<org.organizationmetrics_set.length; i++){
@@ -211,6 +214,26 @@ function route(event) {
         }
         // Add direction in
         survey['direction'] = null;
+        */
+        // Create base survey array
+        survey_orig = {};
+        for (i=0; i<org.organizationmetrics_set.length; i++){
+            survey_orig[org.organizationmetrics_set[i].metric.system_name] = null;
+            /*  TODO: allow defaults at the orgmetric level
+            for (j=0; j < org.organizationmetrics_set[i].metric.value_set.value_set.length; j++){
+                if (org.organizationmetrics_set[i].metric.value_set.value_set[j].is_default){
+                    survey_orig[org.organizationmetrics_set[i].metric.system_name] = org.organizationmetrics_set[i].metric.value_set.value_set[j].stored_value;
+                }
+            }
+            */
+        }
+        survey_orig['wrong_way'] = 'no';
+        survey_orig['sidewalk'] = 'no';
+        survey_orig['gender'] = 'm';
+        // Add direction in
+        survey_orig['direction'] = null;
+        // Set working survey to orig, use jquery extend to make object copy
+        survey = $.extend({}, survey_orig);
 
 
         // Reset rider count, unless restoring session
