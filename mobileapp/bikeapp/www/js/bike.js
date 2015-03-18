@@ -31,7 +31,7 @@ var surveyInterval = null;
 
 var config = {
     surveyType:'default', // For configurable survey interfaces
-    version: '0.1.8', // This should match the webapp version
+    version: '0.1.9', // This should match the webapp version
     // Overridden from org setting
     session_len: 90 // Number of minutes for a recording session
 }

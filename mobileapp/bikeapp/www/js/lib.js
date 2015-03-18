@@ -132,7 +132,8 @@ function login() {
             if (data.token){
                 _l('logged in. redir to #home');
                 _set('token', data.token);
-                window.location.replace('#home');
+                //window.location.replace('#home');
+                window.location.replace('#upcoming');
             }
             else {
                 $('#err-login').html(data.message).show();
