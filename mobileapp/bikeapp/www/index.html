@@ -207,9 +207,6 @@
             </div>
             -->
 
-            <div class="heading">Helmet</div>
-            <button id="helmet_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_2').removeClass('active');survey['helmet']='yes';tryComplete();">Yes</button>
-            <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_1').removeClass('active');survey['helmet']='no';tryComplete();">No</button>
             <!--
             <div id="btn-test" class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -222,9 +219,18 @@
             -->
             <!--<div class="clearfix"></div>-->
 
+            <!--
             <div class="heading">SideWalk</div>
             <button id="sidewalk_1" class="btn btn-val btn-line" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_2').removeClass('active');survey['sidewalk']='yes';tryComplete();">Yes</button>
             <button id="sidewalk_2" class="btn btn-val active" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_1').removeClass('active');survey['sidewalk']='no';tryComplete();">No</button>
+            -->
+            <div class="heading">Gender</div>
+            <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="$(this).addClass('active');$('#gender_2').removeClass('active');survey['gender']='m';tryComplete();">Male</button>
+            <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="$(this).addClass('active');$('#gender_1').removeClass('active');survey['gender']='f';tryComplete();">Female</button>
+
+            <div class="heading">Bike Share</div>
+            <button id="bikeshare_1" class="btn btn-val btn-line" data-grp="bikeshare" onclick="$(this).addClass('active');$('#bikeshare_2').removeClass('active');survey['bikeshare']='yes';tryComplete();">Yes</button>
+            <button id="bikeshare_2" class="btn btn-val active" data-grp="bikeshare" onclick="$(this).addClass('active');$('#bikeshare_1').removeClass('active');survey['bikeshare']='no';tryComplete();">No</button>
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -245,17 +251,36 @@
 
 
     <!--------- CENTER -------->
-    <div class="col-xs-4 text-center">
-      <span>{{location.name}}</span>
-      <br>
+    <div class="col-xs-4 text-center" style="padding-top:5px;">
+      <!--<span>{{location.name}}</span>
+      <br>-->
       <span id="riders_outer">Counted Riders: <span id="total_riders">0</span></span>
       <br>
       <div id="timer">&nbsp;</div>
-      <br>
 
-      <input id="btn_pause" type="button" class="btn btn-primary" value="Pause" onclick="pause()">
-      <input style="" id="btn_end" type="button" class="btn btn-primary" value="End" onclick="endSession()">
+      <input id="btn_pause" type="button" class="btn btn-primary btn-event" value="Pause" onclick="pause()">
+      <input style="" id="btn_end" type="button" class="btn btn-primary btn-event" value="End" onclick="endSession()">
 
+      <div id="checkbox_div">
+      <table style="margin:10px auto">
+          <tr>
+              <td>Sidewalk</td>
+              <td>Wrong Way</td>
+          </tr>
+          <tr>
+              <td>
+                  <label class="checkbox-inline">
+                    <input id="cbx_sidewalk" type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No">
+                  </label>
+              </td>
+              <td>
+                  <label class="checkbox-inline">
+                    <input id="cbx_wrongway" type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No">
+                  </label>
+              </td>
+          </tr>
+      </table>
+      </div>
       <!--
       <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
       <br>
@@ -288,9 +313,7 @@
     <!----------- RIGHT ----------->
     <div class="col-xs-4 text-center" id="rec_right">
         <div class="rec_content">
-            <div class="heading">Gender</div>
-            <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="$(this).addClass('active');$('#gender_2').removeClass('active');survey['gender']='m';tryComplete();">Male</button>
-            <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="$(this).addClass('active');$('#gender_1').removeClass('active');survey['gender']='f';tryComplete();">Female</button>
+
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -302,10 +325,14 @@
             </div>
             -->
             <div class="clearfix"></div>
-
+            <div class="heading">Helmet</div>
+            <button id="helmet_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_2').removeClass('active');survey['helmet']='yes';tryComplete();">Yes</button>
+            <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_1').removeClass('active');survey['helmet']='no';tryComplete();">No</button>
+            <!--
             <div class="heading">Wrong Way</div>
             <button id="wrong_way_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#wrong_way_2').removeClass('active');survey['wrong_way']='yes';tryComplete();">Yes</button>
             <button id="wrong_way_2" class="btn btn-val active" data-grp="direction" onclick="$(this).addClass('active');$('#wrong_way_1').removeClass('active');survey['wrong_way']='no';tryComplete();">No</button>
+            -->
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">

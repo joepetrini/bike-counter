@@ -129,7 +129,7 @@ class Metric(TimeStampedModel):
         db_table = 'metric'
 
     def __unicode__(self):
-        return "%s - %s - %s" % (self.value_set, self.name, self.desc)
+        return "%s - %s - %s" % (self.name, self.value_set, self.desc)
 
 
 class Event(TimeStampedModel):
