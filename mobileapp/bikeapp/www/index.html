@@ -24,6 +24,10 @@
                 window.open($(e.currentTarget).attr('href'), '_system', '');
             });
 
+            // Bootstrap toggle buttons
+            //_l('bootstrap toggleing');
+            //$('input.bstoggle').bootstrapToggle();
+
             // Set focus to first input on page
             $(":input[type='text']:first").focus();
 
@@ -110,7 +114,7 @@
 <script id="tpl-upcoming" type="text/template">
     <div class="row">
         <span class="col-xs-4 text-left">
-            <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')" value="&laquo;&nbsp;Home">
+            <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#home')" value="&laquo;&nbsp;Home">
         </span>
         <span class="col-xs-8 text-left">
             <h3>{{location.name}}</h3>
@@ -229,8 +233,8 @@
             <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="$(this).addClass('active');$('#gender_1').removeClass('active');survey['gender']='f';tryComplete();">Female</button>
 
             <div class="heading">Bike Share</div>
-            <button id="bikeshare_1" class="btn btn-val btn-line" data-grp="bikeshare" onclick="$(this).addClass('active');$('#bikeshare_2').removeClass('active');survey['bikeshare']='yes';tryComplete();">Yes</button>
-            <button id="bikeshare_2" class="btn btn-val active" data-grp="bikeshare" onclick="$(this).addClass('active');$('#bikeshare_1').removeClass('active');survey['bikeshare']='no';tryComplete();">No</button>
+            <button id="bike_share_1" class="btn btn-val btn-line" data-grp="bike_share" onclick="$(this).addClass('active');$('#bike_share_2').removeClass('active');survey['bike_share']='yes';tryComplete();">Yes</button>
+            <button id="bike_share_2" class="btn btn-val active" data-grp="bike_share" onclick="$(this).addClass('active');$('#bike_share_1').removeClass('active');survey['bike_share']='no';tryComplete();">No</button>
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -251,7 +255,7 @@
 
 
     <!--------- CENTER -------->
-    <div class="col-xs-4 text-center" style="padding-top:5px;">
+    <div class="col-xs-4 text-center" style="padding:5px 0;">
       <!--<span>{{location.name}}</span>
       <br>-->
       <span id="riders_outer">Counted Riders: <span id="total_riders">0</span></span>
@@ -270,12 +274,12 @@
           <tr>
               <td>
                   <label class="checkbox-inline">
-                    <input id="cbx_sidewalk" type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No">
+                    <input id="cbx_sidewalk" type="checkbox" data-toggle="toggle" data-on="Y" data-off="N" class="bstoggle" data-width="50">
                   </label>
               </td>
               <td>
                   <label class="checkbox-inline">
-                    <input id="cbx_wrongway" type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No">
+                    <input id="cbx_wrongway" type="checkbox" data-toggle="toggle" data-on="Y" data-off="N" class="bstoggle" data-width="50">
                   </label>
               </td>
           </tr>
@@ -288,11 +292,11 @@
       <br>
       <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
       -->
-      <div id="events_div" class="row text-center" style="padding-top:15px">
+      <div id="events_div" class="row text-center" style="padding-top:5px">
           <table class="table">
               <tr>
                   {{#events}}
-                  <td>{{event.name}}</td>
+                  <td style="padding:0px">{{event.name}}</td>
                   {{/events}}
               </tr>
               <tr>
@@ -482,7 +486,7 @@
           <br>
           <a href="javascript:change_api_url('https://www.bikecounts.com/api/')">https://www.bikecounts.com/api/</a>
           <br>
-          <a href="javascript:change_api_url('http://127.0.0.1:8001')">http://127.0.0.1:8001</a>
+          <a href="javascript:change_api_url('http://127.0.0.1:8001/api/')">http://127.0.0.1:8001/api/</a>
       </div>
     </div>
   </div>

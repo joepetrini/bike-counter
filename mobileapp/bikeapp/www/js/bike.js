@@ -33,7 +33,7 @@ var surveyInterval = null;
 
 var config = {
     surveyType:'default', // For configurable survey interfaces
-    version: '0.2.0', // This should match the webapp version
+    version: '0.2.01', // This should match the webapp version
     // Overridden from org setting
     session_len: 90 // Number of minutes for a recording session
 }
@@ -230,6 +230,7 @@ function route(event) {
         survey_orig['wrong_way'] = 'no';
         survey_orig['sidewalk'] = 'no';
         survey_orig['gender'] = 'm';
+        survey_orig['bike_share'] = 'no';
         // Add direction in
         survey_orig['direction'] = null;
         // Set working survey to orig, use jquery extend to make object copy
@@ -298,6 +299,7 @@ function route(event) {
         */
         setTimeout(function() {
             $('#total_riders').html(rider_count);
+            $('input.bstoggle').bootstrapToggle();
         }, 1);
 
         // Run the post survey every 10 seconds

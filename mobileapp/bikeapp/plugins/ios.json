@@ -9,6 +9,10 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Insomnia\"><param name=\"ios-package\" value=\"Insomnia\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
@@ -27,10 +31,6 @@
                         {
                             "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Insomnia\"><param name=\"ios-package\" value=\"Insomnia\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -39,19 +39,19 @@
                 "parents": {
                     "CoreLocation.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "CoreGraphics.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "AudioToolbox.framework": [
                         {
-                            "xml": "true",
+                            "xml": true,
                             "count": 1
                         }
                     ]
@@ -70,6 +70,9 @@
         }
     },
     "installed_plugins": {
+        "nl.x-services.plugins.insomnia": {
+            "PACKAGE_NAME": "com.phlbikecount"
+        },
         "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.phlbikecount"
         },
@@ -83,9 +86,6 @@
             "PACKAGE_NAME": "com.phlbikecount"
         },
         "org.apache.cordova.vibration": {
-            "PACKAGE_NAME": "com.phlbikecount"
-        },
-        "nl.x-services.plugins.insomnia": {
             "PACKAGE_NAME": "com.phlbikecount"
         }
     },

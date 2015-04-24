@@ -373,10 +373,10 @@ function saveSurvey(){
     // Set all UI back
     $('.btn-val').removeClass('active');
     $('#gender_1').addClass('active');
-    $('#bikeshare_2').addClass('active');
+    $('#bike_share_2').addClass('active');
 
     $('#cbx_wrongway').prop('checked', false).change();
-    $('#cbx_sidewalk').prop('checked', false).change()
+    $('#cbx_sidewalk').prop('checked', false).change();
     //$('#sidewalk_2').addClass('active');
     //$('#wrong_way_2').addClass('active');
 
