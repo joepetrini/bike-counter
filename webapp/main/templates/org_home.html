@@ -78,6 +78,7 @@
       <td><span id="rst_span_{{s.id}}">{{ s.status }}</span></td>
       <td>
         {% if s.actual_end %}
+          {{ s.survey_set.all.count }}
           <input id="rst_btn_{{s.id}}" type="button" class="btn btn-primary" value="Reset" onclick="reset_appt({{s.id}})">
         {% endif %}
       </td>

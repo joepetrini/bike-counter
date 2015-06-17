@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />
+    <!--<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">-->
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
@@ -13,10 +14,13 @@
     <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            LE.init('02440e16-09c5-4c06-b0c2-c85d314d0cc4');
+        $(function() {
+            document.ontouchmove = function(e) {e.preventDefault()};
 
-            new FastClick(document.body);
+            //new FastClick(document.body);
+            FastClick.attach(document.body);
+
+            LE.init('02440e16-09c5-4c06-b0c2-c85d314d0cc4');
 
             // External links
             $("a[target='_blank']").click(function(e){
@@ -198,8 +202,8 @@
         <div class="rec_content">
 
             <div class="heading">Direction</div>
-            <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#dir_2').removeClass('active');survey['direction']='{{loc.direction1}}';tryComplete();">{{loc.direction1}}</button>
-            <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#dir_1').removeClass('active');survey['direction']='{{loc.direction2}}';tryComplete();">{{loc.direction2}}</button>
+            <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
+            <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -229,12 +233,12 @@
             <button id="sidewalk_2" class="btn btn-val active" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_1').removeClass('active');survey['sidewalk']='no';tryComplete();">No</button>
             -->
             <div class="heading">Gender</div>
-            <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="$(this).addClass('active');$('#gender_2').removeClass('active');survey['gender']='m';tryComplete();">Male</button>
-            <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="$(this).addClass('active');$('#gender_1').removeClass('active');survey['gender']='f';tryComplete();">Female</button>
+            <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="_sel('gender_1','gender_2','gender','m')">Male</button>
+            <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="_sel('gender_2','gender_1','gender','f')">Female</button>
 
             <div class="heading">Bike Share</div>
-            <button id="bike_share_1" class="btn btn-val btn-line" data-grp="bike_share" onclick="$(this).addClass('active');$('#bike_share_2').removeClass('active');survey['bike_share']='yes';tryComplete();">Yes</button>
-            <button id="bike_share_2" class="btn btn-val active" data-grp="bike_share" onclick="$(this).addClass('active');$('#bike_share_1').removeClass('active');survey['bike_share']='no';tryComplete();">No</button>
+            <button id="bike_share_1" class="btn btn-val btn-line" data-grp="bike_share" onclick="_sel('bike_share_1','bike_share_2','bike_share','yes')">Yes</button>
+            <button id="bike_share_2" class="btn btn-val active" data-grp="bike_share" onclick="_sel('bike_share_2','bike_share_1','bike_share','no')">No</button>
             <!--
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-val btn-line">
@@ -330,8 +334,8 @@
             -->
             <div class="clearfix"></div>
             <div class="heading">Helmet</div>
-            <button id="helmet_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_2').removeClass('active');survey['helmet']='yes';tryComplete();">Yes</button>
-            <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="$(this).addClass('active');$('#helmet_1').removeClass('active');survey['helmet']='no';tryComplete();">No</button>
+            <button id="helmet_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('helmet_1','helmet_2','helmet','yes')">Yes</button>
+            <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="_sel('helmet_2','helmet_1','helmet','no')">No</button>
             <!--
             <div class="heading">Wrong Way</div>
             <button id="wrong_way_1" class="btn btn-val btn-line" data-grp="direction" onclick="$(this).addClass('active');$('#wrong_way_2').removeClass('active');survey['wrong_way']='yes';tryComplete();">Yes</button>

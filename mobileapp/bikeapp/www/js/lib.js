@@ -29,6 +29,15 @@ function _tdata(dict){
     return dict;
 }
 
+function _sel(b1, b2, key, val){
+    b1 = document.getElementById(b1);
+    b1.classList.add('active');
+    b2 = document.getElementById(b2);
+    b2.classList.remove('active');
+    survey[key] = val;
+    tryComplete();
+}
+
 // Set value helper
 function _set(key, v){
     //_l('setting:' + key + ' to ' + v);
