@@ -92,10 +92,31 @@ class ReportHomeView(ListView):
     template_name = 'report_home.html'
 
 
+class ReportCompletionTrackerView(TemplateView):
+    template_name = 'report_count_completion_tracker.html'
+    def get_context_data(self, **kwargs):
+        context = super(ReportCompletionTrackerView, self).get_context_data(**kwargs)
+        context['org'] = Organization.objects.get(slug=self.request.current_org)
+        return context
+
 class ReportLocationsView(TemplateView):
     template_name = 'report_locations.html'
 
     def get_context_data(self, **kwargs):
         context = super(ReportLocationsView, self).get_context_data(**kwargs)
+        context['org'] = Organization.objects.get(slug=self.request.current_org)
+        return context
+
+class ReportExportCsvView(TemplateView):
+    template_name = 'report_export_to_csv.html'
+    def get_context_data(self, **kwargs):
+        context = super(ReportExportCsvView, self).get_context_data(**kwargs)
+        context['org'] = Organization.objects.get(slug=self.request.current_org)
+        return context
+
+class ReportQuickGlanceResultsDashboardView(TemplateView):
+    template_name = 'results_dashboard.html'
+    def get_context_data(self, **kwargs):
+        context = super(ReportQuickGlanceResultsDashboardView, self).get_context_data(**kwargs)
         context['org'] = Organization.objects.get(slug=self.request.current_org)
         return context
