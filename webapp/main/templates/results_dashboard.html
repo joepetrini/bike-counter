@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% load admin_urls %}
+{% block title %} Quick Glance Results Dashboard{% endblock %}
+{% block content %}
+
+
+  <ol class="breadcrumb">
+    <li><a href="{% url 'org_home' request.current_org %}">Home</a></li>
+    <li><a href="{% url 'reports' request.current_org %}">Reports</a></li>
+  </ol>
+
+  <h3>{{ org.name }} Quick Glance Results Dashboard</h3>
+ <p> <em> this page will host a variety of graphs and charts providing Bike Coalition Staff quick insight into how their results are trending </em> </p>
+{% endblock %}
+
+
