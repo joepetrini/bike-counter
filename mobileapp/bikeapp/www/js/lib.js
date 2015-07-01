@@ -164,6 +164,10 @@ function guid() {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
+function middleClick(d){
+    $('#'+ d.id).css(
+}
+
 function boxClick(d){
     // Clear any selected value
     var metric = $(d).attr('name');
