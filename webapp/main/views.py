@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 #from django.views.generic.edit import FormView
-from .models import Organization, Appointment, Membership, Location
+from .models import Organization, Appointment, Membership, Location, SessionTrackerViewObject
 from .logic import stats_for_appt, csv_for_appt
+import datetime
 
 class OrgListView(ListView):
     model = Organization
@@ -94,10 +95,39 @@ class ReportHomeView(ListView):
 
 class ReportCompletionTrackerView(TemplateView):
     template_name = 'report_count_completion_tracker.html'
+
+
+
     def get_context_data(self, **kwargs):
         context = super(ReportCompletionTrackerView, self).get_context_data(**kwargs)
-        context['org'] = Organization.objects.get(slug=self.request.current_org)
+
+        theTrackerSessions=[]
+        theOrg = Organization.objects.get(slug=self.request.current_org)
+        allLocations = Location.objects.filter(organization=theOrg)
+
+        for counter in allLocations:
+           # cntLoc = sessions[counter].location scheduled_start__year='2015'
+
+           #instantiate a new object
+           singleLocationSet = SessionTrackerViewObject(counter)
+
+           # query the db for all appointments for the given location, in the given year, given org
+           #sessions =[]
+           sessions = Appointment.objects.filter(organization=Organization.objects.get(slug=self.request.current_org), location=counter, scheduled_start__year =  datetime.date.today().year)
+
+          # call method of SessionTrackerViewObject that will determine with appointments should be considered the 4 key appointments
+           singleLocationSet.assignSessions(sessions)
+
+           # push the new object onto the list which will be used by the html template
+           theTrackerSessions.append(singleLocationSet)
+
+        context['trackerSessions'] = theTrackerSessions
+
+        #context['trackerSessions'] = sessions
+        context['org'] = theOrg
         return context
+
+
 
 class ReportLocationsView(TemplateView):
     template_name = 'report_locations.html'
@@ -111,12 +141,12 @@ class ReportExportCsvView(TemplateView):
     template_name = 'report_export_to_csv.html'
     def get_context_data(self, **kwargs):
         context = super(ReportExportCsvView, self).get_context_data(**kwargs)
-        context['org'] = Organization.objects.get(slug=self.request.current_org)
+      #  context['org'] = Organization.objects.get(slug=self.request.current_org)
         return context
 
 class ReportQuickGlanceResultsDashboardView(TemplateView):
     template_name = 'results_dashboard.html'
     def get_context_data(self, **kwargs):
         context = super(ReportQuickGlanceResultsDashboardView, self).get_context_data(**kwargs)
-        context['org'] = Organization.objects.get(slug=self.request.current_org)
+      #  context['org'] = Organization.objects.get(slug=self.request.current_org)
         return context

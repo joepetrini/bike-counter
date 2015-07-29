@@ -50,3 +50,22 @@ span.label {letter-spacing:1px;font-size:11px}
     vertical-align: bottom;
     margin-right:2px;
 }
+
+.table-striped-column > tbody > tr td:nth-of-type(2n+0) {
+  background-color: #f9f9f9;
+}
+
+.amSession1{
+}
+
+.amSession2{
+background-color: #f9f9f9;
+}
+
+.pmSession1{
+
+}
+
+.pmSession2{
+background-color: #f9f9f9;
+}
