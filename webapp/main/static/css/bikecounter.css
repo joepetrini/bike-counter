@@ -3,6 +3,10 @@ body {
     margin-top: 60px;*/
 }
 
+
+#mobileTable{
+	display: none;		
+}
 .navbar-collapse {
     background-color: #4ea1b4;
 }
@@ -55,17 +59,90 @@ span.label {letter-spacing:1px;font-size:11px}
   background-color: #f9f9f9;
 }
 
+
+
 .amSession1{
+background-color: #f9f9f9;
 }
 
 .amSession2{
-background-color: #f9f9f9;
+
 }
 
 .pmSession1{
-
+background-color: #f9f9f9;
 }
 
 .pmSession2{
-background-color: #f9f9f9;
+
 }
+
+
+#responsiveTrackerTable td:nth-of-type(1){
+	font-weight: bold;
+}
+
+#responsiveTrackerTable td{
+	text-align: left;
+	
+}
+
+#responsiveTrackerTable {
+	
+}
+
+
+.subHeader{
+  font-style: italic;
+  text-align: center;
+  
+}
+
+
+.mobileVersion {
+font-size: 12px;
+
+}
+
+.locationRow{
+	text-align: center;
+	font-weight: bold;
+	background-color: #ADD8E6;
+}
+
+
+
+
+
+
+#mobileTable td{
+width="100%";
+}
+
+
+
+
+@media screen and (max-width: 700px){
+
+	#responsiveTrackerTable{
+	display: none;
+
+	}
+	
+	#desktopTable{
+		display: none;	
+	}
+	
+	
+	#mobileTable{
+	display: table;	
+
+	}
+	
+}
+
+
+
+
+
+
