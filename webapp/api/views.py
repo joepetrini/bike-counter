@@ -124,3 +124,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
+class ReportingViewSet(viewsets.ModelViewSet):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+
+    @detail_route(methods=['GET'])
+    def getCSV(self, request, pk=None):
+        appt = self.get_object()
+        if request.user.is_superuser:
+           return Response(None, status=status.HTTP_200_OK)
+        else:
+            return Response(None, status=status.HTTP_401_UNAUTHORIZED)
+
+
+

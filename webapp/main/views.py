@@ -6,6 +6,9 @@ from django.views.generic import ListView, DetailView, UpdateView, TemplateView
 from .models import Organization, Appointment, Membership, Location, SessionTrackerViewObject
 from .logic import stats_for_appt, csv_for_appt
 import datetime
+import time
+import csv
+from django.shortcuts import get_object_or_404
 
 class OrgListView(ListView):
     model = Organization
@@ -137,12 +140,45 @@ class ReportLocationsView(TemplateView):
         context['org'] = Organization.objects.get(slug=self.request.current_org)
         return context
 
-class ReportExportCsvView(TemplateView):
+class RequestCSVView(TemplateView):
+
+    #Rich's ideas on how to: psuedo steps
+    # 1 - Provide user controls on web page to identify what selection of data they would like to export - for starters, we can only offer a "full year's worth"
+    # 1.5 - user hits "go" button that requests the CSV be generated
+    # check back every few half seconds (??) to see if file generated has been completed
+    #2 - then use that user selection to query/ filter our django / postgresql tables to retrieve the data
+    # 3 - finally - use baked in django (or is it python) functionts to export data into a csv file format --- but remember to build the file in the output required
+
     template_name = 'report_export_to_csv.html'
     def get_context_data(self, **kwargs):
-        context = super(ReportExportCsvView, self).get_context_data(**kwargs)
-      #  context['org'] = Organization.objects.get(slug=self.request.current_org)
+        context = super(RequestCSVView, self).get_context_data(**kwargs)
+
+        context['org'] = Organization.objects.get(slug=self.request.current_org)
         return context
+
+class GenerateCSV(RequestCSVView):
+
+
+    model = Organization
+
+    def get(self, request, *args, **kwargs):
+
+        #call separate function to create the actual file
+        #fileToBeProvided = createCSVExportFile(2015)
+
+        theFileContent = ('Intersection or Bridge,Street,Facility for Street,Direction,Date,15 minute increment,TOTAL Riders (not counting bike on buses),'
+            'With traffic male,With traffic female,sidewalk male,Sidewalk female,wrong way male,wrong way female,bikes on bus,Completed By,Latitute,'
+            'Longitude,Helmet male,Helmet female,Weather,temperature,Notes')
+
+        theFilename = 'export_' + (datetime.date.today().strftime("%I%M")) + '_data_for_filemaker.csv'
+        response = HttpResponse(content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename=%s;' % str(theFilename)
+
+        writer = csv.writer(response)
+        writer.writerow([theFileContent])
+
+
+        return response
 
 class ReportQuickGlanceResultsDashboardView(TemplateView):
     template_name = 'results_dashboard.html'
