@@ -24,7 +24,13 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/reports/?$', login_required(ReportHomeView.as_view()), name="reports"),
     url(r'^(?P<slug>[-\w]+)/reports/locations/?$', login_required(ReportLocationsView.as_view()), name="report-locations"),
     url(r'^(?P<slug>[-\w]+)/reports/completion_tracker/?$', login_required(ReportCompletionTrackerView.as_view()), name="report-count-completion-tracker"),
-    url(r'^(?P<slug>[-\w]+)/reports/report_export_to_csv/?$', login_required(ReportExportCsvView.as_view()), name="report_export_to_csv"),
+    url(r'^(?P<slug>[-\w]+)/reports/report_export_to_csv/?$', login_required(RequestCSVView.as_view()), name="report_export_to_csv"),
+
+    # new API to generate a CSV within the reports section of the web app
+    # I'm trying to copy the pattern used by the buttons 'signup and cancel' written below
+    url(r'^(?P<slug>[-\w]+)/reports/report_export_to_csv/generate/?', login_required(GenerateCSV.as_view()), name="generateCSV"),
+
+
     url(r'^(?P<slug>[-\w]+)/reports/results_dashboard/?$', login_required(ReportQuickGlanceResultsDashboardView.as_view()), name="results_dashboard"),
     url(r'^(?P<slug>[-\w]+)/signup/(?P<pk>\d+)?$', login_required(ApptSignupView.as_view()), name="appt-signup"),
     url(r'^(?P<slug>[-\w]+)/cancel/(?P<pk>\d+)?$', login_required(ApptCancelView.as_view()), name="appt-cancel"),
