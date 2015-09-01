@@ -90,6 +90,8 @@ class Location(TimeStampedModel):
             dirs.append(Value.objects.get(value_set__system_name='direction', stored_value='south'))
         return dirs
 
+
+
 class ValueSet(TimeStampedModel):
     name = models.CharField(max_length=25)
     system_name = models.SlugField(max_length=25, unique=True)
@@ -215,12 +217,52 @@ class Appointment(TimeStampedModel):
             return False
         return True
 
+    def isMorning(self, appt):
+        if appt.scheduled_start.hour < 12:
+            return True
+        else:
+            return False
+
     def status(self):
         if self.actual_start and self.actual_end is None:
             return "In progress"
+        elif self.user is None:
+            return "Unassigned"
         elif self.actual_end is None:
             return "Not started"
         return "Complete"
+
+
+
+
+
+
+class SessionTrackerViewObject():
+
+    def __init__(self, givenLocation):
+        self.thisLocation = givenLocation
+        self.amSession1 = None
+        self.amSession2 = None
+        self.pmSession1 = None
+        self.pmSession2 = None
+
+    def assignSessions(self, sessions):
+
+         for cnt in sessions:
+          #  anAppointment = Appointment(cnt)
+          #  compareTime = datetime.time()
+            if cnt.scheduled_start.time()  < datetime.time(12,00):
+                if self.amSession1 is None :
+                    self.amSession1 = cnt
+                else:
+                    self.amSession2 = cnt
+            else:
+                if self.pmSession1 is None:
+                    self.pmSession1 = cnt
+                else:
+                    self.pmSession2 = cnt
+            if self.pmSession2 is not None and self.amSession2 is not None:
+                break
 
 
 class SurveyEvent(TimeStampedModel):
@@ -246,6 +288,7 @@ class Survey(TimeStampedModel):
     time_to_take = models.IntegerField(blank=True, null=True)
     guid = models.CharField(max_length=50, null=True, blank=True)
     recorded_at = models.DateTimeField(default=now)
+
     direction = models.CharField(max_length=20, null=True, blank=True)
 
     class Meta:
