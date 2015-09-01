@@ -165,7 +165,14 @@ function guid() {
 }
 
 function middleClick(d){
-    $('#'+ d.id).css(
+    if ($('#'+ d.id).data('data-on') == 'Y'){
+        $('#'+ d.id).data('data-on', 'N');
+        $('#'+ d.id).css('background-color','#e05a31');
+    }
+    else {
+        $('#'+ d.id).data('data-on', 'Y');
+        $('#'+ d.id).css('background-color','#b28585');
+    }
 }
 
 function boxClick(d){
@@ -326,13 +333,21 @@ function saveSurvey(){
     // Generate unique id for survey
     data['guid'] = guid();
 
-    // Set values based on how sliders are set
+    // Set values based on how middle buttons are set
+    if ($('#btn_sidewalk').data('data-on')=='Y'){
+        survey['sidewalk'] = 'yes';
+    }
+    if ($('#btn_wrongway').data('data-on')=='Y'){
+        survey['wrongway'] = 'yes';
+    }
+    /*
     if ($('#cbx_sidewalk').prop('checked')) {
         survey['sidewalk'] = 'yes';
     }
     if ($('#cbx_wrongway').prop('checked')) {
         survey['wrong_way'] = 'yes';
     }
+    /*
 
     // Build the data to save
     for (i=0; i < Object.keys(survey).length; i++){
