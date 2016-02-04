@@ -8,13 +8,26 @@ from rest_framework.decorators import detail_route  # action
 # from rest_framework import authentication
 from main.models import Organization, OrganizationMetrics, Location, Appointment, Survey, SurveyValue, Metric, Value, \
     Event, SurveyEvent
-
+import datetime
+from main.logic import *
+import json
+from django.http import JsonResponse
+from main.views import RequestCSVView
 
 class CurrentUser(APIView):
     def get(self, request):
             serializer = UserSerializer(request.user)
             return Response(serializer.data)
 
+
+def grabAppts(request, slug):
+    response_data = {}
+    #try:
+    response_data['result'] = "Success"
+
+    response_data['appointment_choices'] = list(get_appts_choices(request.current_org, request.POST.get('year_selection',None)))
+
+    return JsonResponse(response_data, status=status.HTTP_200_OK)
 
 class LocationViewSet(viewsets.ModelViewSet):
     """
@@ -42,6 +55,27 @@ class ApptDetail(APIView):
             return Response(serializer.data)
         else:
             return Response(None, status=status.HTTP_401_UNAUTHORIZED)
+
+class singleCompletedAppt(viewsets.ModelViewSet):
+    # Trying to create a new view to support showing a single appointment's stats highlights on the mobile app's "completed survey" view
+    # this is associated to the #appstates template fragment in the index.html file
+
+
+    queryset = Appointment.objects.all()
+    #serializer_class = Stats_for_appt_Serializer
+    serializer_class = AppointmentSerializer
+
+    @detail_route(methods=['GET'])
+    def get(self, request, pk=None):
+        if request.user.is_authenticated():
+            appt = self.get_object()
+            theStats = stats_for_appt(appt)
+            #serializer = Stats_for_appt_Serializer(theStats)
+
+            return Response(theStats, status=status.HTTP_200_OK)
+        else:
+            return Response(None, status=status.HTTP_401_UNAUTHORIZED)
+
 
 
 class ApptViewSet(viewsets.ModelViewSet):
@@ -86,7 +120,12 @@ class ApptViewSet(viewsets.ModelViewSet):
         # Create a new survey
         direction = str(request.DATA['direction']).lower()
         guid = str(request.DATA['guid']).lower()
-        survey = Survey.objects.create(appointment=appt, direction=direction, guid=guid)
+
+        # needed to add the recorded_at variable into this as this survey could post "late" due to poor connectivity
+        recorded_at_timestamp = float(request.DATA['timestamp'])
+        recorded_at_timestamp = datetime.datetime.fromtimestamp(recorded_at_timestamp/1000.0)
+
+        survey = Survey.objects.create(appointment=appt, direction=direction, guid=guid, recorded_at=recorded_at_timestamp)
 
         # Get the available metric system_names for this org
         metrics = appt.organization.metrics_list()
@@ -118,24 +157,11 @@ class ApptViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
+    """s
     API endpoint that allows users to be viewed or edited.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-class ReportingViewSet(viewsets.ModelViewSet):
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
-
-    @detail_route(methods=['GET'])
-    def getCSV(self, request, pk=None):
-        appt = self.get_object()
-        if request.user.is_superuser:
-           return Response(None, status=status.HTTP_200_OK)
-        else:
-            return Response(None, status=status.HTTP_401_UNAUTHORIZED)
 
 
 

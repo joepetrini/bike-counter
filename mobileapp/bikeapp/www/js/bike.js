@@ -189,10 +189,10 @@ function route(event) {
         // Get the appointment data
         var appt_id = Number(match[1]);
         appt = getAppointment(appt_id);
-
+        theApptStats = getApptStats(appt_id)
         // Build the template
         var template = $('#tpl-apptstats').html();
-        page = Mustache.to_html(template, appt);
+        page = Mustache.to_html(template, theApptStats);
     }
     // Record survey view
     var match = hash.match(/^#record\/(\d{1,})/);
@@ -313,5 +313,4 @@ function route(event) {
     }
     $('#container').html(page);
 }
-
 route();

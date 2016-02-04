@@ -1,7 +1,7 @@
 
 {% extends '_baseForTrackerPage.html' %}
 {% load admin_urls %}
-{% block title %} Annual Bike Count Completion Tracker{% endblock %}
+{% block title %} Completion Tracker{% endblock %}
 {% block content %}
 
 
@@ -11,8 +11,8 @@
     <li><a href="{% url 'reports' request.current_org %}">Reports</a></li>
   </ol>
 
-  <h3> {%  now "Y" %} {{ org.name }} Annual Bike Count Completion Tracker</h3>
- 
+  <h3> {%  now "Y" %} Count Completion Tracker</h3>
+
 
 <!  create the mobile ready table >
 
@@ -26,61 +26,61 @@
 	   <tr>
 			<th colspan="3" class="locationRow"> Location: {{ s.thisLocation.name }}  </th>
 		</tr>
-		
+
 	 </thead>
-	
+
 	<tr class="subHeader" >
 		<td colspan="3">
-			AM SESSION 1 
+			AM SESSION 1
 		</td>
-	
+
 	</tr>
- 
-	<tr> 
-		<td data-title="Date">  
-			{% if s.amSession1.scheduled_start %}
-			{{ s.amSession1.scheduled_start|date:"m/d P"  }} 
+
+	<tr>
+		<td data-title="Date">
+			{% if s.amSession1.actual_start %}
+			{{ s.amSession1.actual_start|date:"m/d P"  }}
 			{% else %}
 			"None created"
 			{% endif %}
-		</td> 
-	
+		</td>
 
-		<td data-title="Status"> 
-			{{s.amSession1.status|default:"--"}} 
+
+		<td data-title="Status">
+			{{s.amSession1.status|default:"--"}}
 		</td>
 		<td data-title="Volunteer">
 				{{s.amSession1.user|default:"--"}}
 		</td>
 	</tr>
-	
+
 	<tr class="subHeader">
 		<td  colspan="3" > AM SESSION 2 </td>
-	</tr>	
+	</tr>
 		<tr>
-		<td data-title="Date"> 
-			{% if s.amSession2.scheduled_start%}
-			{{ s.amSession2.scheduled_start|date:"m/d P" }} 
+		<td data-title="Date">
+			{% if s.amSession2.actual_start%}
+			{{ s.amSession2.actual_start|date:"m/d P" }}
 			{% else %}
 			"None created"
 			{% endif %}
-		</td> 
-		
-		
+		</td>
+
+
 		<td  data-title="Status">
 			{{ s.amSession2.status|default:"--"}}
-		</td> 
-		
+		</td>
+
 		<td data-title="Volunteer">
 			{{s.amSession2.user|default:"--"}}
-		</td> 
+		</td>
 		</tr>
 	<tr  class="subHeader">
 		<td  colspan="3"> PM SESSION 1 </td>
-	</tr>	
+	</tr>
 	<tr>
 		<td data-title="Date">
-			{% if s.pmSession1.scheduled_start %} {{ s.pmSession1.scheduled_start|date:"m/d P" }} {% else %}
+			{% if s.pmSession1.actual_start %} {{ s.pmSession1.actual_start|date:"m/d P" }} {% else %}
 			"None created"
 			{% endif %}
 		</td>
@@ -91,17 +91,17 @@
 			{{s.pmSession1.user|default:"--"}}
 		</td>
 	</tr>
-	
+
 	 <tr   class="subHeader">
 		<td colspan="3"> PM SESSION 2 </td>
 	</tr>
 	<tr>
 		<td data-title="Date">
-			{% if s.pmSession2.scheduled_start %} 
-				{{ s.pmSession2.scheduled_start|date:"m/d P" }}
+			{% if s.pmSession2.actual_start %}
+				{{ s.pmSession2.actual_start|date:"m/d P" }}
 			{% else %}
 				"None created"
-			{% endif %} 
+			{% endif %}
 		</td>
 		<td data-title="Status">
 			{{ s.pmSession2.status|default:"--" }}
@@ -110,7 +110,7 @@
 			{{s.pmSession2.user|default:"--"}}
 		</td>
 		</tr>
-		
+
   </tr>
   {% endfor %}
 </table>
@@ -120,11 +120,11 @@
 <div id="desktopTable" class="table-responsive">
 
  <!  create the desktop or tablet table version>
- 
+
  <table id="responsiveTrackerTable" class="table table-condensed" >
 
 
- 
+
   <colgroup>
     <col span="1" class="locationName">
 	<col span="3" class="amSession1">
@@ -145,46 +145,46 @@
 		<th data-title="Date">Date of Count</th>
 		<th data-title="Status">Status</th>
 		<th data-title="Volunteer">Volunteer</th>
-	
-	
-		<th data-title="Date">Date of Count</th>
-		<th data-title="Status">Status</th>	
-		<th data-title="Volunteer">Volunteer</th>
-	
-	
-	<th data-title="Date">Date of Count</th>
-	<th data-title="Status">Status</th>
-	<th data-title="Volunteer">Volunteer</th>
-	
+
+
 		<th data-title="Date">Date of Count</th>
 		<th data-title="Status">Status</th>
 		<th data-title="Volunteer">Volunteer</th>
-	
+
+
+	<th data-title="Date">Date of Count</th>
+	<th data-title="Status">Status</th>
+	<th data-title="Volunteer">Volunteer</th>
+
+		<th data-title="Date">Date of Count</th>
+		<th data-title="Status">Status</th>
+		<th data-title="Volunteer">Volunteer</th>
+
 	</tr>
  </thead>
-  
+
  {% for s in trackerSessions  %}
   <tr>
 		<td>
-			{{ s.thisLocation.name }} 
-		</td>   
-		<td data-title="Date">  
-			{% if s.amSession1.scheduled_start %}
-			{{ s.amSession1.scheduled_start|date:"m/d P"  }} 
+			{{ s.thisLocation.name }}
+		</td>
+		<td data-title="Date">
+			{% if s.amSession1.actual_start %}
+			{{ s.amSession1.actual_start|date:"m/d P"  }}
 			{% else %}
 			"None created"
 			{% endif %}
-		</td> 
-		<td data-title="Status"> 
-			{{s.amSession1.status|default:"--"}} 
+		</td>
+		<td data-title="Status">
+			{{s.amSession1.status|default:"--"}}
 		</td>
 		<td data-title="Volunteer">
 			{{s.amSession1.user|default:"--"}}
 		</td>
-		
-		<td data-title="Date"> 
-			{% if s.amSession2.scheduled_start%}
-			{{ s.amSession2.scheduled_start|date:"m/d P" }} 
+
+		<td data-title="Date">
+			{% if s.amSession2.actual_start%}
+			{{ s.amSession2.actual_start|date:"m/d P" }}
 			{% else %}
 			"None created"
 			{% endif %}
@@ -195,9 +195,9 @@
 		<td data-title="Volunteer">
 			{{s.amSession2.user|default:"--"}}
 		</td>
-		
+
 		<td data-title="Date">
-			{% if s.pmSession1.scheduled_start %} {{ s.pmSession1.scheduled_start|date:"m/d P" }} {% else %}
+			{% if s.pmSession1.actual_start %} {{ s.pmSession1.actual_start|date:"m/d P" }} {% else %}
 			"None created"
 			{% endif %}
 		</td>
@@ -207,13 +207,13 @@
 		<td data-title="Volunteer">
 			{{s.pmSession1.user|default:"--"}}
 		</td>
-	
+
 		<td data-title="Date">
-			{% if s.pmSession2.scheduled_start %} 
-				{{ s.pmSession2.scheduled_start|date:"m/d P" }}
+			{% if s.pmSession2.actual_start %}
+				{{ s.pmSession2.actual_start|date:"m/d P" }}
 			{% else %}
 				"None created"
-			{% endif %} 
+			{% endif %}
 		</td>
 		<td data-title="Status">
 			{{ s.pmSession2.status|default:"--" }}
@@ -221,8 +221,8 @@
 		<td data-title="Volunteer">
 			{{s.pmSession2.user|default:"--"}}
 		</td>
-		
-		
+
+
   </tr>
   {% endfor %}
 </table>

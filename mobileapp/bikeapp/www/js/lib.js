@@ -167,11 +167,12 @@ function guid() {
 function middleClick(d){
     if ($('#'+ d.id).data('data-on') == 'Y'){
         $('#'+ d.id).data('data-on', 'N');
-        $('#'+ d.id).css('background-color','#e05a31');
+        // Rich switched these colors to what they are now on 12/22/15 as I think they were backwards from what the UX should be
+        $('#'+ d.id).css('background-color','#b28585');
     }
     else {
         $('#'+ d.id).data('data-on', 'Y');
-        $('#'+ d.id).css('background-color','#b28585');
+        $('#'+ d.id).css('background-color','#e05a31');
     }
 }
 
@@ -338,16 +339,9 @@ function saveSurvey(){
         survey['sidewalk'] = 'yes';
     }
     if ($('#btn_wrongway').data('data-on')=='Y'){
-        survey['wrongway'] = 'yes';
-    }
-    /*
-    if ($('#cbx_sidewalk').prop('checked')) {
-        survey['sidewalk'] = 'yes';
-    }
-    if ($('#cbx_wrongway').prop('checked')) {
         survey['wrong_way'] = 'yes';
     }
-    /*
+
 
     // Build the data to save
     for (i=0; i < Object.keys(survey).length; i++){
@@ -403,10 +397,18 @@ function saveSurvey(){
     $('#gender_1').addClass('active');
     $('#bike_share_2').addClass('active');
 
-    $('#cbx_wrongway').prop('checked', false).change();
-    $('#cbx_sidewalk').prop('checked', false).change();
-    //$('#sidewalk_2').addClass('active');
-    //$('#wrong_way_2').addClass('active');
+   // var sidewalkBTN = $("#lastname")
+    $("#btn_sidewalk").data('data-on', 'N');
+    $("#btn_sidewalk").css('background-color','#b28585');
+
+    $("#btn_wrongway").data('data-on', 'N');
+    $("#btn_wrongway").css('background-color','#b28585');
+
+    // Rich commenting out the two lines below as I don't believe they really were resetting the button values
+    //$('#cbx_wrongway').prop('checked', false).change();
+    //$('#cbx_sidewalk').prop('checked', false).change();
+
+
 
 
     // Set underlying survey vals back to original
@@ -425,6 +427,7 @@ function saveSurvey(){
 }
 
 function postSurveys(){
+
     // Check for unposted surveys and events
     surveys = _getdict('surveys_to_save');
     events = _getdict('events_to_save');
@@ -487,6 +490,18 @@ function getAppointment(id) {
     }
 }
 
+function getApptStats(id) {
+    var d;
+    _req({type: "GET", url: 'apptStats/session/'+id,
+        success: function (data){
+            _setdict('data',data);
+            d = data;
+        }
+    });
+    return d;
+}
+
+
 function getAppointments() {
     var d;
     _req({type: "GET", url: 'appts',
@@ -508,12 +523,13 @@ function startSession(id){
             async: false,
             crossDomain: true,
             headers: {"Authorization": 'Token ' + _get('token')},
-            success: function (data){
+            success: function (data)
+                // _set('actual_start', Date().getTime());
                 _set('total_pause', 0);
                 _set('longest_pause', 0);
                 _set('current_pause', 0);
                 _setdict('event_counts', null);
-                // Load the recording page
+                                // Load the recording page
                 window.location.replace('#record/'+id);
             },
             error: function(data){

@@ -10,23 +10,33 @@
   </ol>
 
   <h3>{{ org.name }} Export Data to CSV File</h3>
- 
+
  <body>
- 
-	<!-- <form action="{% url 'generateCSV' org.slug%}" method="post"> -->
-	<form> 
-		{% csrf_token %}
-		<!-- TO DO --- eventually will add controls to allow a user to select the year ... and then perhpas a particular or several specific locations or even individual appointments --> 
-		<input type="button" class="btn btn-primary" value="Generate CSV File" onclick="document.location='{% url 'generateCSV' org.slug %}'" />
-		
+    <br>
+
+    <form action="" method="post">
+        <fieldset class="form-group">
+        {% csrf_token %}
+        {{form }}
+       <!-- {{ form.year_selection}}
+        {{ form.appt_selection}} -->
+
+
+        <input id="csvSubmitButton" class="btn btn-primary" type="submit" value="Generate CSV File" disabled />
+
+
+
+
+
+        </fieldset>
 	</form>
- 
-	
- 
- 
- 
+
+
+
+
+
  </body>
- 
+
 {% endblock %}
 
 

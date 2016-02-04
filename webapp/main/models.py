@@ -1,4 +1,4 @@
-#from django.utils.translation import ugettext as _
+    #from django.utils.translation import ugettext as _
 import datetime
 from django.db import models
 from django.db.models import Q
@@ -218,7 +218,7 @@ class Appointment(TimeStampedModel):
         return True
 
     def isMorning(self, appt):
-        if appt.scheduled_start.hour < 12:
+        if appt.actual_start.hour < 12:
             return True
         else:
             return False
@@ -249,9 +249,8 @@ class SessionTrackerViewObject():
     def assignSessions(self, sessions):
 
          for cnt in sessions:
-          #  anAppointment = Appointment(cnt)
-          #  compareTime = datetime.time()
-            if cnt.scheduled_start.time()  < datetime.time(12,00):
+          # on 11/22/15 - Rich switched to using the actual start time instead of the scheduled start time
+            if cnt.actual_start.time()  < datetime.time(12,00):
                 if self.amSession1 is None :
                     self.amSession1 = cnt
                 else:
@@ -287,7 +286,11 @@ class Survey(TimeStampedModel):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     time_to_take = models.IntegerField(blank=True, null=True)
     guid = models.CharField(max_length=50, null=True, blank=True)
-    recorded_at = models.DateTimeField(default=now)
+
+    # fyi - on 11/24/15 Rich switched to using the datetime.datetime.now() function to resolve timezone discreptency...
+    # .. betewen the appointment actual_start and the survey recorded_at variable
+    rightnow = datetime.datetime.now()
+    recorded_at = models.DateTimeField(default=rightnow)
 
     direction = models.CharField(max_length=20, null=True, blank=True)
 
