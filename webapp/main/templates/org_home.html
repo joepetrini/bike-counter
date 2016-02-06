@@ -1,6 +1,9 @@
 {% extends '_base.html' %}
 {% block title %}{{object.name}} Home{% endblock %}
 {% block content %}
+
+<link href="/static/css/org-view.css" media="screen" rel="stylesheet">
+
 <h3>{{ object.name }} home</h3>
 
 {% if sessions %}
@@ -10,12 +13,12 @@
     <tr>
       <th class="col-md-5">Location</th>
       <th>Suggested Date</th>
-      <th></th>
+      <th>Status</th>
     </tr>
   {% endif %}
   {% for s in sessions %}
     <tr>
-      <td>{{ s.location }}</td>
+      <td>{{ s.location.name }}</td>
       <td>{{ s.scheduled_start }}</td>
       <td>
         {% if s.actual_end %}
@@ -24,7 +27,7 @@
           </a>
           <!-- - {{ s.time_taken_in_min }}-->
         {% else %}
-          <input type="button" class="btn btn-primary" value="Cancel" onclick="document.location='{% url 'appt-cancel' s.organization.slug s.pk %}'">
+          <input type="button" class="btn btn-primary" value="Cancel Session" onclick="document.location='{% url 'appt-cancel' s.organization.slug s.pk %}'">
         {% endif %}
       </td>
     </tr>
@@ -37,16 +40,18 @@
     <div class="alert alert-success" role="alert">You are signed up for 2 sessions.  Thanks!</div>
   {% endif %}
   <table class="table table-striped">
-  {% if unassigned.length != 0 %}
+  {% if unassigned|length != 0 %}
     <tr>
       <th class="col-md-5">Location</th>
       <th>Suggested Date</th>
-      <th></th>
+      <th>Signup</th>
     </tr>
+    {% else %}
+    Sorry, there are currently no count sessions to sign up for.
   {% endif %}
   {% for s in unassigned %}
     <tr>
-      <td>{{ s.location }}</td>
+      <td>{{ s.location.name }}</td>
       <td>{{ s.scheduled_start }}</td>
       <td>
         {% if sessions.count < 20000 %}
@@ -59,26 +64,35 @@
 
 <hr>
 
-<h4>(Admin function) See all count sessions</h4>
+{% if user.is_superuser or member.role == 'admin' %}
+<h4>See All Count Sessions (Admins only)</h4>
   <form>
   {% csrf_token %}
   <table class="table table-striped">
     <tr>
-      <th class="col-md-5">Location</th>
+      <th>Location</th>
       <th>Suggested Date</th>
       <th>User</th>
       <th>Status</th>
       <th></th>
     </tr>
+
   {% for s in all %}
     <tr>
-      <td>{{ s.location }}</td>
+      <td>{{ s.location.name }}</td>
       <td>{{ s.scheduled_start }}</td>
       <td>{{ s.user }}</td>
-      <td><span id="rst_span_{{s.id}}">{{ s.status }}</span></td>
       <td>
         {% if s.actual_end %}
-          {{ s.survey_set.all.count }}
+          <a href="{% url 'appt-detail' s.organization.slug s.pk %}">
+          Completed - {{ s.actual_end|date:"SHORT_DATE_FORMAT" }}
+          </a>
+        {% else %}
+          {{ s.status }}
+        {% endif %}
+      </td>
+      <td>
+        {% if s.actual_end %}
           <input id="rst_btn_{{s.id}}" type="button" class="btn btn-primary" value="Reset" onclick="reset_appt({{s.id}})">
         {% endif %}
       </td>
@@ -86,7 +100,5 @@
   {% endfor %}
   </table>
   </form>
+{% endif %}  
 {% endblock %}
-
-
-
