@@ -76,7 +76,7 @@ function ajaxYearSelection(){
                 //here is where I'll want to update the valid values for the appt drop down
 
        }) ;
-
+    document.getElementById("csvSubmitButton").disabled = true;
 }
 
 

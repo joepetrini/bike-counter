@@ -256,11 +256,11 @@ class RequestCSVView(FormView):
         formApptSelection = kwargs.get('formAppt', "ALL")
 
 
-        theFileContent = ['Intersection or Bridge', 'Street', 'Facility for Street']
+        theFileContent = ['Appointment ID', 'Intersection or Bridge', 'Street', 'Facility for Street']
         theFileContent += ['Direction', 'Actual Survey Date', '15 minute increment', 'TOTAL Riders (not counting bike on buses)']
         theFileContent += ['With traffic male', 'With traffic female', 'sidewalk male', 'Sidewalk female']
         theFileContent += ['wrong way male', 'Wrong way female', 'bikes on bus', 'Completed By' ,'Latitute']
-        theFileContent += ['Longitude', 'Helmet male', 'Helmet female', 'Appointment ID', 'Count Year', 'Weather', 'temperature', 'Notes']
+        theFileContent += ['Longitude', 'Helmet male', 'Helmet female', 'Count Year', 'Weather', 'temperature', 'Notes']
 
         #theFilename = 'export_' + (datetime.datetime.now().strftime("%I%M")) + '_data_for_filemaker.csv'
         theFilename = 'filemakerExport_of_' + str(formYearSelection) + "_" + str(formApptSelection) + '_pulledOn_' + (datetime.datetime.now().strftime("%I%M")) + '.csv'
@@ -274,210 +274,219 @@ class RequestCSVView(FormView):
         #If ALL that meant the user wanted all the appts for a given year
         #if any other value for the appt selection, we should pull all the appts for the given year
 
+
         if formApptSelection == 'ALL':
             appts_in_scope = Appointment.objects.filter(scheduled_start__year = formYearSelection, organization=Organization.objects.get(slug=self.request.current_org))
-
-
         else:
             appts_in_scope = Appointment.objects.filter(id=int(formApptSelection), organization=Organization.objects.get(slug=self.request.current_org))
 
 
-        print appts_in_scope
 
         for x in appts_in_scope:
             allSurveysForApptInScope = Survey.objects.filter(appointment_id = x.id)
 
-            apptStartTime = x.actual_start
-            print apptStartTime
-            currentInterval = apptStartTime
-            endTime = apptStartTime + timedelta(minutes=90)
+
+            #inserting Try/catch so avoid errors where appointments don't have an actual start dates yet
+            try:
+                apptStartTime = x.actual_start
 
 
-            #using a massive for loop to cycle through all 15 minute intervals found within the survey
-            #some day this could be put into its on method or class
-            # ASSUMPTION - I'll start the looping of 15 minute increments at the ACTUAL start time
-            # actual_start through 90 minutes from actual start jumping in 15 minute increments
+                currentInterval = apptStartTime
+                endTime = apptStartTime + timedelta(minutes=90)
 
 
-            while currentInterval < endTime:
-                # next item needs to be the cardinal direction being summarized --- aka n/s/e/w
-                # WIP - so to do this, I should loop through 2 different directions - direction1 and direction 2 that each appoitnments' location has
-                # so for loop through all an appointment's survey's where the survey-item's direction is = direction 1
-
-                allDirs = ['direction1', 'direction2']
-                for i in allDirs:
-
-                    csvOutputString = []
-                    csvOutputString = [x.location.name]
-                    if i == 'direction1':
-                        #query for direction 1 data
-                        # WILL NEED TO LIKELY PRE-QUERY DIRECTION 1 DATA HERE
-                        currentDirection = x.location.direction1
-                        currentCardinalDirectionSummary = 'North/South'
-
-                        #Note, this will actually be labeled as street on the final csv output.
-                        csvOutputString += [x.location.direction1]
-
-                        # As of 11/1/15 - I don't believe we have a dedicated attribution of a location to represent "cardinal direction"
-                        # Also remember that currently the bike coalition only summarized cardinal directions 2-ways ..... N/S and E/W
-                        # instead - proposed logic - IF bridge or trail type, then obviously the only direction is east/west
-                        # else - assuming an Intersection type, perhaps start with N/S, then go to E/W .....
-                        # this assumes there will always be intersections with both sets -which as of now, there is -worst case, we report 'zeros'
+                #using a massive for loop to cycle through all 15 minute intervals found within the survey
+                #some day this could be put into its on method or class
+                # ASSUMPTION - I'll start the looping of 15 minute increments at the ACTUAL start time
+                # actual_start through 90 minutes from actual start jumping in 15 minute increments
 
 
-                    else:
-                        #query for direction 2 data
+                while currentInterval < endTime:
+                    # next item needs to be the cardinal direction being summarized --- aka n/s/e/w
+                    # WIP - so to do this, I should loop through 2 different directions - direction1 and direction 2 that each appoitnments' location has
+                    # so for loop through all an appointment's survey's where the survey-item's direction is = direction 1
 
-                        currentDirection = x.location.direction2
-                        currentCardinalDirectionSummary = 'East/West'
-                         #Note, this will actually be labeled as street on the final csv output.
-                        csvOutputString += [x.location.direction2]
+                    allDirs = ['direction1', 'direction2']
+                    for i in allDirs:
 
-                    endofCurrentInterval = currentInterval + timedelta(minutes=15)
-                    currentDirection = currentDirection.lower()
-                    currentSubSurveysByDirectionAndInterval = allSurveysForApptInScope.filter(direction=currentDirection, recorded_at__range=(currentInterval,endofCurrentInterval))
+                        csvOutputString = []
+                        #appointment ID
+                        csvOutputString += [x.id]
+                        csvOutputString = [x.location.name]
+                        if i == 'direction1':
+                            #query for direction 1 data
+                            # WILL NEED TO LIKELY PRE-QUERY DIRECTION 1 DATA HERE
+                            currentDirection = x.location.direction1
+                            currentCardinalDirectionSummary = 'North/South'
 
+                            #Note, this will actually be labeled as street on the final csv output.
+                            csvOutputString += [x.location.direction1]
 
-                    csvOutputString += ['STREET FACILITY that we dont have']
-                    csvOutputString += [currentCardinalDirectionSummary]
-
-                    # then is the date of the survey
-                    csvOutputString += [x.actual_start.strftime("%m/%d/%Y")]
-
-                    #then the 15 minute interval being summarized -- ex of formatting 7:30-7:45 AM
-                    csvOutputString += [currentInterval.strftime("%I:%M") + '-' + endofCurrentInterval.strftime("%I:%M %p")]
-
-                    # then total riders --- all survey entries for a given appointment in a given 15 minute range, in a given direction
-                    csvOutputString += [currentSubSurveysByDirectionAndInterval.count()]
-
-                    # With traffic male - REQUIRES join with survey-values table
-
-                    surveyValues_subset_all = SurveyValue.objects.filter(survey__in=list(currentSubSurveysByDirectionAndInterval))
-
-                    #start by pre-pulling all SV's that are for males
-                    maleSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'gender', value__stored_value='m').values('survey')
-
-                    #then pre-pull all SV's for sidewalk riders
-                    sidewalkSurveyValues =surveyValues_subset_all.filter(metric__system_name = 'sidewalk', value__stored_value = 'yes').values('survey')
-
-                    #then pre-pull all SV's for wrong way riders
-                    wrongwaySurveyValues =surveyValues_subset_all.filter(metric__system_name = 'wrong_way', value__stored_value = 'yes').values('survey')
-
-                    #to get with traffic male tally I 1st filter for only male riders
-                    withTrafficMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
-                    #Then from that subset, I then want to exclude any survey IDs that are in a list of sidewalk riders
-                    withTrafficMaleTally = withTrafficMaleTally.exclude(id__in = (sidewalkSurveyValues))
-                    #then, I further want to exclude wrong way riders - just in case really
-                    withTrafficMaleTally = withTrafficMaleTally.exclude(id__in = (wrongwaySurveyValues))
-
-                    withTrafficMaleTally = withTrafficMaleTally.count()
-                    csvOutputString += [withTrafficMaleTally]
-
-                    #with traffic female
-                    #start by pre-pulling all SV's that are for FEMALES
-                    femaleSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'gender', value__stored_value='f').values('survey')
-
-                    #then pre-pull all SV's for sidewalk riders
-                    sidewalkSurveyValues =surveyValues_subset_all.filter(metric__system_name = 'sidewalk', value__stored_value = 'yes').values('survey')
-
-                    #then pre-pull all SV's for wrong way riders
-                    wrongwaySurveyValues =surveyValues_subset_all.filter(metric__system_name = 'wrong_way', value__stored_value = 'yes').values('survey')
-
-                    #to get with traffic male tally I 1st filter for only FEMALE riders
-                    withTrafficFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
-                    #Then from that subset, I then want to exclude any survey IDs that are in a list of sidewalk riders
-                    withTrafficFemaleTally = withTrafficFemaleTally.exclude(id__in = (sidewalkSurveyValues))
-                    #then, I further want to exclude wrong way riders - just in case really
-                    withTrafficFemaleTally = withTrafficFemaleTally.exclude(id__in = (wrongwaySurveyValues))
-
-                    withTrafficFemaleTally = withTrafficFemaleTally.count()
-
-                    csvOutputString += [withTrafficFemaleTally]
-
-                    # sidewalk male ---
-                    # NOTE - AS OF 12/16 still working on this
-
-                    sidewalkMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
-                    sidewalkMaleTally = sidewalkMaleTally.exclude(id__in = (wrongwaySurveyValues))
-                    sidewalkMaleTally = sidewalkMaleTally.filter(id__in = sidewalkSurveyValues)
-
-                    csvOutputString += [sidewalkMaleTally.count()]
-
-                    #then 	sidewalk female
-                    sidewalkFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
-                    sidewalkFemaleTally = sidewalkFemaleTally.exclude(id__in = (wrongwaySurveyValues))
-                    sidewalkFemaleTally = sidewalkFemaleTally.filter(id__in = sidewalkSurveyValues)
-
-                    csvOutputString += [sidewalkFemaleTally.count()]
-
-                    #then wrong way male
-                    wrongWayMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
-                    wrongWayMaleTally = wrongWayMaleTally.filter(id__in = (wrongwaySurveyValues))
-                    wrongWayMaleTally = wrongWayMaleTally.exclude(id__in = sidewalkSurveyValues)
-
-                    csvOutputString += [wrongWayMaleTally.count()]
-
-                    #wrong way female
-                    wrongWayFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
-                    wrongWayFemaleTally = wrongWayFemaleTally.filter(id__in = (wrongwaySurveyValues))
-                    wrongWayFemaleTally = wrongWayFemaleTally.exclude(id__in = sidewalkSurveyValues)
-
-                    csvOutputString += [wrongWayFemaleTally.count()]
-
-                    #bikes on bus
-                    surveyEventsForGivenPeriod = SurveyEvent.objects.filter(appointment_id = x.id, created__range=(currentInterval,endofCurrentInterval))
-                    bikesOnBustally = surveyEventsForGivenPeriod.filter(event__pk=1).count()
-                    csvOutputString += [bikesOnBustally]
-
-                    #Completed By
-                    apptVolunteer = x.user.get_full_name()
-                    csvOutputString += [apptVolunteer]
-
-                    #Latitude
-                    latitudeValue = x.location.latitude
-                    csvOutputString += [latitudeValue]
-
-                    #Longitude
-                    longitudeValue = x.location.longitude
-                    csvOutputString += [longitudeValue]
-
-                    #helmet male - first I need to pull all the survey-value entries for helmets
-                    allHelmetSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'helmet', value__stored_value = 'yes').values('survey')
-
-                    helmetMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
-                    helmetMaleTally = helmetMaleTally.filter(id__in = (allHelmetSurveyValues))
-
-                    csvOutputString += [helmetMaleTally.count()]
-
-                    #helmet female
-                    helmetFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
-                    helmetFemaleTally = helmetFemaleTally.filter(id__in = (allHelmetSurveyValues))
-
-                    csvOutputString += [helmetFemaleTally.count()]
-
-                    #appointment ID
-                    csvOutputString += [x.id]
-
-                    #appointment count year
-                    csvOutputString += [x.scheduled_start.strftime("%Y")]
-
-                    #weather
-                    csvOutputString +=['THIS COUNT BE A WEATHER FIELD']
-
-                    #temperature
-                    csvOutputString += ['THIS COULD BE TEMPERATURE']
-
-                    #notes
-                    csvOutputString += ['THIS COULD BE A NOTES FIELD']
+                            # As of 11/1/15 - I don't believe we have a dedicated attribution of a location to represent "cardinal direction"
+                            # Also remember that currently the bike coalition only summarized cardinal directions 2-ways ..... N/S and E/W
+                            # instead - proposed logic - IF bridge or trail type, then obviously the only direction is east/west
+                            # else - assuming an Intersection type, perhaps start with N/S, then go to E/W .....
+                            # this assumes there will always be intersections with both sets -which as of now, there is -worst case, we report 'zeros'
 
 
+                        else:
+                            #query for direction 2 data
+
+                            currentDirection = x.location.direction2
+                            currentCardinalDirectionSummary = 'East/West'
+                             #Note, this will actually be labeled as street on the final csv output.
+                            csvOutputString += [x.location.direction2]
+
+                        endofCurrentInterval = currentInterval + timedelta(minutes=15)
+                        currentDirection = currentDirection.lower()
+                        currentSubSurveysByDirectionAndInterval = allSurveysForApptInScope.filter(direction=currentDirection, recorded_at__range=(currentInterval,endofCurrentInterval))
 
 
-                    #BOTTOM OF FOR LOOP
-                    writer.writerow(csvOutputString)
+                        csvOutputString += ['STREET FACILITY that we dont have']
+                        csvOutputString += [currentCardinalDirectionSummary]
 
-                currentInterval += timedelta(minutes=15)
-                # BOTTOM OF WHILE LOOP
+                        # then is the date of the survey
+                        csvOutputString += [x.actual_start.strftime("%m/%d/%Y")]
+
+                        #then the 15 minute interval being summarized -- ex of formatting 7:30-7:45 AM
+                        csvOutputString += [currentInterval.strftime("%I:%M") + '-' + endofCurrentInterval.strftime("%I:%M %p")]
+
+                        # then total riders --- all survey entries for a given appointment in a given 15 minute range, in a given direction
+                        csvOutputString += [currentSubSurveysByDirectionAndInterval.count()]
+
+                        # With traffic male - REQUIRES join with survey-values table
+
+                        surveyValues_subset_all = SurveyValue.objects.filter(survey__in=list(currentSubSurveysByDirectionAndInterval))
+
+                        #start by pre-pulling all SV's that are for males
+                        maleSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'gender', value__stored_value='m').values('survey')
+
+                        #then pre-pull all SV's for sidewalk riders
+                        sidewalkSurveyValues =surveyValues_subset_all.filter(metric__system_name = 'sidewalk', value__stored_value = 'yes').values('survey')
+
+                        #then pre-pull all SV's for wrong way riders
+                        wrongwaySurveyValues =surveyValues_subset_all.filter(metric__system_name = 'wrong_way', value__stored_value = 'yes').values('survey')
+
+                        #to get with traffic male tally I 1st filter for only male riders
+                        withTrafficMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
+                        #Then from that subset, I then want to exclude any survey IDs that are in a list of sidewalk riders
+                        withTrafficMaleTally = withTrafficMaleTally.exclude(id__in = (sidewalkSurveyValues))
+                        #then, I further want to exclude wrong way riders - just in case really
+                        withTrafficMaleTally = withTrafficMaleTally.exclude(id__in = (wrongwaySurveyValues))
+
+                        withTrafficMaleTally = withTrafficMaleTally.count()
+                        csvOutputString += [withTrafficMaleTally]
+
+                        #with traffic female
+                        #start by pre-pulling all SV's that are for FEMALES
+                        femaleSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'gender', value__stored_value='f').values('survey')
+
+                        #then pre-pull all SV's for sidewalk riders
+                        sidewalkSurveyValues =surveyValues_subset_all.filter(metric__system_name = 'sidewalk', value__stored_value = 'yes').values('survey')
+
+                        #then pre-pull all SV's for wrong way riders
+                        wrongwaySurveyValues =surveyValues_subset_all.filter(metric__system_name = 'wrong_way', value__stored_value = 'yes').values('survey')
+
+                        #to get with traffic male tally I 1st filter for only FEMALE riders
+                        withTrafficFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
+                        #Then from that subset, I then want to exclude any survey IDs that are in a list of sidewalk riders
+                        withTrafficFemaleTally = withTrafficFemaleTally.exclude(id__in = (sidewalkSurveyValues))
+                        #then, I further want to exclude wrong way riders - just in case really
+                        withTrafficFemaleTally = withTrafficFemaleTally.exclude(id__in = (wrongwaySurveyValues))
+
+                        withTrafficFemaleTally = withTrafficFemaleTally.count()
+
+                        csvOutputString += [withTrafficFemaleTally]
+
+                        # sidewalk male ---
+                        # NOTE - AS OF 12/16 still working on this
+
+                        sidewalkMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
+                        sidewalkMaleTally = sidewalkMaleTally.exclude(id__in = (wrongwaySurveyValues))
+                        sidewalkMaleTally = sidewalkMaleTally.filter(id__in = sidewalkSurveyValues)
+
+                        csvOutputString += [sidewalkMaleTally.count()]
+
+                        #then 	sidewalk female
+                        sidewalkFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
+                        sidewalkFemaleTally = sidewalkFemaleTally.exclude(id__in = (wrongwaySurveyValues))
+                        sidewalkFemaleTally = sidewalkFemaleTally.filter(id__in = sidewalkSurveyValues)
+
+                        csvOutputString += [sidewalkFemaleTally.count()]
+
+                        #then wrong way male
+                        wrongWayMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
+                        wrongWayMaleTally = wrongWayMaleTally.filter(id__in = (wrongwaySurveyValues))
+                        wrongWayMaleTally = wrongWayMaleTally.exclude(id__in = sidewalkSurveyValues)
+
+                        csvOutputString += [wrongWayMaleTally.count()]
+
+                        #wrong way female
+                        wrongWayFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
+                        wrongWayFemaleTally = wrongWayFemaleTally.filter(id__in = (wrongwaySurveyValues))
+                        wrongWayFemaleTally = wrongWayFemaleTally.exclude(id__in = sidewalkSurveyValues)
+
+                        csvOutputString += [wrongWayFemaleTally.count()]
+
+                        #bikes on bus
+                        surveyEventsForGivenPeriod = SurveyEvent.objects.filter(appointment_id = x.id, created__range=(currentInterval,endofCurrentInterval))
+                        bikesOnBustally = surveyEventsForGivenPeriod.filter(event__pk=1).count()
+                        csvOutputString += [bikesOnBustally]
+
+                        #Completed By
+                        apptVolunteer = x.user.get_full_name()
+                        csvOutputString += [apptVolunteer]
+
+                        #Latitude
+                        latitudeValue = x.location.latitude
+                        csvOutputString += [latitudeValue]
+
+                        #Longitude
+                        longitudeValue = x.location.longitude
+                        csvOutputString += [longitudeValue]
+
+                        #helmet male - first I need to pull all the survey-value entries for helmets
+                        allHelmetSurveyValues = surveyValues_subset_all.filter(metric__system_name = 'helmet', value__stored_value = 'yes').values('survey')
+
+                        helmetMaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (maleSurveyValues))
+                        helmetMaleTally = helmetMaleTally.filter(id__in = (allHelmetSurveyValues))
+
+                        csvOutputString += [helmetMaleTally.count()]
+
+                        #helmet female
+                        helmetFemaleTally = currentSubSurveysByDirectionAndInterval.filter(id__in = (femaleSurveyValues))
+                        helmetFemaleTally = helmetFemaleTally.filter(id__in = (allHelmetSurveyValues))
+
+                        csvOutputString += [helmetFemaleTally.count()]
+
+
+                        #appointment count year
+                        csvOutputString += [x.scheduled_start.strftime("%Y")]
+
+                        #weather
+                        csvOutputString +=['THIS COUNT BE A WEATHER FIELD']
+
+                        #temperature
+                        csvOutputString += ['THIS COULD BE TEMPERATURE']
+
+                        #notes
+                        csvOutputString += ['THIS COULD BE A NOTES FIELD']
+
+
+
+
+                        #BOTTOM OF FOR LOOP
+                        writer.writerow(csvOutputString)
+
+                    currentInterval += timedelta(minutes=15)
+                    # BOTTOM OF WHILE LOOP
+
+            except TypeError:
+                print "error because no actual start and no actual data"
+
+                csvOutputString = [x.id, x.location.name]
+                csvOutputString += ['NO DATA FOR THIS APPOINTMENT']
+                writer.writerow(csvOutputString)
 
         return response
 
