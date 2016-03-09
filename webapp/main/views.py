@@ -295,6 +295,7 @@ class RequestCSVView(FormView):
                 endTime = apptStartTime + timedelta(minutes=90)
 
 
+
                 #using a massive for loop to cycle through all 15 minute intervals found within the survey
                 #some day this could be put into its on method or class
                 # ASSUMPTION - I'll start the looping of 15 minute increments at the ACTUAL start time
@@ -312,11 +313,21 @@ class RequestCSVView(FormView):
                         csvOutputString = []
                         #appointment ID
                         csvOutputString += [x.id]
-                        csvOutputString = [x.location.name]
+                        csvOutputString += [x.location.name]
+
+
+                        if not x.location.direction1 or not x.location.direction2:
+                            csvOutputString += ["NO DATA! - Location doesn't have a direction"]
+                            writer.writerow(csvOutputString)
+                            break
+
+
                         if i == 'direction1':
                             #query for direction 1 data
                             # WILL NEED TO LIKELY PRE-QUERY DIRECTION 1 DATA HERE
+
                             currentDirection = x.location.direction1
+
                             currentCardinalDirectionSummary = 'North/South'
 
                             #Note, this will actually be labeled as street on the final csv output.
@@ -481,11 +492,16 @@ class RequestCSVView(FormView):
                     currentInterval += timedelta(minutes=15)
                     # BOTTOM OF WHILE LOOP
 
-            except TypeError:
-                print "error because no actual start and no actual data"
+            except (TypeError, AttributeError) as e:
+
 
                 csvOutputString = [x.id, x.location.name]
-                csvOutputString += ['NO DATA FOR THIS APPOINTMENT']
+                if e.__class__.__name__ == 'TypeError':
+                    csvOutputString += ['NO ACTUAL DATA FOR THIS APPOINTMENT']
+                else:
+                    csvOutputString += ['LOCATION MISSING SOME OTHER DATA']
+
+
                 writer.writerow(csvOutputString)
 
         return response
