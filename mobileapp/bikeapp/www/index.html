@@ -104,12 +104,15 @@
 <script id="tpl-home" type="text/template">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h3>Let's Get Started</h3>
-            <a href="#upcoming">Your Appointments</a>
+            <h2>Let's Get Started </h2>
+            <input type="button" class="btn btn-primary" style="margin-top:15px" onclick="location.href='#upcoming';" value="Your Appointments" />
+
             <br>
-            <a href="#help">Help</a>
+            <input type="button" class="btn btn-primary" style="margin-top:15px" onclick="location.href='#help';" value="Help" />
+
             <br>
-            <a href="#logout">Logout</a>
+            <input type="button" class="btn btn-primary" style="margin-top:15px" onclick="location.href='#logout';" value="Log Off" />
+
         </div>
     </div>
 </script>
@@ -138,9 +141,10 @@
 
                 {{#appointment_set}}
                     <tr>
+
                         {{^actual_end}}
                             <td>
-                                <a href="#appt/{{id}}">{{location.name}}</a>
+                               <a href="#appt/{{id}}">{{location.name}}</a>
                             </td>
                             <td>
                                 Not Started
@@ -152,7 +156,7 @@
                                 <a href="#apptstats/{{id}}">{{location.name}}</a>
                             </td>
                             <td>
-                                Completed
+                               <font color="#009933"> <strong > Completed </strong> </font>
                             </td>
                         {{/actual_end}}
 
@@ -450,7 +454,7 @@
     <div>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <button class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')">&laquo;&nbsp;Home</button>
+                <button class="btn btn-primary btn-nav" onclick="window.location.replace('#home')">&laquo;&nbsp;Home</button>
                 <br><br>
                 <a href="#help">Help</a><br>
                 Help content
