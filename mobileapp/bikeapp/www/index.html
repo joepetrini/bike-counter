@@ -105,7 +105,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h3>Let's Get Started</h3>
-            <a href="#upcoming">Appointments</a>
+            <a href="#upcoming">Your Appointments</a>
             <br>
             <a href="#help">Help</a>
             <br>
@@ -127,16 +127,42 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1" style="padding-bottom: 10px">
             {{#appointment_set.length}}
-            <h3 class="topcoat-list__header">{{appointment_set.length}} Appointments</h3>
+            <h3 class="topcoat-list__header">You have {{appointment_set.length}} total appointments.</h3>
             {{/appointment_set.length}}
+
+                <table class="table table-condensed">
+                <tr>
+                    <th>Appointment</th>
+                    <th>Status</th>
+                </tr>
+
                 {{#appointment_set}}
-                    {{#actual_end}}<a href="#apptstats/{{id}}">{{location.name}}</a> - Completed{{/actual_end}}
-                    {{^actual_end}}<a href="#appt/{{id}}">{{location.name}}</a> - Not Started{{/actual_end}}
-                    <br>
+                    <tr>
+                        {{^actual_end}}
+                            <td>
+                                <a href="#appt/{{id}}">{{location.name}}</a>
+                            </td>
+                            <td>
+                                Not Started
+                            </td>
+                        {{/actual_end}}
+
+                        {{#actual_end}}
+                            <td>
+                                <a href="#apptstats/{{id}}">{{location.name}}</a>
+                            </td>
+                            <td>
+                                Completed
+                            </td>
+                        {{/actual_end}}
+
+
+                    </tr>
                 {{/appointment_set}}
                 {{^appointment_set}}
-                No scheduled sessions
+                <tr> No scheduled sessions </tr>
             {{/appointment_set}}
+            </table>
         </div>
     </div>
 </script>
