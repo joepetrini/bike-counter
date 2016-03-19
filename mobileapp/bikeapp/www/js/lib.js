@@ -523,7 +523,7 @@ function startSession(id){
             async: false,
             crossDomain: true,
             headers: {"Authorization": 'Token ' + _get('token')},
-            success: function (data)
+            success: function (data){
                 // _set('actual_start', Date().getTime());
                 _set('total_pause', 0);
                 _set('longest_pause', 0);
