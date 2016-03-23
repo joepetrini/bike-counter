@@ -21,6 +21,17 @@ function _pad(num){
     return ("0000" + num).substr(-2,2);
 }
 
+//functions to toggle scroll capabilties as on the upcoming appts screen we need a scroll bar
+function reloadScrollBars() {
+   document.documentElement.style.overflow = 'auto';  // firefox, chrome
+    document.body.scroll = "yes"; // ie only
+}
+
+function unloadScrollBars() {
+    document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+    document.body.scroll = "no"; // ie only
+}
+
 // Wrapper for passing data to template
 function _tdata(dict){
     dict['version'] = config.version;

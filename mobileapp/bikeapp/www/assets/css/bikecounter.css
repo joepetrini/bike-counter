@@ -61,6 +61,7 @@ a {
 
 .btn-line {
     border-right: 3px solid #966;
+
 }
 
 .btn-nav {
@@ -89,14 +90,22 @@ input[type="button"]:disabled {
     padding: 25px 0 25px 0;
     position: relative;
     float:left;
+    color: #333;
 }
+
+.heading{
+    font-weight: bold;
+}
+
 #btn_save {
     padding: 25px 0 25px 0;
+    color: #333;
+    font-weight: bold;
 }
 
 .btn-val.active, .btn-val:hover {
     color: #ffffff;
-    background-color: #e05a31;
+    background-color: #337AB7;
     border-color: #e05a31;
 }
 

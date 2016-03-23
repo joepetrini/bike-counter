@@ -13,6 +13,8 @@ var rider_count = 0;
 // Array for all event counts
 var event_count = [];
 
+var appts = [];
+
 //var events_for_loc = [];
 //var tmp = null;
 // Appt start time
@@ -132,9 +134,13 @@ function route(event) {
     // Upcoming appts screen
     if (hash === "#upcoming") {
         appts = getAppointments();
-        //console.log('appts: ' + appts);
+        // adding logic to enable scrolling on this view
+
+       //unloadScrollBars();
         var template = $('#tpl-upcoming').html();
         page = Mustache.to_html(template, appts);
+        reloadScrollBars();
+
     }
     // Finished view
     var match = hash.match(/^#done\/(\d{1,})/);
@@ -314,3 +320,49 @@ function route(event) {
     $('#container').html(page);
 }
 route();
+
+
+function displayYourAppts() {
+
+
+    var currentapts = getAppointments();
+    currentapts = currentapts['appointment_set'];
+    var table = document.getElementById("upcomingtable");
+    //console.log("we got here!-- " + currentapts);
+    for (i=0; i < currentapts.length; i++){
+
+
+        var row = table.insertRow(i+1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell1Text = document.createTextNode(currentapts[i].location.name);
+        var link = document.createElement("a");
+
+        if (currentapts[i].status == "Complete"){
+            link.setAttribute("href","#apptstats/" + currentapts[i].id);
+            link.appendChild(cell1Text);
+            cell1.appendChild(link);
+            cell2.innerHTML = "Complete";
+            cell2.style.color = "#009933";
+            cell2.style.fontWeight = "bold";
+
+        }else if (currentapts[i].status == "In Progess"){
+            // do something else ... let people continue, I assume
+            link.setAttribute("href","#appt/"  + currentapts[i].id);
+            link.appendChild(cell1Text);
+            cell1.appendChild(link);
+
+            cell2.innerHTML = "In Progress";
+
+        }else{
+            //Not Started with session link
+            link.setAttribute("href","#appt/" + currentapts[i].id);
+            link.appendChild(cell1Text);
+            cell1.appendChild(link);
+
+            cell2.innerHTML = "Not Started";
+        }
+    }
+};
+
+
