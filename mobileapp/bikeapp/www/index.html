@@ -3,9 +3,13 @@
 <head>
     <meta charset="utf-8">
     <!--<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport" />-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <!--<link href="assets/topcoat/css/topcoat-mobile-light.css" rel="stylesheet">-->
     <link href="assets/bootstrap/bootstrap.css" rel="stylesheet">
+    <link rel="shortcut icon" sizes="196x196" href="assets/img/phlbikeco.png">
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="jslib/jquery-ui.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap/bootstrap.js"></script>
@@ -14,8 +18,8 @@
     <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript">
-        $(function() {
-            document.ontouchmove = function(e) {e.preventDefault()};
+       $(function() {
+            //document.ontouchmove = function(e) {e.preventDefault()};
 
             //new FastClick(document.body);
             FastClick.attach(document.body);
@@ -28,9 +32,6 @@
                 window.open($(e.currentTarget).attr('href'), '_system', '');
             });
 
-            // Bootstrap toggle buttons
-            //_l('bootstrap toggleing');
-            //$('input.bstoggle').bootstrapToggle();
 
             // Set focus to first input on page
             $(":input[type='text']:first").focus();
@@ -57,7 +58,7 @@
 
     </script>
 </head>
-<body>
+<body  onload="window.scrollTo(0, 1);">
 <style>
     /*body {margin-top:10px;}*/
     .rotate90 {
@@ -128,7 +129,7 @@
         </span>
     </div>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1" style="padding-bottom: 10px">
+        <div class="col-md-10 " style="padding-bottom: 10px">
             {{#appointment_set.length}}
             <h3 class="topcoat-list__header">You have {{appointment_set.length}} total appointments. </h3>
             {{/appointment_set.length}}
@@ -148,8 +149,8 @@
 
 
 <script id="tpl-apptstats" type="text-template">
-    <div class="row appcontainer">
-        <div class="col-xs-12 text-center">
+
+
             <div class="row">
             <span class="col-xs-4 text-left">
                 <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')" value="&laquo;&nbsp;Home">
@@ -161,29 +162,30 @@
                 </div>
             </span>
             </div>
-        </div>
-    </div>
+
+
 </script>
 
 
 <script id="tpl-appt" type="text/template">
-<div class="row appcontainer">
-    <div class="col-xs-12 text-center">
+
+
 
         <div class="row">
-            <span class="col-xs-2 text-left">
+            <div class="col-xs-2 text-center">
                 <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')" value="&laquo;&nbsp;Home">
-            </span>
-            <span class="col-xs-8 text-center">
+            </div>
+            <div class="col col-xs-8 text-center">
                 <h3>{{location.name}}</h3>
-            </span>
-            <span class="col-xs-2 text-left">
-            </span>
+            </div>
+
+            <div class="col col-xs-12 text-center">  <a href="javascript:startSession({{id}})">Start Recording</a> </div>
+
         </div>
 
-        <a href="javascript:startSession({{id}})">Start Recording</a>
+
         <div style="width:100%;height:300px">
-            <div style="width:100%;height:80%;" id="map"></div>
+            <div style="width:80%;height:80%" class="center-block" id="map"></div>
         </div>
             <!--
             <table>
@@ -196,8 +198,8 @@
                 </tr>
             </table>
             -->
-    </div>
-</div>
+
+
 </script>
 
 
@@ -212,7 +214,7 @@
             <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
             <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
             <!--
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" >
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1}}
                 </label>
@@ -223,7 +225,7 @@
             -->
 
             <!--
-            <div id="btn-test" class="btn-group" data-toggle="buttons">
+            <div id="btn-test" class="btn-group" >
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
                 </label>
@@ -247,7 +249,7 @@
             <button id="bike_share_1" class="btn btn-val btn-line" data-grp="bike_share" onclick="_sel('bike_share_1','bike_share_2','bike_share','yes')">Yes</button>
             <button id="bike_share_2" class="btn btn-val active" data-grp="bike_share" onclick="_sel('bike_share_2','bike_share_1','bike_share','no')">No</button>
             <!--
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" >
                 <label class="btn btn-val btn-line">
                     <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
                 </label>
@@ -267,42 +269,42 @@
 
     <!--------- CENTER -------->
     <div class="col-xs-4 text-center" style="padding:5px 0;">
-      <!--<span>{{location.name}}</span>
-      <br>-->
-      <span id="riders_outer" class="headings">Counted Riders: <span id="total_riders">0</span></span>
-      <br>
-      <div id="timer">&nbsp;</div>
 
-      <input id="btn_pause" type="button" class="btn btn-info btn-event" value="Pause" onclick="pause()">
-      <input style="" id="btn_end" type="button" class="btn btn-info btn-event" value="End" onclick="endSession()">
+     <b> {{loc.name}} </b>
 
-      <div id="checkbox_div">
+
+      <div id="riders_outer" class="row headings col-xs-4"><b> Counted Riders:</b> <span id="total_riders">0</span></div>
+
+
+      <div id="timer">&nbsp; </div>
+
+      <div id= "pause_end" class="row col-xs-4">
+          <input id="btn_pause" type="button" class="btn btn-info btn-event" value="Pause" onclick="pause()">
+          <input style="" id="btn_end" type="button" class="btn btn-info btn-event" value="End" onclick="endSession()">
+      </div>
+
+ <div id="checkbox_div" class="row center-block" >
       <hr>
-      <table style="margin:10px auto">
+      <table style="margin:10px auto" >
 
-          <tr>
+         <tr>
               <td>
-                  <input onclick="middleClick(this)" data-on="N" style="padding:10px 5px;font-size:14px;background-color:#b28585" id="btn_sidewalk" type="button" class="btn btn-primary" value="SideWalk">
-                  <!--<label class="checkbox-inline">
-                    <input id="cbx_sidewalk" type="checkbox" data-toggle="toggle" data-on="Y" data-off="N" class="bstoggle" data-width="50">
-                  </label>-->
+                  <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_sidewalk" type="button" class="btn btn-primary" value="Sidewalk">
+
               </td>
               <td>
-                  <input onclick="middleClick(this)" data-on="N" style="padding:10px 5px;font-size:14px;background-color:#b28585" id="btn_wrongway" type="button" class="btn btn-primary" value="WrongWay">
-                  <!--
-                  <label class="checkbox-inline">
-                    <input id="cbx_wrongway" type="checkbox" data-toggle="toggle" data-on="Y" data-off="N" class="bstoggle" data-width="50">
-                  </label> -->
+                  <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_wrongway" type="button" class="btn btn-primary" value="Wrong Way"  >
               </td>
-          </tr>
+
+            </tr>
       </table>
       </div>
       <!--
-      <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
-      <br>
-      <input type="button" class="btn btn-primary" value="Oh Shit" onclick="showPage('3')">
-      <br>
-      <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
+          <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
+          <br>
+          <input type="button" class="btn btn-primary" value="Oh Shit" onclick="showPage('3')">
+          <br>
+          <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
       -->
       <div id="events_div" class="row text-center" style="padding-top:5px">
           <table class="table">
@@ -331,7 +333,7 @@
         <div class="rec_content">
 
             <!--
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" >
                 <label class="btn btn-val btn-line">
                     <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
                 </label>

@@ -90,6 +90,7 @@ function onAppLoad(){
         window.location.replace('#home');
         return;
     }
+
 }
 
 function goBack(){}
@@ -136,7 +137,7 @@ function route(event) {
         appts = getAppointments();
         // adding logic to enable scrolling on this view
 
-       //unloadScrollBars();
+
         var template = $('#tpl-upcoming').html();
         page = Mustache.to_html(template, appts);
         reloadScrollBars();
@@ -163,7 +164,7 @@ function route(event) {
         // Build the template
         var template = $('#tpl-appt').html();
         page = Mustache.to_html(template, appt);
-
+        reloadScrollBars();
         // Render the map
         setTimeout(function() {
             var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
@@ -174,7 +175,7 @@ function route(event) {
                 map: map,
                 title: appt.location.name
             });
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 1);
             // Set map center to user's current location
             /*
             if(navigator.geolocation) {
@@ -291,7 +292,7 @@ function route(event) {
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
-
+        unloadScrollBars();
         // Set dynamic button height/width
         /*
         var h = ($(window).height() - 100) / 3;
@@ -305,7 +306,7 @@ function route(event) {
         */
         setTimeout(function() {
             $('#total_riders').html(rider_count);
-            $('input.bstoggle').bootstrapToggle();
+
         }, 1);
 
         // Run the post survey every 10 seconds
@@ -316,6 +317,7 @@ function route(event) {
     if (hash == '') {
         var template = $('#tpl-login').html();
         page = Mustache.to_html(template, _tdata({}));
+         unloadScrollBars();
     }
     $('#container').html(page);
 }
@@ -324,7 +326,7 @@ route();
 
 function displayYourAppts() {
 
-
+     reloadScrollBars();
     var currentapts = getAppointments();
     currentapts = currentapts['appointment_set'];
     var table = document.getElementById("upcomingtable");
