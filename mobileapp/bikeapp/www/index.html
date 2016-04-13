@@ -206,7 +206,7 @@
 
 <script id="tpl-record" type="text/template">
 
-  <div class="row page appcontainer" id="page1" style="width:100%">
+<div class="row page appcontainer" id="page1" style="width:100%">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center" id="rec_left">
         <div class="rec_content">
@@ -214,34 +214,7 @@
             <div class="heading">Direction</div>
             <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
             <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
-            <!--
-            <div class="btn-group" >
-                <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction1}}">{{loc.direction1}}
-                </label>
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="direction" value="{{loc.direction2}}">{{loc.direction2}}
-                </label>
-            </div>
-            -->
 
-            <!--
-            <div id="btn-test" class="btn-group" >
-                <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="helmet" value="yes">Yes
-                </label>
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="helmet" value="no">No
-                </label>
-            </div>
-            -->
-            <!--<div class="clearfix"></div>-->
-
-            <!--
-            <div class="heading">SideWalk</div>
-            <button id="sidewalk_1" class="btn btn-val btn-line" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_2').removeClass('active');survey['sidewalk']='yes';tryComplete();">Yes</button>
-            <button id="sidewalk_2" class="btn btn-val active" data-grp="sidewalk" onclick="$(this).addClass('active');$('#sidewalk_1').removeClass('active');survey['sidewalk']='no';tryComplete();">No</button>
-            -->
             <div class="heading">Gender</div>
             <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="_sel('gender_1','gender_2','gender','m')">Male</button>
             <button id="gender_2" class="btn btn-val" data-grp="gender" onclick="_sel('gender_2','gender_1','gender','f')">Female</button>
@@ -249,57 +222,40 @@
             <div class="heading">Bike Share</div>
             <button id="bike_share_1" class="btn btn-val btn-line" data-grp="bike_share" onclick="_sel('bike_share_1','bike_share_2','bike_share','yes')">Yes</button>
             <button id="bike_share_2" class="btn btn-val active" data-grp="bike_share" onclick="_sel('bike_share_2','bike_share_1','bike_share','no')">No</button>
+
             <!--
-            <div class="btn-group" >
-                <label class="btn btn-val btn-line">
-                    <input type="radio" onchange="boxClick(this)" name="sidewalk" value="yes">Yes
-                </label>
-                <label class="btn btn-val">
-                    <input type="radio" onchange="boxClick(this)" name="sidewalk" data-default="true" value="no">No
-                </label>
-            </div>
-            -->
-            <!--
-            <div><br>
-                <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
-            </div>
+                <div><br>
+                    <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
+                </div>
             -->
         </div>
-    </div><!-- rec_left -->
+    </div> <!-- rec_left -->
 
 
     <!--------- CENTER -------->
-    <div class="col-xs-4 text-center" style="padding:5px 0;">
+    <div class="col-xs-4 text-center"  style="padding:0px 0">
+        <div id="upper_center" class="row center-block">
+            <b> {{loc.name}} </b>
+            <div id="riders_outer" class="row headings col-xs-4"><b> Counted Riders:</b> <span id="total_riders">0</span></div>
+            <div id="timer"> &nbsp; </div>
+            <div id="pause_end" class="row col-xs-4">
+                <input id="btn_pause" type="button" class="btn btn-info btn-event" value="Pause" onclick="pause()">
+                <input style="" id="btn_end" type="button" class="btn btn-info btn-event" value="End" onclick="endSession()">
+            </div>
+        </div>
+        <div id="checkbox_div" class="row center-block" >
 
-     <b> {{loc.name}} </b>
-
-
-      <div id="riders_outer" class="row headings col-xs-4"><b> Counted Riders:</b> <span id="total_riders">0</span></div>
-
-
-      <div id="timer">&nbsp; </div>
-
-      <div id= "pause_end" class="row col-xs-4">
-          <input id="btn_pause" type="button" class="btn btn-info btn-event" value="Pause" onclick="pause()">
-          <input style="" id="btn_end" type="button" class="btn btn-info btn-event" value="End" onclick="endSession()">
-      </div>
-
- <div id="checkbox_div" class="row center-block" >
-      <hr>
-      <table style="margin:10px auto" >
-
-         <tr>
-              <td>
-                  <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_sidewalk" type="button" class="btn btn-primary" value="Sidewalk">
-
-              </td>
-              <td>
-                  <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_wrongway" type="button" class="btn btn-primary" value="Wrong Way"  >
-              </td>
-
-            </tr>
-      </table>
-      </div>
+            <table style="margin:5px auto" >
+                <tr>
+                <td>
+                    <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_sidewalk" type="button" class="btn btn-primary" value="Sidewalk">
+                </td>
+                <td>
+                    <input onclick="middleClick(this)" data-on="N" style="" id="btn_wrongway" type="button" class="btn btn-primary" value="Wrong Way"  >
+                </td>
+                </tr>
+            </table>
+        </div>
       <!--
           <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
           <br>
@@ -307,11 +263,11 @@
           <br>
           <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
       -->
-      <div id="events_div" class="row text-center" style="padding-top:5px">
+ <div id="events_div" class="row text-center" style="padding-top:5px">
           <table class="table">
               <tr>
                   {{#events}}
-                  <td style="padding:0px">{{event.name}}</td>
+                  <td style="padding-left:5px;text-align:left"> {{event.name}}</td>
                   {{/events}}
               </tr>
               <tr>
@@ -323,10 +279,10 @@
                   {{/events}}
               </tr>
           </table>
-      </div>
+ </div>
           <!--<img class="img-event" src="assets/img/event_{{event.system_name}}.png">-->
-    </div><!-- CENTER -->
-
+    <!-- CENTER -->
+</div>
 
 
     <!----------- RIGHT ----------->
@@ -334,14 +290,14 @@
         <div class="rec_content">
 
             <!--
-            <div class="btn-group" >
-                <label class="btn btn-val btn-line">
-                    <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
-                </label>
-                <label class="btn btn-val">
-                    <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
-                </label>
-            </div>
+                <div class="btn-group" >
+                    <label class="btn btn-val btn-line">
+                        <input id="btn1" type="radio" onchange="boxClick(this)" name="gender" data-default="true" value="m">M
+                    </label>
+                    <label class="btn btn-val">
+                        <input id="btn2" type="radio" onchange="boxClick(this)" name="gender" value="f">F
+                    </label>
+                </div>
             -->
             <div class="clearfix"></div>
             <div class="heading">Helmet</div>
@@ -353,9 +309,10 @@
                 <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
             </div>
         </div>
-    </div><!-- rec_right -->
+     <!-- rec_right -->
 
-  </div><!-- page1 -->
+</div>
+   <!-- page1 -->
 
   <div class="row hidden" id="pagepause">
       <div class="col-md-10 col-md-offset-1">

@@ -9,7 +9,7 @@ body {
     height:100%;
     min-height:100%;
     font-size:16px;
-     margin-top: 10px;
+     margin-top: 2px;
 }
 
 div.row {
@@ -29,9 +29,17 @@ div.row {
     min-height:100%;
     width:100%;
     /*background-color: #d43f3a;*/
-    margin-top: 10px;
+    margin-top: 3px;
     margin-bottom: 3px;
 }
+
+
+#upper_center{
+   border: 1px;
+   border-style: solid;
+    padding:1px 0;
+}
+
 #pause_end{
    margin-top:10px;
      margin-bottom:8px;
@@ -42,7 +50,7 @@ div.appcontainer {
     margin:0px;
     padding:0px;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 3px;
     margin-bottom: 10px;
 }
 
@@ -96,32 +104,38 @@ input[type="button"]:disabled {
 margin-top:10px;
 }
 .btn-primary {
-    background-color: #337AB7;
+    background-color: #b28585;
     border-color: #d0b0b5;
     font-size: 20px;
-
-
+    font-size:14px;
+    margin-top: 15px;
+    margin-right: 3px;
+    margin-left: 3px;
 }
 
 .btn-val {
     width: 50%;
-    padding: 25px 0px 25px 0px;
+    padding: 10px 3px 10px 3px;
     position: relative;
     float:left;
     color: #333;
-     margin-bottom: 10px;
+    margin-bottom: 10px;
+    white-space: normal;
+    font-size: 16px;
+    height: 70px;
 }
 
 .heading{
     font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-bottom: 1px;
 }
 
 #btn_save {
     padding: 25px 0 25px 0;
     color: #333;
     font-weight: bold;
+    font-size: 20px;
 }
 #btn_save:enabled{
 color: #fff;
