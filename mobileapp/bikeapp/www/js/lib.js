@@ -1,7 +1,7 @@
 // Console log helper
 function _l(msg){
     if (typeof console == "object") {
-        console.log(msg);
+      //  console.log(msg);
     }
     LE.log(platform+':'+_get('username')+':'+msg);
 }
@@ -248,6 +248,7 @@ function pause(){
         $('.rec_content').show();
         $('#events_div').show();
         $('#checkbox_div').show();
+        $('#innerLeft').show();
     }
     // Pause
     else {
@@ -259,6 +260,7 @@ function pause(){
         $('.rec_content').hide();
         $('#events_div').hide();
         $('#checkbox_div').hide();
+        $('#innerLeft').hide();
     }
     $('#btn_pause').blur();
 }

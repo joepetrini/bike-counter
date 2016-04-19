@@ -60,6 +60,7 @@ if (_get('apiUrl')){
 /* Wire up page routing */
 $(window).on('hashchange', route);
 
+
 /* Event handlers - set in index.html head */
 function onAppLoad(){
     // Set device version
@@ -103,34 +104,43 @@ function onResume(){
 }
 
 function route(event) {
+
+
     var page,
         hash = window.location.hash;
 
     if (hash != '' && hash != '#admin') {
         check_login();
+
     }
     if (hash === "#pick_org") {
         var template = $('#tpl-pick-org').html();
         page = Mustache.to_html(template, {});
+
     }
     // Home screen
     if (hash === "#home") {
         var template = $('#tpl-home').html();
         page = Mustache.to_html(template);//, appts);
+
     }
     // Help screen
     if (hash === "#help") {
         var template = $('#tpl-help').html();
         page = Mustache.to_html(template);
+
     }
     // Admin screen
     if (hash === "#admin") {
         var template = $('#tpl-admin').html();
         page = Mustache.to_html(template, _tdata({}));
+
     }
     // Logout
     if (hash === '#logout') {
+
         logout();
+
     }
     // Upcoming appts screen
     if (hash === "#upcoming") {
@@ -153,6 +163,7 @@ function route(event) {
         // Build the template
         var template = $('#tpl-done').html();
         page = Mustache.to_html(template, appt);
+
     }
     // Appointment view
     var match = hash.match(/^#appt\/(\d{1,})/);
@@ -164,6 +175,7 @@ function route(event) {
         // Build the template
         var template = $('#tpl-appt').html();
         page = Mustache.to_html(template, appt);
+
         reloadScrollBars();
         // Render the map
         setTimeout(function() {
@@ -176,6 +188,7 @@ function route(event) {
                 title: appt.location.name
             });
             window.scrollTo(0, 1);
+
             // Set map center to user's current location
             /*
             if(navigator.geolocation) {
@@ -200,6 +213,8 @@ function route(event) {
         // Build the template
         var template = $('#tpl-apptstats').html();
         page = Mustache.to_html(template, theApptStats);
+        window.scrollTo(0, 1);
+
     }
     // Record survey view
     var match = hash.match(/^#record\/(\d{1,})/);
@@ -292,7 +307,9 @@ function route(event) {
 
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
+        window.scrollTo(0, 1);
         unloadScrollBars();
+
         // Set dynamic button height/width
         /*
         var h = ($(window).height() - 100) / 3;

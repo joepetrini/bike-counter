@@ -60,6 +60,8 @@
     </script>
 </head>
 <body  onload="window.scrollTo(0, 1);">
+ <div id="portrait_orientation_header"> Please rotate your phone. The survey form was designed to work best in landscape mode. </div>
+
 <style>
     /*body {margin-top:10px;}*/
     .rotate90 {
@@ -171,7 +173,6 @@
 <script id="tpl-appt" type="text/template">
 
 
-
         <div class="row">
             <div class="col-xs-2 text-center">
                 <input type="button" class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')" value="&laquo;&nbsp;Home">
@@ -209,7 +210,7 @@
 <div class="row page appcontainer" id="page1" style="width:100%">
     <!-------------- LEFT ------------->
     <div class="col-xs-4 text-center" id="rec_left">
-        <div class="rec_content">
+    <div id="innerLeft">
 
             <div class="heading">Direction</div>
             <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
@@ -228,12 +229,12 @@
                     <input type="button" class="btn btn-primary btn-block" value="page2" onclick="showPage('2')">
                 </div>
             -->
-        </div>
+    </div>
     </div> <!-- rec_left -->
 
 
     <!--------- CENTER -------->
-    <div class="col-xs-4 text-center"  style="padding:0px 0">
+    <div class="col-xs-4 text-center" id="full_center_div"  style="padding:0px 0 ">
         <div id="upper_center" class="row center-block">
             <b> {{loc.name}} </b>
             <div id="riders_outer" class="row headings col-xs-4"><b> Counted Riders:</b> <span id="total_riders">0</span></div>
@@ -245,13 +246,13 @@
         </div>
         <div id="checkbox_div" class="row center-block" >
 
-            <table style="margin:5px auto" >
+            <table style="margin:3px auto" >
                 <tr>
                 <td>
                     <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_sidewalk" type="button" class="btn btn-primary" value="Sidewalk">
                 </td>
                 <td>
-                    <input onclick="middleClick(this)" data-on="N" style="" id="btn_wrongway" type="button" class="btn btn-primary" value="Wrong Way"  >
+                    <input onclick="middleClick(this)" data-on="N" style="font-size:14px;background-color:#b28585" id="btn_wrongway" type="button" class="btn btn-primary" value="Wrong Way"  >
                 </td>
                 </tr>
             </table>
@@ -267,7 +268,7 @@
           <table class="table">
               <tr>
                   {{#events}}
-                  <td style="padding-left:5px;text-align:left"> {{event.name}}</td>
+                  <td style="padding-left:5px;text-align:center"> {{event.name}}</td>
                   {{/events}}
               </tr>
               <tr>
@@ -306,7 +307,7 @@
 
             <div class="heading">&nbsp;</div>
             <div>
-                <input id="btn_save" type="button" class="btn btn-primary btn-block" value="Submit" disabled onclick="saveSurvey()">
+                <input id="btn_save" type="button" class="btn  btn-block" value="Submit" disabled onclick="saveSurvey()">
             </div>
         </div>
      <!-- rec_right -->

@@ -33,11 +33,18 @@ div.row {
     margin-bottom: 3px;
 }
 
+#portrait_orientation_header{
+    display: none;
+    color: #000000;
+}
 
 #upper_center{
    border: 1px;
    border-style: solid;
-    padding:1px 0;
+   padding:1px 0;
+   text-align:center;
+
+
 }
 
 #pause_end{
@@ -81,7 +88,7 @@ a {
 }
 
 .btn-line {
-    border-right: 3px solid #966;
+    /*border-right: 3px solid #966;*/
 
 }
 
@@ -101,10 +108,14 @@ input[type="button"]:disabled {
 }
 
 #riders_outer{
-margin-top:10px;
+margin-top:6px;
+}
+
+#full_center_div{
+text-align:center;
 }
 .btn-primary {
-    background-color: #b28585;
+    background-color: #337ab7;
     border-color: #d0b0b5;
     font-size: 20px;
     font-size:14px;
@@ -113,16 +124,21 @@ margin-top:10px;
     margin-left: 3px;
 }
 
+#rec_left{
+    padding-left: 5px;
+    padding-right: 5px;
+}
 .btn-val {
-    width: 50%;
-    padding: 10px 3px 10px 3px;
+    width: 49%;
+    padding: 8px 3px 8px 3px;
     position: relative;
     float:left;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     white-space: normal;
     font-size: 16px;
     height: 70px;
+    margin-left: 1px;
 }
 
 .heading{
@@ -139,6 +155,7 @@ margin-top:10px;
 }
 #btn_save:enabled{
 color: #fff;
+background-color:#e05a31;
 }
 .btn-val.active, .btn-val:hover {
     color: ##fff;
@@ -159,7 +176,7 @@ color: #fff;
 }
 
 #checkbox_div{
-    margin-top:10px;
+    margin-top:5px;
 }
 
 div.overlay {
@@ -180,11 +197,23 @@ div.overlay {
 margin-top:7px;
 }
 
+
+
 // Class
 .center-block {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media screen and (orientation: portrait) {
+  #portrait_orientation_header {
+    display: block;
+    background-color:#64DE5B;
+    color: #000000;
+    font-style: italic;
+    padding-left:4px;
+  }
 }
 
 
@@ -217,3 +246,6 @@ margin-top:7px;
 .toggle.btn-xs{min-width:35px;min-height:22px}
 .toggle-on.btn-xs{padding-right:12px}
 .toggle-off.btn-xs{padding-left:12px}
+
+
+
