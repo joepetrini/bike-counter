@@ -138,16 +138,24 @@
             {{/appointment_set.length}}
 
                 <table class="table table-condensed" id="upcomingtable">
+
+
                 <tr>
-                    <th>Appointment</th>
+                    <th>Appointment </th>
                     <th>Status</th>
                 </tr>
 
                  <script> displayYourAppts(); </script>
 
+
                 </table>
+
         </div>
+
+
+
     </div>
+
 </script>
 
 
@@ -239,6 +247,7 @@
             <b> {{loc.name}} </b>
             <div id="riders_outer" class="row headings col-xs-4"><b> Counted Riders:</b> <span id="total_riders">0</span></div>
             <div id="timer"> &nbsp; </div>
+            <div id="hidden_pause_timers"> &nbsp; </div>
             <div id="pause_end" class="row col-xs-4">
                 <input id="btn_pause" type="button" class="btn btn-info btn-event" value="Pause" onclick="pause()">
                 <input style="" id="btn_end" type="button" class="btn btn-info btn-event" value="End" onclick="endSession()">
@@ -264,6 +273,7 @@
           <br>
           <input type="button" class="btn btn-primary" id="submit_survey" value="Submit" onclick="submitSurvey()">
       -->
+<!-- LOWER CENTER FOR 'EVENTS' -->
  <div id="events_div" class="row text-center" style="padding-top:5px">
           <table class="table">
               <tr>
@@ -306,6 +316,8 @@
             <button id="helmet_2" class="btn btn-val" data-grp="direction" onclick="_sel('helmet_2','helmet_1','helmet','no')">No</button>
 
             <div class="heading">&nbsp;</div>
+
+            <!-- LOWER RIGHT DIV WITH THE SUBMIT BUTTON -->
             <div>
                 <input id="btn_save" type="button" class="btn  btn-block" value="Submit" disabled onclick="saveSurvey()">
             </div>

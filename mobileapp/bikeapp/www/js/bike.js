@@ -37,7 +37,7 @@ var config = {
     surveyType:'default', // For configurable survey interfaces
     version: '0.2.03', // This should match the webapp version
     // Overridden from org setting
-    session_len: 90 // Number of minutes for a recording session
+    session_len: 5 // Number of minutes for a recording session
 }
 
 /* Change api url depending on host */
@@ -51,7 +51,7 @@ else {
         config['apiUrl'] = 'http://10.0.2.2:8001/api/';
     }
     // Uncomment below before posting app!
-    config['apiUrl'] = 'https://www.bikecounts.com/api/';
+    //config['apiUrl'] = 'https://www.bikecounts.com/api/';
 }
 if (_get('apiUrl')){
     config['apiUrl'] = _get('apiUrl');
@@ -382,6 +382,15 @@ function displayYourAppts() {
             cell2.innerHTML = "Not Started";
         }
     }
+     var row = table.insertRow(currentapts.length+1);
+     var cellEnd = row.insertCell(0);
+      var cellENDText = document.createTextNode('Click here to go sign-up for more appointments!');
+      var link = document.createElement("a");
+
+       link.setAttribute("href",get_appt_signup_URL());
+            link.appendChild(cellENDText);
+            cellEnd.appendChild(link);
+
 };
 
 

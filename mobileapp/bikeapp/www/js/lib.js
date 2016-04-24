@@ -112,6 +112,13 @@ function change_api_url(url){
     window.location.replace('#admin');
 }
 
+function get_appt_signup_URL(){
+    var theURL =  'http://127.0.0.1:8001/phl-bike/home';
+
+    console.log(theURL);
+    return theURL;
+}
+
 function check_login() {
     if (_get('token') == null){
         logout();
@@ -124,6 +131,8 @@ function logout() {
     _set('cur_appt', null);
     _set('cur_app_rider_count', null);
     _set('cur_app_total_time', null);
+    _set('local_appt_session_start', null);
+    _set('expected_end_time', null);
     _setdict('event_counts', null);
     clearInterval(timerInterval);
     clearInterval(surveyInterval);
@@ -249,6 +258,7 @@ function pause(){
         $('#events_div').show();
         $('#checkbox_div').show();
         $('#innerLeft').show();
+        $('#hidden_pause_timers').hide();
     }
     // Pause
     else {
@@ -261,11 +271,13 @@ function pause(){
         $('#events_div').hide();
         $('#checkbox_div').hide();
         $('#innerLeft').hide();
+        $('#hidden_pause_timers').show();
     }
     $('#btn_pause').blur();
 }
 
 function updateTime(){
+    var now = new Date().getTime();
     if (paused) {
         current_pause = parseInt(_get('current_pause', 0));
         total_pause = parseInt(_get('total_pause', 0));
@@ -277,14 +289,42 @@ function updateTime(){
         }
         _set('total_pause', total_pause);
         _set('current_pause', current_pause);
+
+
+        //trying to display the current pause timer in seconds only when in pause
+        var curr_paused_seconds = String(Math.round(current_pause / 1000));
+        $('#hidden_pause_timers').html(_pad(String(curr_paused_seconds)) +' elapsed seconds in this pause');
+
+        // add a new second to the remaining time for each second spent in pause
+
+        var old_end = parseInt(_get('expected_end_time')) ;
+
+        var new_expected_end_time_with_pause = 1000 + old_end;
+        _set('expected_end_time', new_expected_end_time_with_pause);
+        // console.log(new_expected_end_time_with_pause);
+        var diff = new_expected_end_time_with_pause - now ;
+        var minutes = Math.floor(diff / 60000);
+        var seconds = String(Math.round(diff / 1000));
+        seconds = seconds % 60;
+        $('#timer').html(_pad(String(minutes))+':'+_pad(String(seconds))+' remaining when you unpause');
+
         return;
     }
 
-    // Add 1000ms to total time
-    total_time += 1000;
+
+    // update  total time spend within this session - in or outside of webapp
+
+    total_time = now - _get('local_appt_session_start');
+
     _set('cur_app_total_time', total_time);
 
-    var diff = (config['session_len'] * 60 * 1000 - 1) - total_time;
+    // Joe's original code that tracked the count down timer
+        //var diff = (config['session_len'] * 60 * 1000 -1 ) - total_time;
+
+    // Rich's new method of tracking against expected end time minus the current time
+    var diff = parseInt(_get('expected_end_time')) - now ;
+
+    // split, prep and formatting of remaining time
     var minutes = Math.floor(diff / 60000);
     var seconds = String(Math.round(diff / 1000));
     seconds = seconds % 60;
@@ -541,6 +581,17 @@ function startSession(id){
                 _set('total_pause', 0);
                 _set('longest_pause', 0);
                 _set('current_pause', 0);
+
+                // testing out saving new variables to track locallly session start AND expected end time to better manage when webapp is backgrounded
+
+                 var now = new Date().getTime();
+                 var remainingTime = now + 1000 * 60 * config['session_len'] ;
+                 endTime = new Date(remainingTime).getTime();
+
+                _set('local_appt_session_start', now);
+                _set('expected_end_time', endTime);
+
+
                 _setdict('event_counts', null);
                                 // Load the recording page
                 window.location.replace('#record/'+id);
@@ -577,6 +628,8 @@ function endSession(appt, force){
                     // Load the recording page
                     _set('cur_appt', null);
                     _set('cur_app_total_time', null);
+                    _set('local_appt_session_start', null);
+                    _set('expected_end_time', null);
                     _set('cur_app_rider_count', 0);
                     _setdict('event_counts', null);
                     clearInterval(timerInterval);

@@ -210,6 +210,11 @@ class Appointment(TimeStampedModel):
         Survey.objects.filter(appointment=self).delete()
         SurveyEvent.objects.filter(appointment=self).delete()
         self.actual_end = None
+        self.actual_start = None
+        self.time_taken = None
+        self.longest_pause = 0
+        self.total_pause = 0
+        self.total_away = 0
         self.save()
 
     def complete(self):
