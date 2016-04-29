@@ -113,10 +113,17 @@ function change_api_url(url){
 }
 
 function get_appt_signup_URL(){
-    var theURL =  'http://127.0.0.1:8001/phl-bike/home';
+    var current_API_URL =   _get('apiUrl');
+    switch(current_API_URL){
+        case 'http://127.0.0.1:8001/api/':
+            return 'http://127.0.0.1:8001/phl-bike/home';
+        case 'https://qa.bikecounts.com/api/':
+            return 'http://qa.bikecounts.com/phl-bike/home';
+        case 'https://www.bikecounts.com/api/':
+            return 'http://www.bikecounts.com/phl-bike/home';
+    }
+    //console.log(theURL);
 
-    console.log(theURL);
-    return theURL;
 }
 
 function check_login() {

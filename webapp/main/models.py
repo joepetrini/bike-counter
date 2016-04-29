@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from model_utils.models import TimeStampedModel
 from django.utils.timezone import now
 from model_utils import Choices
-
+from django.utils import timezone
 
 class Organization(TimeStampedModel):
     name = models.CharField(max_length=50, unique=True)
@@ -183,6 +183,8 @@ class Appointment(TimeStampedModel):
     longest_pause = models.IntegerField(default=0)
     total_pause = models.IntegerField(default=0)
     total_away = models.IntegerField(default=0)
+    # CONSIDER - ADDING NEW FIELD FOR EXPECTED APPT SESSION LENGTH - RIGHT NOW ITS A CONFIG IN BIKE.JS FILE
+
 
     class Meta:
         db_table = 'appointment'
@@ -199,7 +201,8 @@ class Appointment(TimeStampedModel):
         self.save()
 
     def end(self, time_taken):
-        self.actual_end = datetime.datetime.now()
+        # per django docs rich changing to using the timezone.now() instead of datetime.datetime.now() as we're using USE_TZ=true
+        self.actual_end = timezone.now()
         self.time_taken = int(time_taken)
         self.save()
 
