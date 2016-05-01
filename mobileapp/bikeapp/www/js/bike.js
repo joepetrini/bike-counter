@@ -45,10 +45,10 @@ var config = {
 
 if (location.hostname == 'localhost'){
     //_l('settign apiUrl');
-    config['apiUrl'] = 'http://127.0.0.1:8001/api/';
+    config['apiUrl'] = 'https://127.0.0.1:8001/api/';
 }
 else if (location.hostname == 'qa.bikecounts.com') {
-    config['apiUrl'] = 'http://qa.bikecounts.com/api/';
+    config['apiUrl'] = 'https://qa.bikecounts.com/api/';
     // rich commenting out below code as  I wasn't sure what this did
     //if (navigator.userAgent.match(/(Android|BlackBerry)/)) {
       //  config['apiUrl'] = 'http://10.0.2.2:8001/api/';
