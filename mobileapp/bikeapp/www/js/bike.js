@@ -63,7 +63,7 @@ else {
 
 if (_get('apiUrl')){
     config['apiUrl'] = _get('apiUrl');
-    //console.log("hot in herzzz" + _get('apiUrl'));
+    console.log("BY DEFAULT THIS MUST BE CALLED.... HIMM  " + _get('apiUrl'));
 }
 
 /* Wire up page routing */
@@ -189,7 +189,7 @@ function route(event) {
         // Render the map
         setTimeout(function() {
             var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
-            console.log('lat:' + appt.location.latitude);
+            //console.log('lat:' + appt.location.latitude);
             var map = initializeMap(appt.location.latitude, appt.location.longitude);
             var marker = new google.maps.Marker({
                 position: myLatlng,

@@ -16,7 +16,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointment
-
+        ordering = ['actual_end']
         fields = ('id', 'user', 'location', 'scheduled_start', 'actual_start', 'actual_end','status')
 
 

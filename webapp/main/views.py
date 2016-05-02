@@ -38,7 +38,8 @@ class OrgHomeView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(OrgHomeView, self).get_context_data(**kwargs)
-        sessions = Appointment.objects.filter(user=self.request.user, organization=self.object)
+        #trying to make sure the list of appts has the completed appts lowest in the list
+        sessions = Appointment.objects.filter(user=self.request.user, organization=self.object).order_by('actual_end')
         unassigned = Appointment.objects.filter(user=None, organization=self.object)
         context['sessions'] = sessions
         context['unassigned'] = unassigned
