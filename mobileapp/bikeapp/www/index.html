@@ -17,7 +17,7 @@
     <script type="text/javascript" src="assets/js/le.min.js"></script>
     <link href="assets/css/bikecounter.css" rel="stylesheet">
     <!--<link href="assets/css/pageslider.css" rel="stylesheet">-->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
     <script type="text/javascript">
        $(function() {
             //document.ontouchmove = function(e) {e.preventDefault()};
@@ -415,17 +415,17 @@
   <div>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <button class="btn btn-primary btn-nav" onclick="window.location.replace('#upcoming')">&laquo;&nbsp;Home</button>
+        <button class="btn btn-primary btn-nav" onclick="window.location.replace('#home')">&laquo;&nbsp;Home</button>
         <br><br>
         <h4>Admin Tools</h4>
         Current API Url: <span id="api_url">{{config.apiUrl}}</span>
         <hr>
         Change to:<br>
-          <a href="javascript:change_api_url('https://qa.bikecounts.com/api/')">https://qa.bikecounts.com/api/</a>
+          <a href="javascript:change_api_url('https://qa.bikecounts.com/api/')"> https://qa.bikecounts.com/api/</a>
           <br>
-          <a href="javascript:change_api_url('https://www.bikecounts.com/api/')">https://www.bikecounts.com/api/</a>
+          <a href="javascript:change_api_url('https://www.bikecounts.com/api/')"> https://www.bikecounts.com/api/</a>
           <br>
-          <a href="javascript:change_api_url('https://127.0.0.1:8001/api/')">https://127.0.0.1:8001/api/</a>
+          <a href="javascript:change_api_url('http://127.0.0.1:8001/api/')"> http://127.0.0.1:8001/api/</a>
       </div>
     </div>
   </div>

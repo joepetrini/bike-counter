@@ -45,7 +45,8 @@ var config = {
 
 if (location.hostname == 'localhost'){
     //_l('settign apiUrl');
-    config['apiUrl'] = 'https://127.0.0.1:8001/api/';
+    config['apiUrl'] = 'http://127.0.0.1:8001/api/';
+     //console.log("nailed it!" + location.hostname);
 }
 else if (location.hostname == 'qa.bikecounts.com') {
     config['apiUrl'] = 'https://qa.bikecounts.com/api/';
@@ -58,8 +59,11 @@ else {
     config['apiUrl'] = 'https://www.bikecounts.com/api/';
 }
 
+//console.log("lets see if this updates all the time! - " + config['apiUrl']);
+
 if (_get('apiUrl')){
     config['apiUrl'] = _get('apiUrl');
+    //console.log("hot in herzzz" + _get('apiUrl'));
 }
 
 /* Wire up page routing */

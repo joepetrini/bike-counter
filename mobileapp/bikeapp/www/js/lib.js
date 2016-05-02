@@ -108,14 +108,16 @@ function _req(params){
 function change_api_url(url){
     _l('url: ' + url);
     _set('apiUrl', url);
+    config['apiUrl'] = url;
     $('#api_url').html(url);
     window.location.replace('#admin');
+    console.log("API version changed to - " +  config['apiUrl']);
 }
 
 function get_appt_signup_URL(){
     var current_API_URL =   _get('apiUrl');
     switch(current_API_URL){
-        case 'https://127.0.0.1:8001/api/':
+        case 'https://127.0.0.1:1080/api/':
             return 'https://127.0.0.1:8001/phl-bike/home';
         case 'https://qa.bikecounts.com/api/':
             return 'https://qa.bikecounts.com/phl-bike/home';
@@ -148,7 +150,7 @@ function logout() {
 
 function login() {
     $('#err-login').hide();
-
+    console.log("login is using - " + config['apiUrl'] );
     // Validate
     var username = $('#username').val();
     var password = $('#password').val();
