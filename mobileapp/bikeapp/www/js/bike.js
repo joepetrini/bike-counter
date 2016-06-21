@@ -188,14 +188,14 @@ function route(event) {
         reloadScrollBars();
         // Render the map
         setTimeout(function() {
-            var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
+            //var myLatlng = new google.maps.LatLng(appt.location.latitude, appt.location.longitude);
             //console.log('lat:' + appt.location.latitude);
-            var map = initializeMap(appt.location.latitude, appt.location.longitude);
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: appt.location.name
-            });
+           /// var map = initializeMap(appt.location.latitude, appt.location.longitude);
+           // var marker = new google.maps.Marker({
+              //  position: myLatlng,
+               // map: map,
+               // title: appt.location.name
+           // });
             window.scrollTo(0, 1);
 
             // Set map center to user's current location

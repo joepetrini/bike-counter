@@ -9,7 +9,7 @@
 <form action="" method="post" id="login-form" class="form reg-form">
   {% csrf_token %}
   <p class="lead">
-    Log in to Bike Counter
+    Create an account so you can volunteer for survey collections
   </p>
   {% bootstrap_form form %}
   {% buttons %}
@@ -20,9 +20,19 @@
 </form>
 </div>
 </div>
-
 <script type="text/javascript">
-  document.getElementById('id_username').focus()
+  document.getElementById('id_username').focus();
+  document.getElementById('id_username').placeholder = "(lowercase only please)";
+  document.getElementById('id_username').title = "Required. 30 characters or fewer. Lowercase letters, digits and @/./+/-/_ only";
+  document.getElementsByClassName('help-block')[0].innerHTML =  "Required. 30 characters or fewer. Lowercase letters, digits and @/./+/-/_ only";
+
+  document.getElementById('id_username').oninput=function() {
+    document.getElementById('id_username').value = document.getElementById('id_username').value.toLowerCase();};
+
+
+
 </script>
 
+
 {% endblock %}
+

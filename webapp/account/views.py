@@ -28,6 +28,8 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         resp = super(RegisterView, self).form_valid(form)
+
+
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
         auth_login(self.request, user)
         return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
