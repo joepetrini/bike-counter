@@ -221,8 +221,19 @@
     <div id="innerLeft">
 
             <div class="heading">Direction</div>
-            <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
-            <button id="dir_2" class="btn btn-val" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
+            {{#loc.direction1}}
+                <button id="dir_1" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
+            {{/loc.direction1}}
+            {{^loc.direction1}}
+                <button id="dir_1" class="btn btn-val-hidden" data-grp="direction" onclick="_sel('dir_1','dir_2','direction','{{loc.direction1}}')">{{loc.direction1}}</button>
+            {{/loc.direction1}}
+
+              {{#loc.direction2}}
+                <button id="dir_2" class="btn btn-val btn-line" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
+              {{/loc.direction2}}
+              {{^loc.direction2}}
+                <button id="dir_2" class="btn btn-val-hidden" data-grp="direction" onclick="_sel('dir_2','dir_1','direction','{{loc.direction2}}')">{{loc.direction2}}</button>
+              {{/loc.direction2}}
 
             <div class="heading">Gender</div>
             <button id="gender_1" class="btn btn-val btn-line active" data-grp="gender" onclick="_sel('gender_1','gender_2','gender','m')">Male</button>
@@ -255,6 +266,7 @@
         </div>
         <div id="checkbox_div" class="row center-block" >
 
+
             <table style="margin:3px auto" >
                 <tr>
                 <td>
@@ -265,7 +277,10 @@
                 </td>
                 </tr>
             </table>
+
         </div>
+
+
       <!--
           <input type="button" class="btn btn-primary" value="Page 2" onclick="showPage('2')">
           <br>
@@ -363,6 +378,9 @@
             _l('setting up default ' + k + ' = ' + v);
             survey[k] = v;
         }
+        // June 2016 - adding logic to say if the location of this appt is of type TRAIL then don't show the Wrongway and sidewalk options
+        determine_ww_sidewalk_visibility();
+
 
     </script>
 

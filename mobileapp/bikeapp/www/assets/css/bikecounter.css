@@ -146,6 +146,19 @@ text-align:center;
     margin-left: 1px;
 }
 
+.btn-val-hidden{
+   visibility: hidden;
+    padding: 8px 3px 8px 3px;
+    position: relative;
+    float:left;
+    color: #333;
+    margin-bottom: 8px;
+    white-space: normal;
+    font-size: 16px;
+    height: 70px;
+    margin-left: 1px;
+    }
+
 .heading{
     font-weight: bold;
     margin-top: 3px;

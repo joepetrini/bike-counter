@@ -295,6 +295,9 @@ function route(event) {
             events_for_loc.push({'event': {'id': ev.event.id, 'name': ev.event.name, 'count': event_count[ev.event.id]}});
         }
 
+
+
+
         // Start timer, restore if in session
         total_time = 0;
         if (_get('cur_app_total_time') != null){
@@ -314,10 +317,14 @@ function route(event) {
         if (loc.has_west) {dirs.push('west');}
         */
 
+
         var template = $('#tpl-record').html();
         page = Mustache.to_html(template, {'org': org, 'loc': loc, 'events': events_for_loc});
         window.scrollTo(0, 1);
         unloadScrollBars();
+
+
+
 
         // Set dynamic button height/width
         /*
@@ -402,4 +409,14 @@ function displayYourAppts() {
 
 };
 
+// June 2016 - adding logic to say if the location of this appt is of type TRAIL then don't show the Wrongway and sidewalk options
+function determine_ww_sidewalk_visibility(){
+    var appt = _get('cur_appt');
+    var loc = getAppointment(appt).location;
 
+    if (loc.type == 'trail') {
+        $("#btn_sidewalk").hide();
+        $("#btn_wrongway").hide();
+
+        }
+}
